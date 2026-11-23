@@ -1,0 +1,173 @@
+column,source,role,dtype,missing_share,description
+SK_ID_CURR,application_train,id,int32,0.0,ID of loan in our sample
+TARGET,application_train,target,int8,0.0,"Target variable (1 - client with payment difficulties: he/she had late payment more than X days on at least one of the first Y installments of the loan in our sample, 0 - all other cases)"
+NAME_CONTRACT_TYPE,application_train,model input,str,0.0,Identification if loan is cash or revolving
+CODE_GENDER,application_train,protected (audit only),str,0.0,Gender of the client
+FLAG_OWN_CAR,application_train,model input,str,0.0,Flag if the client owns a car
+FLAG_OWN_REALTY,application_train,model input,str,0.0,Flag if client owns a house or flat
+CNT_CHILDREN,application_train,model input,int8,0.0,Number of children the client has
+AMT_INCOME_TOTAL,application_train,model input,float64,0.0,Income of the client
+AMT_CREDIT,application_train,model input,float32,0.0,Credit amount of the loan
+AMT_ANNUITY,application_train,model input,float32,0.0,Loan annuity
+AMT_GOODS_PRICE,application_train,model input,float32,0.0009,For consumer loans it is the price of the goods for which the loan is given
+NAME_TYPE_SUITE,application_train,model input,str,0.0042,Who was accompanying client when he was applying for the loan
+NAME_INCOME_TYPE,application_train,model input,str,0.0,"Clients income type (businessman, working, maternity leave,)"
+NAME_EDUCATION_TYPE,application_train,model input,str,0.0,Level of highest education the client achieved
+NAME_FAMILY_STATUS,application_train,model input,str,0.0,Family status of the client
+NAME_HOUSING_TYPE,application_train,model input,str,0.0,"What is the housing situation of the client (renting, living with parents, ...)"
+REGION_POPULATION_RELATIVE,application_train,model input,float32,0.0,Normalized population of region where client lives (higher number means the client lives in more populated region)
+OWN_CAR_AGE,application_train,model input,float32,0.6599,Age of client's car
+FLAG_MOBIL,application_train,model input,int8,0.0,"Did client provide mobile phone (1=YES, 0=NO)"
+FLAG_EMP_PHONE,application_train,model input,int8,0.0,"Did client provide work phone (1=YES, 0=NO)"
+FLAG_WORK_PHONE,application_train,model input,int8,0.0,"Did client provide home phone (1=YES, 0=NO)"
+FLAG_CONT_MOBILE,application_train,model input,int8,0.0,"Was mobile phone reachable (1=YES, 0=NO)"
+FLAG_PHONE,application_train,model input,int8,0.0,"Did client provide home phone (1=YES, 0=NO)"
+FLAG_EMAIL,application_train,model input,int8,0.0,"Did client provide email (1=YES, 0=NO)"
+OCCUPATION_TYPE,application_train,model input,str,0.3135,What kind of occupation does the client have
+CNT_FAM_MEMBERS,application_train,model input,float32,0.0,How many family members does client have
+REGION_RATING_CLIENT,application_train,model input,int8,0.0,"Our rating of the region where client lives (1,2,3)"
+REGION_RATING_CLIENT_W_CITY,application_train,model input,int8,0.0,"Our rating of the region where client lives with taking city into account (1,2,3)"
+WEEKDAY_APPR_PROCESS_START,application_train,model input,str,0.0,On which day of the week did the client apply for the loan
+HOUR_APPR_PROCESS_START,application_train,model input,int8,0.0,Approximately at what hour did the client apply for the loan
+REG_REGION_NOT_LIVE_REGION,application_train,model input,int8,0.0,"Flag if client's permanent address does not match contact address (1=different, 0=same, at region level)"
+REG_REGION_NOT_WORK_REGION,application_train,model input,int8,0.0,"Flag if client's permanent address does not match work address (1=different, 0=same, at region level)"
+LIVE_REGION_NOT_WORK_REGION,application_train,model input,int8,0.0,"Flag if client's contact address does not match work address (1=different, 0=same, at region level)"
+REG_CITY_NOT_LIVE_CITY,application_train,model input,int8,0.0,"Flag if client's permanent address does not match contact address (1=different, 0=same, at city level)"
+REG_CITY_NOT_WORK_CITY,application_train,model input,int8,0.0,"Flag if client's permanent address does not match work address (1=different, 0=same, at city level)"
+LIVE_CITY_NOT_WORK_CITY,application_train,model input,int8,0.0,"Flag if client's contact address does not match work address (1=different, 0=same, at city level)"
+ORGANIZATION_TYPE,application_train,model input,str,0.0,Type of organization where client works
+EXT_SOURCE_1,application_train,model input,float32,0.5638,Normalized score from external data source
+EXT_SOURCE_2,application_train,model input,float32,0.0021,Normalized score from external data source
+EXT_SOURCE_3,application_train,model input,float32,0.1983,Normalized score from external data source
+APARTMENTS_AVG,application_train,model input,float32,0.5075,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+BASEMENTAREA_AVG,application_train,model input,float32,0.5852,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+YEARS_BEGINEXPLUATATION_AVG,application_train,model input,float32,0.4878,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+YEARS_BUILD_AVG,application_train,model input,float32,0.665,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+COMMONAREA_AVG,application_train,model input,float32,0.6987,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+ELEVATORS_AVG,application_train,model input,float32,0.533,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+ENTRANCES_AVG,application_train,model input,float32,0.5035,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FLOORSMAX_AVG,application_train,model input,float32,0.4976,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FLOORSMIN_AVG,application_train,model input,float32,0.6785,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LANDAREA_AVG,application_train,model input,float32,0.5938,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LIVINGAPARTMENTS_AVG,application_train,model input,float32,0.6835,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LIVINGAREA_AVG,application_train,model input,float32,0.5019,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+NONLIVINGAPARTMENTS_AVG,application_train,model input,float32,0.6943,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+NONLIVINGAREA_AVG,application_train,model input,float32,0.5518,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+APARTMENTS_MODE,application_train,model input,float32,0.5075,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+BASEMENTAREA_MODE,application_train,model input,float32,0.5852,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+YEARS_BEGINEXPLUATATION_MODE,application_train,model input,float32,0.4878,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+YEARS_BUILD_MODE,application_train,model input,float32,0.665,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+COMMONAREA_MODE,application_train,model input,float32,0.6987,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+ELEVATORS_MODE,application_train,model input,float32,0.533,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+ENTRANCES_MODE,application_train,model input,float32,0.5035,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FLOORSMAX_MODE,application_train,model input,float32,0.4976,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FLOORSMIN_MODE,application_train,model input,float32,0.6785,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LANDAREA_MODE,application_train,model input,float32,0.5938,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LIVINGAPARTMENTS_MODE,application_train,model input,float32,0.6835,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LIVINGAREA_MODE,application_train,model input,float32,0.5019,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+NONLIVINGAPARTMENTS_MODE,application_train,model input,float32,0.6943,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+NONLIVINGAREA_MODE,application_train,model input,float32,0.5518,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+APARTMENTS_MEDI,application_train,model input,float32,0.5075,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+BASEMENTAREA_MEDI,application_train,model input,float32,0.5852,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+YEARS_BEGINEXPLUATATION_MEDI,application_train,model input,float32,0.4878,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+YEARS_BUILD_MEDI,application_train,model input,float32,0.665,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+COMMONAREA_MEDI,application_train,model input,float32,0.6987,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+ELEVATORS_MEDI,application_train,model input,float32,0.533,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+ENTRANCES_MEDI,application_train,model input,float32,0.5035,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FLOORSMAX_MEDI,application_train,model input,float32,0.4976,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FLOORSMIN_MEDI,application_train,model input,float32,0.6785,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LANDAREA_MEDI,application_train,model input,float32,0.5938,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LIVINGAPARTMENTS_MEDI,application_train,model input,float32,0.6835,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+LIVINGAREA_MEDI,application_train,model input,float32,0.5019,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+NONLIVINGAPARTMENTS_MEDI,application_train,model input,float32,0.6943,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+NONLIVINGAREA_MEDI,application_train,model input,float32,0.5518,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+FONDKAPREMONT_MODE,application_train,model input,str,0.6839,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+HOUSETYPE_MODE,application_train,model input,str,0.5018,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+TOTALAREA_MODE,application_train,model input,float32,0.4827,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+WALLSMATERIAL_MODE,application_train,model input,str,0.5084,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+EMERGENCYSTATE_MODE,application_train,model input,str,0.474,"Normalized information about building where the client lives, What is average (_AVG suffix), modus (_MODE suffix), median (_MEDI suffix) apartment size, common area, living area, age of building, number of elevators, number of entrances, state of the building, number of floor"
+OBS_30_CNT_SOCIAL_CIRCLE,application_train,model input,float32,0.0033,How many observation of client's social surroundings with observable 30 DPD (days past due) default
+DEF_30_CNT_SOCIAL_CIRCLE,application_train,model input,float32,0.0033,How many observation of client's social surroundings defaulted on 30 DPD (days past due) 
+OBS_60_CNT_SOCIAL_CIRCLE,application_train,model input,float32,0.0033,How many observation of client's social surroundings with observable 60 DPD (days past due) default
+DEF_60_CNT_SOCIAL_CIRCLE,application_train,model input,float32,0.0033,How many observation of client's social surroundings defaulted on 60 (days past due) DPD
+DAYS_LAST_PHONE_CHANGE,application_train,model input,float32,0.0,How many days before application did client change phone
+FLAG_DOCUMENT_2,application_train,model input,int8,0.0,Did client provide document 2
+FLAG_DOCUMENT_3,application_train,model input,int8,0.0,Did client provide document 3
+FLAG_DOCUMENT_4,application_train,model input,int8,0.0,Did client provide document 4
+FLAG_DOCUMENT_5,application_train,model input,int8,0.0,Did client provide document 5
+FLAG_DOCUMENT_6,application_train,model input,int8,0.0,Did client provide document 6
+FLAG_DOCUMENT_7,application_train,model input,int8,0.0,Did client provide document 7
+FLAG_DOCUMENT_8,application_train,model input,int8,0.0,Did client provide document 8
+FLAG_DOCUMENT_9,application_train,model input,int8,0.0,Did client provide document 9
+FLAG_DOCUMENT_10,application_train,model input,int8,0.0,Did client provide document 10
+FLAG_DOCUMENT_11,application_train,model input,int8,0.0,Did client provide document 11
+FLAG_DOCUMENT_12,application_train,model input,int8,0.0,Did client provide document 12
+FLAG_DOCUMENT_13,application_train,model input,int8,0.0,Did client provide document 13
+FLAG_DOCUMENT_14,application_train,model input,int8,0.0,Did client provide document 14
+FLAG_DOCUMENT_15,application_train,model input,int8,0.0,Did client provide document 15
+FLAG_DOCUMENT_16,application_train,model input,int8,0.0,Did client provide document 16
+FLAG_DOCUMENT_17,application_train,model input,int8,0.0,Did client provide document 17
+FLAG_DOCUMENT_18,application_train,model input,int8,0.0,Did client provide document 18
+FLAG_DOCUMENT_19,application_train,model input,int8,0.0,Did client provide document 19
+FLAG_DOCUMENT_20,application_train,model input,int8,0.0,Did client provide document 20
+FLAG_DOCUMENT_21,application_train,model input,int8,0.0,Did client provide document 21
+AMT_REQ_CREDIT_BUREAU_HOUR,application_train,model input,float32,0.135,Number of enquiries to Credit Bureau about the client one hour before application
+AMT_REQ_CREDIT_BUREAU_DAY,application_train,model input,float32,0.135,Number of enquiries to Credit Bureau about the client one day before application (excluding one hour before application)
+AMT_REQ_CREDIT_BUREAU_WEEK,application_train,model input,float32,0.135,Number of enquiries to Credit Bureau about the client one week before application (excluding one day before application)
+AMT_REQ_CREDIT_BUREAU_MON,application_train,model input,float32,0.135,Number of enquiries to Credit Bureau about the client one month before application (excluding one week before application)
+AMT_REQ_CREDIT_BUREAU_QRT,application_train,model input,float32,0.135,Number of enquiries to Credit Bureau about the client 3 month before application (excluding one month before application)
+AMT_REQ_CREDIT_BUREAU_YEAR,application_train,model input,float32,0.135,Number of enquiries to Credit Bureau about the client one day year (excluding last 3 months before application)
+EMPLOYED_ANOMALY,engineered (cleaning.py / sql_features.py),model input,int8,0.0,1 if DAYS_EMPLOYED held the 365243 placeholder (almost all pensioners)
+AGE_YEARS,engineered (cleaning.py / sql_features.py),protected (audit only),float32,0.0,Applicant age in years (protected: fairness audit only)
+YEARS_EMPLOYED,engineered (cleaning.py / sql_features.py),model input,float32,0.1801,Years in current employment (missing if placeholder)
+YEARS_SINCE_ID_CHANGE,engineered (cleaning.py / sql_features.py),model input,float32,0.0,Years since the applicant last changed their ID document
+YEARS_SINCE_REGISTRATION,engineered (cleaning.py / sql_features.py),model input,float32,0.0,Years since the applicant last changed their registration
+CREDIT_INCOME_RATIO,engineered (cleaning.py / sql_features.py),model input,float32,0.0,Loan amount / annual income
+ANNUITY_INCOME_RATIO,engineered (cleaning.py / sql_features.py),model input,float32,0.0,Loan annuity / annual income (debt-service burden)
+CREDIT_ANNUITY_RATIO,engineered (cleaning.py / sql_features.py),model input,float32,0.0,Loan amount / annuity (proxy for loan term)
+GOODS_CREDIT_RATIO,engineered (cleaning.py / sql_features.py),model input,float32,0.0009,Price of goods / loan amount
+INCOME_PER_PERSON,engineered (cleaning.py / sql_features.py),model input,float64,0.0,Annual income / family members
+EMPLOYED_AGE_RATIO,engineered (cleaning.py / sql_features.py),model input,float32,0.1801,Years employed / age
+EXT_SOURCE_MEAN,engineered (cleaning.py / sql_features.py),model input,float32,0.0006,Mean of the three external scores
+EXT_SOURCE_MIN,engineered (cleaning.py / sql_features.py),model input,float32,0.0006,Minimum of the three external scores
+EXT_SOURCE_MAX,engineered (cleaning.py / sql_features.py),model input,float32,0.0006,Maximum of the three external scores
+EXT_SOURCE_N_MISSING,engineered (cleaning.py / sql_features.py),model input,int8,0.0,Number of external scores missing (0-3)
+N_DOCUMENTS,engineered (cleaning.py / sql_features.py),model input,int8,0.0,Number of documents provided (sum of FLAG_DOCUMENT_*)
+N_BUREAU_ENQUIRIES,engineered (cleaning.py / sql_features.py),model input,float32,0.135,Total credit bureau enquiries before application
+BUREAU_N_LOANS,bureau (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_N_ACTIVE,bureau (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_N_BAD_DEBT,bureau (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_YEARS_SINCE_FIRST,bureau (SQL),model input,float32,0.1431,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_YEARS_SINCE_LAST,bureau (SQL),model input,float32,0.1431,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_TOTAL_DEBT,bureau (SQL),model input,float64,0.1671,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_DEBT_RATIO,bureau (SQL),model input,float32,0.1703,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_N_OVERDUE,bureau (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_MAX_OVERDUE_AMT,bureau (SQL),model input,float64,0.402,History summary; see the query in src/secondlook/sql_features.py
+BUREAU_N_PROLONGED,bureau (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+BB_N_MONTHS,bureau_balance (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+BB_LATE_SHARE,bureau_balance (SQL),model input,float32,0.7001,History summary; see the query in src/secondlook/sql_features.py
+BB_WORST_STATUS,bureau_balance (SQL),model input,float32,0.7001,History summary; see the query in src/secondlook/sql_features.py
+PREV_N_APPS,previous_application (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+PREV_N_APPROVED,previous_application (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+PREV_N_REFUSED,previous_application (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+PREV_REFUSAL_RATE,previous_application (SQL),model input,float32,0.0535,History summary; see the query in src/secondlook/sql_features.py
+PREV_GRANTED_ASKED_RATIO,previous_application (SQL),model input,float32,0.0568,History summary; see the query in src/secondlook/sql_features.py
+PREV_YEARS_SINCE_LAST,previous_application (SQL),model input,float32,0.0535,History summary; see the query in src/secondlook/sql_features.py
+PREV_AVG_TERM,previous_application (SQL),model input,float32,0.0549,History summary; see the query in src/secondlook/sql_features.py
+INST_N_PAYMENTS,installments_payments (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+INST_LATE_SHARE,installments_payments (SQL),model input,float32,0.0516,History summary; see the query in src/secondlook/sql_features.py
+INST_AVG_DAYS_LATE,installments_payments (SQL),model input,float32,0.0516,History summary; see the query in src/secondlook/sql_features.py
+INST_MAX_DAYS_LATE,installments_payments (SQL),model input,float32,0.0516,History summary; see the query in src/secondlook/sql_features.py
+INST_UNDERPAID_SHARE,installments_payments (SQL),model input,float32,0.0516,History summary; see the query in src/secondlook/sql_features.py
+INST_PAID_RATIO,installments_payments (SQL),model input,float32,0.0516,History summary; see the query in src/secondlook/sql_features.py
+POS_N_MONTHS,POS_CASH_balance (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+POS_AVG_DPD,POS_CASH_balance (SQL),model input,float32,0.0588,History summary; see the query in src/secondlook/sql_features.py
+POS_LATE_SHARE,POS_CASH_balance (SQL),model input,float32,0.0588,History summary; see the query in src/secondlook/sql_features.py
+CC_N_MONTHS,credit_card_balance (SQL),model input,float32,0.0,History summary; see the query in src/secondlook/sql_features.py
+CC_AVG_UTILISATION,credit_card_balance (SQL),model input,float32,0.7202,History summary; see the query in src/secondlook/sql_features.py
+CC_MAX_UTILISATION,credit_card_balance (SQL),model input,float32,0.7202,History summary; see the query in src/secondlook/sql_features.py
+CC_LATE_SHARE,credit_card_balance (SQL),model input,float32,0.7174,History summary; see the query in src/secondlook/sql_features.py
+THIN_FILE,engineered (cleaning.py / sql_features.py),model input,int8,0.0,1 if the applicant has no credit bureau history (SecondLook's target segment)
+HAS_PREV_APP,engineered (cleaning.py / sql_features.py),model input,int8,0.0,1 if the applicant applied to Home Credit before
+HAS_REPAYMENT_HISTORY,engineered (cleaning.py / sql_features.py),model input,int8,0.0,1 if the applicant has installment repayment records
+PRIOR_REFUSAL,engineered (cleaning.py / sql_features.py),model input,int8,0.0,1 if any previous Home Credit application was refused

@@ -1,0 +1,38 @@
+# --- Secrets: never commit ---
+.env
+.streamlit/secrets.toml
+
+# --- Data (too large for Git; download with scripts/download_data.py, see README) ---
+data/raw/*
+data/interim/*
+data/processed/*
+!data/**/.gitkeep
+*.db
+*.sqlite
+
+# --- Model artifacts (rebuild with the notebooks) ---
+models/*
+!models/.gitkeep
+
+# --- Course materials (not ours to publish) ---
+Capstone Guide.pdf
+Capstone_Project_Options.pdf
+
+# --- Python / Jupyter ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Local tool configs ---
+.claude/
+.agents/
