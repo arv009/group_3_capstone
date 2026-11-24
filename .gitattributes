@@ -1,0 +1,4 @@
+# The LightGBM model file must keep its LF line endings: Windows Git would otherwise
+# convert it to CRLF on checkout, and LightGBM aborts when loading a CRLF model file.
+app/demo_data/model.txt -text
+*.parquet binary

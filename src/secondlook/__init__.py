@@ -1,1 +1,1 @@
-"""SecondLook: fair, explainable credit scoring for applicants with thin credit files."""
+"""SecondLook: an AI-assisted second review for borderline loan declines."""

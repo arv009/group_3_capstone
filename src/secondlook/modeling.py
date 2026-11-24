@@ -1,17 +1,17 @@
-"""Train, calibrate and evaluate the default-risk models (notebook 03).
+"""Train, evaluate and save the SecondLook risk models.
 
-Three models are compared on the same fixed splits:
-  * Logistic regression: simple, transparent baseline.
-  * Conventional LightGBM: application + credit bureau data only, i.e. what a typical
-    lender sees. This is the benchmark SecondLook has to beat on thin-file applicants.
-  * SecondLook LightGBM: adds alternative data (previous applications, repayment history,
-    POS and card behaviour).
+Two models are compared:
+  * a logistic regression baseline (simple, interpretable, needs imputation + scaling)
+  * LightGBM, a gradient-boosted tree model (handles missing values, non-linear patterns
+    and interactions on its own)
+
+The model predicts PD, the probability of default (TARGET = 1). Lending decisions are
+then made by comparing PD with a cutoff chosen for profit, not for accuracy.
 """
 from __future__ import annotations
 
 import json
-import warnings
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass
 
 import joblib
 import lightgbm as lgb
@@ -19,198 +19,182 @@ import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-from sklearn.isotonic import IsotonicRegression
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_score
+from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, StandardScaler
 
-from .config import MODELS_DIR, RANDOM_STATE, TARGET_COL
-from .features import model_columns
+from .config import ID_COL, MODELS_DIR, RANDOM_STATE, TARGET_COL
 
-# Alternative-data features: everything a conventional bureau-based lender would NOT use.
-ALT_PREFIXES = ("PREV_", "INST_", "POS_", "CC_")
-ALT_FLAGS = ("HAS_PREV_APP", "HAS_REPAYMENT_HISTORY", "PRIOR_REFUSAL")
+PROTECTED_COLS = ["CODE_GENDER"]          # fairness audit only, never a model input
+TEST_SIZE = 0.20
 
 LGBM_PARAMS = dict(
-    n_estimators=5000,
+    objective="binary",
+    metric="auc",              # early stopping watches AUC only (not log-loss)
     learning_rate=0.03,
     num_leaves=31,
-    min_child_samples=100,
-    subsample=0.8,
-    subsample_freq=1,
-    colsample_bytree=0.6,
-    reg_lambda=1.0,
+    min_child_samples=100,     # each leaf needs 100+ applicants: guards against overfitting
+    subsample=0.8, subsample_freq=1,
+    colsample_bytree=0.5,      # each tree sees half the features: more diverse trees
+    reg_lambda=5.0,
+    n_estimators=5000,         # upper bound; early stopping picks the real number
     random_state=RANDOM_STATE,
+    n_jobs=-1,
     verbose=-1,
 )
 
 
-# ----------------------------------------------------------------------------- data
-def prepare(df: pd.DataFrame) -> pd.DataFrame:
-    """Text columns -> pandas category with the SAME categories in every split.
-    Call once on the full table before splitting."""
-    df = df.copy()
-    for col in model_columns(df):
-        if not pd.api.types.is_numeric_dtype(df[col]):
-            df[col] = df[col].astype("category")
-    return df
+# ---------------------------------------------------------------------------
+# Data preparation
+# ---------------------------------------------------------------------------
+def model_columns(df: pd.DataFrame) -> tuple[list[str], list[str]]:
+    """Return (all model features, categorical features). Excludes ID, target, protected columns."""
+    feats = [c for c in df.columns if c not in (ID_COL, TARGET_COL, *PROTECTED_COLS)]
+    cats = [c for c in feats if df[c].dtype == "object" or str(df[c].dtype) == "category"]
+    return feats, cats
 
 
-def feature_sets(df: pd.DataFrame) -> dict[str, list[str]]:
-    """Column lists for the conventional and SecondLook models."""
-    full = model_columns(df)
-    conventional = [c for c in full if not c.startswith(ALT_PREFIXES) and c not in ALT_FLAGS]
-    return {"conventional": conventional, "secondlook": full}
+def prepare_X(df: pd.DataFrame, feats: list[str], cats: list[str], categories: dict | None = None) -> pd.DataFrame:
+    """Select features and give categorical columns a fixed category list (same codes in train and app)."""
+    X = df[feats].copy()
+    for c in cats:
+        cat_type = pd.CategoricalDtype(categories[c]) if categories else None
+        X[c] = X[c].astype(cat_type or "category")
+    return X
 
 
-def split_xy(df: pd.DataFrame, split: str, cols: list[str]):
-    part = df[df["split"] == split]
-    return part[cols], part[TARGET_COL].to_numpy()
+def split(df: pd.DataFrame, test_size: float = TEST_SIZE):
+    """Stratified train/test split: both parts keep the same 8% default rate."""
+    return train_test_split(df, test_size=test_size, stratify=df[TARGET_COL], random_state=RANDOM_STATE)
 
 
-# ----------------------------------------------------------------------------- models
-def train_logistic(X: pd.DataFrame, y) -> Pipeline:
-    """Median-impute + scale numbers, one-hot encode categories, L2 logistic regression."""
-    cat = [c for c in X.columns if not pd.api.types.is_numeric_dtype(X[c])]
-    num = [c for c in X.columns if c not in cat]
+# ---------------------------------------------------------------------------
+# Baseline: logistic regression
+# ---------------------------------------------------------------------------
+_MONEY_PREFIXES = ("AMT_", "BUR_TOTAL_", "INST_TOTAL_", "CC_AVG_BALANCE", "CC_AVG_DRAWINGS",
+                   "PREV_AVG_AMT_", "INCOME_PER_PERSON")
+
+
+def _signed_log(x):
+    return np.sign(x) * np.log1p(np.abs(x))
+
+
+def make_logistic(num_cols: list[str], cat_cols: list[str], class_weight=None) -> Pipeline:
+    """Impute -> (log money columns) -> scale -> one-hot categories -> logistic regression."""
+    money = [c for c in num_cols if c.startswith(_MONEY_PREFIXES)]
+    other = [c for c in num_cols if c not in money]
     pre = ColumnTransformer([
-        ("num", make_pipeline(SimpleImputer(strategy="median", add_indicator=True), StandardScaler()), num),
-        ("cat", make_pipeline(SimpleImputer(strategy="constant", fill_value="missing"),
-                              OneHotEncoder(handle_unknown="infrequent_if_exist", min_frequency=50)), cat),
+        ("money", make_pipeline(SimpleImputer(strategy="median"), FunctionTransformer(_signed_log),
+                                StandardScaler()), money),
+        ("num", make_pipeline(SimpleImputer(strategy="median", add_indicator=True), StandardScaler()), other),
+        ("cat", make_pipeline(SimpleImputer(strategy="constant", fill_value="Missing"),
+                              OneHotEncoder(handle_unknown="infrequent_if_exist", min_frequency=200)), cat_cols),
     ])
-    X = X.copy()
-    X[cat] = X[cat].astype(str)
-    model = Pipeline([("pre", pre), ("clf", LogisticRegression(C=0.1, max_iter=2000))])
-    return model.fit(X, y)
+    clf = LogisticRegression(C=0.1, max_iter=3000, class_weight=class_weight)
+    return Pipeline([("prep", pre), ("model", clf)])
 
 
-def predict_logistic(model: Pipeline, X: pd.DataFrame) -> np.ndarray:
-    X = X.copy()
-    cat = [c for c in X.columns if not pd.api.types.is_numeric_dtype(X[c])]
-    X[cat] = X[cat].astype(str)
-    return model.predict_proba(X)[:, 1]
+# ---------------------------------------------------------------------------
+# Main model: LightGBM with cross-validation
+# ---------------------------------------------------------------------------
+def cross_validate_lgbm(X: pd.DataFrame, y: pd.Series, params: dict | None = None, n_splits: int = 5,
+                        verbose: bool = True) -> dict:
+    """Stratified K-fold CV with early stopping. Returns fold AUCs, best rounds and out-of-fold predictions."""
+    params = {**LGBM_PARAMS, **(params or {})}
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=RANDOM_STATE)
+    oof = np.zeros(len(y))
+    aucs, rounds = [], []
+    for fold, (tr, va) in enumerate(skf.split(X, y), 1):
+        m = lgb.LGBMClassifier(**params)
+        m.fit(X.iloc[tr], y.iloc[tr], eval_set=[(X.iloc[va], y.iloc[va])],
+              callbacks=[lgb.early_stopping(200, first_metric_only=True, verbose=False)])
+        oof[va] = m.predict_proba(X.iloc[va])[:, 1]
+        aucs.append(roc_auc_score(y.iloc[va], oof[va]))
+        rounds.append(m.best_iteration_)
+        if verbose:
+            print(f"  fold {fold}: AUC {aucs[-1]:.4f}  ({rounds[-1]} trees)")
+    return {"fold_auc": aucs, "mean_auc": float(np.mean(aucs)), "std_auc": float(np.std(aucs)),
+            "best_rounds": rounds, "oof": oof}
 
 
-def train_lightgbm(X_train, y_train, X_valid, y_valid, params: dict | None = None,
-                   sample_weight=None) -> lgb.LGBMClassifier:
-    """LightGBM with early stopping on the validation split (AUC). Optional per-row weights
-    (used by reject inference, where each inferred applicant counts fractionally)."""
-    model = lgb.LGBMClassifier(**(params or LGBM_PARAMS))
-    with warnings.catch_warnings():
-        # LightGBM >= 4.7 renames eval_set to eval_X/eval_y; eval_set still works and
-        # keeps us compatible with older versions teammates may have installed.
-        warnings.filterwarnings("ignore", message=".*eval_set.*deprecated.*")
-        model.fit(
-            X_train, y_train, sample_weight=sample_weight,
-            eval_set=[(X_valid, y_valid)], eval_metric="auc",
-            callbacks=[lgb.early_stopping(200, verbose=False), lgb.log_evaluation(0)],
-        )
-    return model
+def fit_lgbm(X: pd.DataFrame, y: pd.Series, n_estimators: int, params: dict | None = None) -> lgb.LGBMClassifier:
+    """Fit the final LightGBM on all training data with a fixed number of trees (from CV)."""
+    p = {**LGBM_PARAMS, **(params or {}), "n_estimators": n_estimators}
+    return lgb.LGBMClassifier(**p).fit(X, y)
 
 
-# ----------------------------------------------------------------------------- evaluation
-def evaluate(y, p, thin=None) -> dict:
-    """ROC-AUC, PR-AUC and Brier score; also for the thin-file segment if a mask is given."""
-    out = {"roc_auc": roc_auc_score(y, p), "pr_auc": average_precision_score(y, p), "brier": brier_score_loss(y, p)}
-    if thin is not None:
-        thin = np.asarray(thin, dtype=bool)
-        out |= {"thin_roc_auc": roc_auc_score(y[thin], p[thin]), "thin_pr_auc": average_precision_score(y[thin], p[thin])}
-    return out
-
-
-def bootstrap_auc_diff(y, p_base, p_new, segments: dict, n_boot: int = 300, seed: int = 0) -> pd.DataFrame:
-    """Paired bootstrap of AUC(p_new) - AUC(p_base): resample applicants with replacement, score both
-    models on the same resample, per segment ({name: boolean mask}). Returns mean and 95% interval;
-    'significant' means the interval excludes zero."""
-    y, p_base, p_new = np.asarray(y), np.asarray(p_base), np.asarray(p_new)
-    rng = np.random.default_rng(seed)
-    rows = []
-    for _ in range(n_boot):
-        idx = rng.integers(0, len(y), len(y))
-        for name, mask in segments.items():
-            i = idx[np.asarray(mask)[idx]]
-            rows.append({"segment": name, "diff": roc_auc_score(y[i], p_new[i]) - roc_auc_score(y[i], p_base[i])})
-    out = pd.DataFrame(rows).groupby("segment", sort=False)["diff"].agg(
-        mean="mean", low=lambda d: d.quantile(0.025), high=lambda d: d.quantile(0.975))
-    out["significant"] = (out["low"] > 0) | (out["high"] < 0)
-    return out
-
-
-def fit_calibrator(y, p) -> IsotonicRegression:
-    """Isotonic calibration: maps raw scores to observed default rates. Fit on the calib split only."""
-    return IsotonicRegression(out_of_bounds="clip", y_min=0, y_max=1).fit(p, y)
-
-
-def cutoff_for_bad_rate(y, p, target_bad_rate: float) -> float:
-    """Highest risk cutoff such that applicants approved (p <= cutoff) default at most target_bad_rate.
-
-    Approving in order of lowest predicted risk, find the largest group whose observed
-    default rate stays within the target.
-    """
-    order = np.argsort(p, kind="stable")
-    y_sorted, p_sorted = np.asarray(y)[order], np.asarray(p)[order]
-    cum_bad_rate = np.cumsum(y_sorted) / np.arange(1, len(y_sorted) + 1)
-    ok = np.nonzero(cum_bad_rate <= target_bad_rate)[0]
-    if len(ok) == 0:
-        return float(p_sorted[0]) - 1e-12
-    return float(p_sorted[ok[-1]])
-
-
-def approval_summary(y, p, cutoff: float, thin) -> dict:
-    """What happens if we approve everyone with p <= cutoff."""
-    y, thin = np.asarray(y), np.asarray(thin, dtype=bool)
-    approve = np.asarray(p) <= cutoff
-    return {
-        "approval_rate": approve.mean(),
-        "bad_rate_approved": y[approve].mean() if approve.any() else np.nan,
-        "thin_approval_rate": approve[thin].mean(),
-        "thin_bad_rate_approved": y[approve & thin].mean() if (approve & thin).any() else np.nan,
-        "thin_good_approved": int((approve & thin & (y == 0)).sum()),
-        "thin_good_total": int((thin & (y == 0)).sum()),
-    }
+# ---------------------------------------------------------------------------
+# Evaluation and business metrics
+# ---------------------------------------------------------------------------
+def scores(y, pd_hat) -> dict:
+    """Ranking and probability-quality metrics."""
+    return {"roc_auc": roc_auc_score(y, pd_hat),
+            "pr_auc": average_precision_score(y, pd_hat),
+            "brier": brier_score_loss(y, pd_hat),
+            "mean_pd": float(np.mean(pd_hat)), "actual_rate": float(np.mean(y))}
 
 
 @dataclass
 class ProfitAssumptions:
-    """Simple unit economics per loan, as a share of the credit amount.
+    """Simple, explicit unit economics (stated assumptions, not Home Credit's real figures).
 
-    margin: net interest + fees earned over the loan's life if it is repaid.
-    lgd: loss given default, the share of the credit lost if the borrower defaults.
-    Break-even probability of default = margin / (margin + lgd).
+    margin: profit on a repaid loan, as a share of the loan amount (interest + fees - costs)
+    lgd:    loss given default, the share of the loan amount lost when a borrower defaults
     """
-    margin: float = 0.10
-    lgd: float = 0.65
-    notes: str = field(default="Illustrative assumptions; change them to test sensitivity.")
-
-    @property
-    def breakeven_pd(self) -> float:
-        return self.margin / (self.margin + self.lgd)
+    margin: float = 0.15
+    lgd: float = 0.60
 
 
-def profit_curve(y, p, amount, assumptions: ProfitAssumptions = ProfitAssumptions(), cutoffs=None) -> pd.DataFrame:
-    """Realised profit, approval rate and bad rate when approving p <= cutoff, for each cutoff."""
-    y, p, amount = np.asarray(y), np.asarray(p), np.asarray(amount, dtype=float)
-    per_loan = np.where(y == 0, assumptions.margin * amount, -assumptions.lgd * amount)
-    cutoffs = np.linspace(0.0, 0.5, 201) if cutoffs is None else cutoffs
+def profit_curve(y, pd_hat, amount, assumptions: ProfitAssumptions = ProfitAssumptions(),
+                 cutoffs=np.round(np.arange(0.02, 0.51, 0.01), 2)) -> pd.DataFrame:
+    """For each PD cutoff: approve applicants with PD < cutoff and total up the outcome."""
+    y, pd_hat, amount = np.asarray(y), np.asarray(pd_hat), np.asarray(amount, dtype=float)
     rows = []
     for c in cutoffs:
-        a = p <= c
-        rows.append({"cutoff": c, "approval_rate": a.mean(), "bad_rate": y[a].mean() if a.any() else np.nan,
-                     "profit": per_loan[a].sum()})
+        ok = pd_hat < c
+        good, bad = ok & (y == 0), ok & (y == 1)
+        profit = assumptions.margin * amount[good].sum() - assumptions.lgd * amount[bad].sum()
+        rows.append({"cutoff": c, "approval_rate": ok.mean(), "approved": int(ok.sum()),
+                     "default_rate_approved": y[ok].mean() if ok.any() else np.nan,
+                     "good_declined": int(((~ok) & (y == 0)).sum()), "bad_approved": int(bad.sum()),
+                     "profit": profit})
     return pd.DataFrame(rows)
 
 
-# ----------------------------------------------------------------------------- persistence
-def save_bundle(name: str, model, calibrator, columns: list[str], categories: dict, meta: dict) -> None:
+def approve_all_profit(y, amount, assumptions: ProfitAssumptions = ProfitAssumptions()) -> float:
+    y, amount = np.asarray(y), np.asarray(amount, dtype=float)
+    return assumptions.margin * amount[y == 0].sum() - assumptions.lgd * amount[y == 1].sum()
+
+
+def approvals_at_default_rate(y, score, target_rate: float) -> tuple[int, float]:
+    """Approve the lowest-risk applicants first and stop when the approved group's default
+    rate would exceed target_rate. Returns (number approved, PD/score cutoff)."""
+    order = np.argsort(score)
+    y_sorted = np.asarray(y)[order]
+    running = np.cumsum(y_sorted) / np.arange(1, len(y_sorted) + 1)
+    ok = np.where(running <= target_rate)[0]
+    n = int(ok.max() + 1) if len(ok) else 0
+    return n, float(np.asarray(score)[order][n - 1]) if n else float("nan")
+
+
+# ---------------------------------------------------------------------------
+# Save / load
+# ---------------------------------------------------------------------------
+MODEL_PATH = MODELS_DIR / "lgbm_model.joblib"
+BASELINE_PATH = MODELS_DIR / "logistic_baseline.joblib"
+META_PATH = MODELS_DIR / "model_meta.json"
+
+
+def save_model(model, meta: dict, baseline=None) -> None:
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    joblib.dump({"model": model, "calibrator": calibrator, "columns": columns, "categories": categories},
-                MODELS_DIR / f"{name}.joblib")
-    (MODELS_DIR / f"{name}_meta.json").write_text(json.dumps(meta, indent=2, default=float))
+    joblib.dump(model, MODEL_PATH)
+    if baseline is not None:
+        joblib.dump(baseline, BASELINE_PATH)
+    META_PATH.write_text(json.dumps(meta, indent=2, default=lambda o: asdict(o) if hasattr(o, "__dataclass_fields__") else str(o)))
 
 
-def load_bundle(name: str) -> dict:
-    path = MODELS_DIR / f"{name}.joblib"
-    if not path.exists():
-        raise FileNotFoundError(f"{path} not found. Run notebooks/03_modelling.ipynb first.")
-    return joblib.load(path)
+def load_model():
+    """Return (LightGBM model, metadata dict)."""
+    return joblib.load(MODEL_PATH), json.loads(META_PATH.read_text())

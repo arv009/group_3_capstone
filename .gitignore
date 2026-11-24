@@ -2,7 +2,7 @@
 .env
 .streamlit/secrets.toml
 
-# --- Data (too large for Git; download with scripts/download_data.py, see README) ---
+# --- Data (too large for Git; download with Kaggle CLI, see README) ---
 data/raw/*
 data/interim/*
 data/processed/*
@@ -16,14 +16,13 @@ models/*
 
 # --- Course materials (not ours to publish) ---
 Capstone Guide.pdf
-Capstone_Project_Options.pdf
+Python - Data Science and AI Skills.docx
+Python for Data and AI Batch 3 - Week on Week*.pdf
 
 # --- Python / Jupyter ---
 __pycache__/
 *.py[cod]
-*.egg-info/
 .ipynb_checkpoints/
-.pytest_cache/
 .venv/
 venv/
 
@@ -33,6 +32,14 @@ Thumbs.db
 .vscode/
 .idea/
 
-# --- Local tool configs ---
+# Local tool config
 .claude/
+
+# Local tool config
 .agents/
+
+# The AI Analyst database is part of the app bundle (small, built from it)
+!app/demo_data/analyst.db
+
+# Course materials
+Capstone_Project_Options.pdf

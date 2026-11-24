@@ -1,0 +1,15 @@
+# Streamlit Community Cloud installs these for the app (lean: no notebooks, no Kaggle tooling).
+streamlit==1.51.0
+pandas==2.3.3
+numpy==2.3.5
+pyarrow==21.0.0
+plotly==6.3.0
+lightgbm==4.7.0
+scikit-learn==1.7.2
+shap==0.54.1
+anthropic==2.5.0
+python-dotenv==1.1.0
+pydantic>=2.0
+joblib>=1.3
+textblob>=0.18
+vaderSentiment>=3.3

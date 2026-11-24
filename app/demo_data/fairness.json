@@ -1,0 +1,252 @@
+{
+ "cutoff": 0.17,
+ "groups": {
+  "gender": [
+   {
+    "group": "men",
+    "applicants": 20940,
+    "approval_rate": 0.8444603629417383,
+    "default_rate": 0.10167144221585482,
+    "repayer_approval": 0.8806549359417363,
+    "repayer_decline": 0.11934506405826373,
+    "default_rate_approved": 0.06316801447718147,
+    "mean_pd": 0.0928264162402222,
+    "calibration_gap": -0.008845025975632623,
+    "ratio_to_best": 0.9369776994550785,
+    "below_four_fifths": false
+   },
+   {
+    "group": "women",
+    "applicants": 40561,
+    "approval_rate": 0.9012598308720199,
+    "default_rate": 0.06991938068588052,
+    "repayer_approval": 0.9222001325381047,
+    "repayer_decline": 0.07779986746189527,
+    "default_rate_approved": 0.04830944304628515,
+    "mean_pd": 0.07233653902047367,
+    "calibration_gap": 0.0024171583345931474,
+    "ratio_to_best": 1.0,
+    "below_four_fifths": false
+   }
+  ],
+  "age_band": [
+   {
+    "group": "20s",
+    "applicants": 8905,
+    "approval_rate": 0.791577765300393,
+    "default_rate": 0.11297024143739472,
+    "repayer_approval": 0.8311178630206355,
+    "repayer_decline": 0.1688821369793645,
+    "default_rate_approved": 0.06866222159171513,
+    "mean_pd": 0.1126646672419121,
+    "calibration_gap": -0.0003055741954826191,
+    "ratio_to_best": 0.8207982278695207,
+    "below_four_fifths": false
+   },
+   {
+    "group": "30s",
+    "applicants": 16487,
+    "approval_rate": 0.8420573785406684,
+    "default_rate": 0.09571177291199126,
+    "repayer_approval": 0.8763833925816621,
+    "repayer_decline": 0.12361660741833791,
+    "default_rate_approved": 0.05884895195562918,
+    "mean_pd": 0.09401383668896192,
+    "calibration_gap": -0.001697936223029342,
+    "ratio_to_best": 0.8731412558162865,
+    "below_four_fifths": false
+   },
+   {
+    "group": "40s",
+    "applicants": 15303,
+    "approval_rate": 0.8928968176174606,
+    "default_rate": 0.07580213030124812,
+    "repayer_approval": 0.9176270946758114,
+    "repayer_decline": 0.08237290532418862,
+    "default_rate_approved": 0.050204918032786885,
+    "mean_pd": 0.07532762250026465,
+    "calibration_gap": -0.000474507800983473,
+    "ratio_to_best": 0.9258573922836568,
+    "below_four_fifths": false
+   },
+   {
+    "group": "50s",
+    "applicants": 13617,
+    "approval_rate": 0.933318645810384,
+    "default_rate": 0.06345009914077991,
+    "repayer_approval": 0.9491884262526464,
+    "repayer_decline": 0.05081157374735357,
+    "default_rate_approved": 0.04752537571799512,
+    "mean_pd": 0.06070797756891204,
+    "calibration_gap": -0.0027421215718678726,
+    "ratio_to_best": 0.9677713600609188,
+    "below_four_fifths": false
+   },
+   {
+    "group": "60s",
+    "applicants": 7191,
+    "approval_rate": 0.964399944374913,
+    "default_rate": 0.04964539007092199,
+    "repayer_approval": 0.9720515071700322,
+    "repayer_decline": 0.027948492829967808,
+    "default_rate_approved": 0.042105263157894736,
+    "mean_pd": 0.04802746251874354,
+    "calibration_gap": -0.001617927552178447,
+    "ratio_to_best": 1.0,
+    "below_four_fifths": false
+   }
+  ],
+  "credit_file": [
+   {
+    "group": "bureau history",
+    "applicants": 52727,
+    "approval_rate": 0.8910425398752062,
+    "default_rate": 0.07728488250801298,
+    "repayer_approval": 0.9158102441831785,
+    "repayer_decline": 0.08418975581682153,
+    "default_rate_approved": 0.051636797071218765,
+    "mean_pd": 0.07585205760905543,
+    "calibration_gap": -0.0014328248989575465,
+    "ratio_to_best": 1.0,
+    "below_four_fifths": false
+   },
+   {
+    "group": "thin file",
+    "applicants": 8776,
+    "approval_rate": 0.827028258887876,
+    "default_rate": 0.10141294439380127,
+    "repayer_approval": 0.8624144052751712,
+    "repayer_decline": 0.13758559472482879,
+    "default_rate_approved": 0.06296500413337007,
+    "mean_pd": 0.10011373819247789,
+    "calibration_gap": -0.0012992062013233857,
+    "ratio_to_best": 0.9281579968153982,
+    "below_four_fifths": false
+   }
+  ]
+ },
+ "gaps": [
+  {
+   "group": "gender",
+   "a": "women",
+   "b": "men",
+   "metric": "repayer_approval",
+   "gap": 0.04154519659636846,
+   "low": 0.03630665605183631,
+   "high": 0.04696689782893738,
+   "real": true
+  },
+  {
+   "group": "gender",
+   "a": "women",
+   "b": "men",
+   "metric": "approval_rate",
+   "gap": 0.056799467930281566,
+   "low": 0.051120276021700405,
+   "high": 0.0623175602705173,
+   "real": true
+  },
+  {
+   "group": "age_band",
+   "a": "60s",
+   "b": "20s",
+   "metric": "repayer_approval",
+   "gap": 0.1409336441493967,
+   "low": 0.13238707641026246,
+   "high": 0.15028399190961736,
+   "real": true
+  },
+  {
+   "group": "age_band",
+   "a": "60s",
+   "b": "20s",
+   "metric": "approval_rate",
+   "gap": 0.17282217907452002,
+   "low": 0.1636851885929327,
+   "high": 0.18281938622608732,
+   "real": true
+  },
+  {
+   "group": "age_band",
+   "a": "40s",
+   "b": "20s",
+   "metric": "repayer_approval",
+   "gap": 0.08650923165517588,
+   "low": 0.07691373315457678,
+   "high": 0.09535754780852178,
+   "real": true
+  },
+  {
+   "group": "age_band",
+   "a": "40s",
+   "b": "20s",
+   "metric": "approval_rate",
+   "gap": 0.10131905231706761,
+   "low": 0.09253611263290254,
+   "high": 0.11108230325515701,
+   "real": true
+  },
+  {
+   "group": "credit_file",
+   "a": "bureau history",
+   "b": "thin file",
+   "metric": "repayer_approval",
+   "gap": 0.053395838908007254,
+   "low": 0.0455068767664705,
+   "high": 0.060865426499479354,
+   "real": true
+  },
+  {
+   "group": "credit_file",
+   "a": "bureau history",
+   "b": "thin file",
+   "metric": "approval_rate",
+   "gap": 0.0640142809873302,
+   "low": 0.055665474388301286,
+   "high": 0.07224513207730276,
+   "real": true
+  }
+ ],
+ "experiment": [
+  {
+   "metric": "AUC",
+   "shipped model": "0.7864185490018085",
+   "without sensitive features": "0.7849904476547904"
+  },
+  {
+   "metric": "best cutoff",
+   "shipped model": "0.17",
+   "without sensitive features": "0.2"
+  },
+  {
+   "metric": "profit at best cutoff (M)",
+   "shipped model": "3678.969019275",
+   "without sensitive features": "3686.5528467749996"
+  },
+  {
+   "metric": "profit at 0.17 (M)",
+   "shipped model": "3678.969019275",
+   "without sensitive features": "3675.7891759500003"
+  },
+  {
+   "metric": "approval rate at 0.17",
+   "shipped model": "0.8819081996000195",
+   "without sensitive features": "0.8810952311269369"
+  },
+  {
+   "metric": "EO gap women vs men",
+   "shipped model": "+4.2 (3.6 to 4.7)",
+   "without sensitive features": "+4.2 (3.6 to 4.7)"
+  },
+  {
+   "metric": "EO gap 60s vs 20s",
+   "shipped model": "+14.1 (13.2 to 15.0)",
+   "without sensitive features": "+16.0 (15.1 to 17.0)"
+  },
+  {
+   "metric": "EO gap bureau history vs thin file",
+   "shipped model": "+5.3 (4.6 to 6.1)",
+   "without sensitive features": "+4.7 (3.9 to 5.5)"
+  }
+ ]
+}
