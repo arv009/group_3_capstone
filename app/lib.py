@@ -17,13 +17,84 @@ from secondlook import modeling as M                      # noqa: E402
 from secondlook.explain import Explainer, label_of        # noqa: E402
 from secondlook import letters as L                       # noqa: E402
 from secondlook import path as P                          # noqa: E402
+from secondlook import personas as PE                     # noqa: E402
 
 BUNDLE = ROOT / "app" / "demo_data"
-DECISION_STYLE = {
-    "approve": ("Approve", "#2E7D32", ""),
-    "under_review": ("Under review", "#E08E0B", ""),
-    "decline": ("Decline", "#C62828", ""),
+STATIC = ROOT / "app" / "static"
+
+# Brand palette (SecondLook web UI guide)
+BRAND = {
+    "navy": "#0A2E52", "teal": "#21A6B8", "teal_dark": "#1A8A99", "green": "#10B981", "amber": "#F59E0B",
+    "red": "#EF4444", "slate": "#64748B", "slate_light": "#94A3B8", "border": "#E2E8F0", "surface": "#F4F7F9",
+    "blue": "#3B82C4",
 }
+CATEGORICAL = [BRAND["navy"], BRAND["teal"], BRAND["amber"], BRAND["slate_light"], BRAND["blue"]]
+
+# decision -> (label, text colour, background)
+DECISION_STYLE = {
+    "approve": ("Approve", "#047857", "rgba(16, 185, 129, 0.12)"),
+    "under_review": ("Under review", "#B45309", "rgba(245, 158, 11, 0.14)"),
+    "decline": ("Decline", "#B91C1C", "rgba(239, 68, 68, 0.12)"),
+}
+
+_CSS = """
+<style>
+h1, h2, h3, h4, h5, h6 { color: #0A2E52 !important; }
+h1 { letter-spacing: -0.02em; line-height: 1.15 !important; }
+
+/* metric tiles as cards */
+[data-testid="stMetric"] { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 16px;
+  transition: box-shadow .2s ease, border-color .2s ease; }
+[data-testid="stMetric"]:hover { box-shadow: 0 10px 25px -5px rgba(10, 46, 82, 0.08); }
+[data-testid="stMetricLabel"] p { font-size: 0.75rem !important; font-weight: 600 !important; text-transform: uppercase;
+  letter-spacing: 0.05em; color: #64748B !important; }
+[data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * { white-space: normal !important; overflow: visible !important;
+  text-overflow: clip !important; line-height: 1.35 !important; }
+[data-testid="stMetricValue"] { font-variant-numeric: tabular-nums; color: #0A2E52; font-weight: 600;
+  font-size: clamp(1.25rem, 1.7vw, 2.1rem) !important; }
+[data-testid="stMainBlockContainer"] { padding-top: 2.5rem; }
+
+/* markdown tables */
+[data-testid="stMarkdownContainer"] table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+[data-testid="stMarkdownContainer"] th { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  color: #64748B; background: #F4F7F9; }
+[data-testid="stMarkdownContainer"] th, [data-testid="stMarkdownContainer"] td { border: 1px solid #E2E8F0 !important; }
+[data-testid="stMarkdownContainer"] thead:not(:has(th:not(:empty))) { display: none; }
+
+/* buttons: teal primary with shadow, navy outline secondary */
+button[data-testid="stBaseButton-primary"] { box-shadow: 0 4px 12px rgba(33, 166, 184, 0.25); border-radius: 8px; }
+button[data-testid="stBaseButton-primary"]:hover { background: #1A8A99 !important; border-color: #1A8A99 !important; }
+button[data-testid="stBaseButton-secondary"] { border: 1.5px solid #0A2E52 !important; color: #0A2E52 !important;
+  background: transparent !important; border-radius: 8px; }
+button[data-testid="stBaseButton-secondary"]:hover { border-color: #1A8A99 !important; color: #1A8A99 !important;
+  background: rgba(33, 166, 184, 0.06) !important; }
+button[data-testid^="stBaseButton"]:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(33, 166, 184, 0.3) !important; outline: none !important; }
+
+/* page links as cards */
+[data-testid="stPageLink-NavLink"] { display: flex; width: 100%; border: 1px solid #E2E8F0; border-radius: 12px; padding: 10px 14px; background: #FFFFFF;
+  transition: box-shadow .2s ease, border-color .2s ease; }
+[data-testid="stPageLink-NavLink"]:hover { border-color: #21A6B8; box-shadow: 0 10px 25px -5px rgba(10, 46, 82, 0.08); }
+[data-testid="stPageLink-NavLink"] p { font-weight: 600; color: #0A2E52; }
+
+[data-testid="stExpander"] details { border-radius: 12px; }
+[data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] * { color: #64748B; opacity: 1 !important; }
+
+.sl-badge { display: inline-block; padding: 3px 12px; border-radius: 999px; font-family: Inter, sans-serif; font-size: 0.8rem;
+  font-weight: 600; letter-spacing: 0.02em; vertical-align: middle; }
+.sl-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B; margin: 0; }
+.sl-step { font-family: Montserrat, sans-serif; font-weight: 700; color: #21A6B8; font-size: 0.8rem; letter-spacing: 0.05em; }
+</style>
+"""
+
+
+def page_setup(title: str | None = None):
+    """Page config, logo and brand styles. Call once at the top of every page."""
+    st.set_page_config(page_title=f"{title} · SecondLook" if title else "SecondLook · Second review. Smarter decisions.",
+                       page_icon=str(STATIC / "favicon.png"), layout="wide")
+    st.logo(str(STATIC / "logo_horizontal.png"), icon_image=str(STATIC / "logo_icon.png"), size="large")
+    st.markdown(_CSS, unsafe_allow_html=True)
 
 
 @st.cache_resource(show_spinner="Loading the model...")
@@ -53,30 +124,22 @@ def load_letters() -> dict:
 
 
 @st.cache_data(show_spinner=False)
-def load_personas() -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Persona per not-approved test applicant, and one profile row per persona (notebook 09)."""
-    return pd.read_parquet(BUNDLE / "personas.parquet"), pd.read_json(BUNDLE / "personas_profile.json")
+def load_audits() -> dict:
+    """Independent faithfulness and tone audits of the pre-drafted letters (src/secondlook/letter_audit.py)."""
+    path = BUNDLE / "audits.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+@st.cache_data(show_spinner=False)
+def load_personas() -> pd.DataFrame:
+    """Not-approved test applicants with their persona and PCA map position (notebooks/09_personas.ipynb)."""
+    return pd.read_parquet(BUNDLE / "personas.parquet")
 
 
 @st.cache_data(show_spinner=False)
 def load_fairness() -> dict:
-    """Fairness audit results: group metrics, bootstrap gaps and the retraining experiment (notebook 08)."""
-    return json.loads((BUNDLE / "fairness.json").read_text())
-
-
-@st.cache_data(show_spinner=False)
-def load_letter_audits() -> dict:
-    """Faithfulness and tone audits of the pre-drafted letters (notebook 07), keyed like letters.json."""
-    path = BUNDLE / "letter_audits.json"
-    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-
-
-def audit_live_letter(letter: dict) -> dict:
-    """Audit a letter drafted live in the app (two to four Claude Haiku 5.5 calls, about $0.0004)."""
-    import anthropic
-    from secondlook.letter_audit import AuditCache, audit_letter
-    a = audit_letter(anthropic.Anthropic(), letter["body"], letter["fact_sheet"], AuditCache(path=None))
-    return a.to_dict()
+    """Fairness audit results saved by notebooks/08_fairness_audit.ipynb (tables, bootstrap gaps, fix experiment)."""
+    return json.loads((BUNDLE / "fairness.json").read_text(encoding="utf-8"))
 
 
 @st.cache_data(show_spinner="Scoring applicants...")
@@ -126,9 +189,8 @@ def api_key_available() -> bool:
 
 
 def decision_badge(decision: str) -> str:
-    text, color, _ = DECISION_STYLE[decision]
-    return (f"<span style='background:{color};color:white;padding:4px 12px;border-radius:12px;"
-            f"font-weight:600'>{text}</span>")
+    text, color, bg = DECISION_STYLE[decision]
+    return f"<span class='sl-badge' style='color:{color};background:{bg};border:1px solid {color}33'>{text}</span>"
 
 
 def money(x: float) -> str:

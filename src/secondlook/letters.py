@@ -30,7 +30,7 @@ EFFORT = "low"
 PROMPT_VERSION = "v7"     # v2: no invented comparisons; v3: no internal tool name, letter-friendly factors;
                           # v4: no job/employer; v5: refined guardrails (car age, comparisons);
                           # v6: offers the re-scored path to approval (adjusted_terms) and checks every amount;
-                          # v7: short and human (60-110 words, plain words, no score values or lender explanations)
+                          # v7: no offer of other terms when there is no path (found by the faithfulness audit)
 CACHE_PATH = PROCESSED_DIR / "letter_cache.json"
 
 # Haiku 5.5 list prices, USD per million tokens (prompts under 100K tokens)
@@ -40,20 +40,19 @@ SYSTEM_PROMPT = """You draft decision letters for SecondLook, a tool used by loa
 
 You receive a fact sheet about one application: the decision, the loan details, the main factors that RAISED the applicant's estimated risk, and the main factors that LOWERED it (their strengths). Each factor has a code, a plain-English label and the applicant's value.
 
-Write the letter the way a kind, experienced loan officer would write it by hand: short, plain and human. 60-110 words, three or four short paragraphs, short sentences, everyday words. No lists, no headings, no corporate filler ("we appreciate your interest", "rest assured"), and no lecture about how lending works.
-- Open with the decision in the first one or two sentences, clearly and kindly. For "decline" and "under_review", briefly acknowledge that this is not the news they hoped for.
-- For "decline" and "under_review" letters, name the 2-3 most important risk factors in one or two sentences, and mention one genuine strength.
-- For "approve" letters, confirm the approval and the loan details, and mention one strength; do not list risk factors.
-- For "under_review", say the application is close, so a loan officer will look at it personally and may contact them about adjusting the loan.
-- For "decline", say they can reply to ask for the decision to be reviewed.
-- Describe factors in words, not numbers: say "your credit scores from other agencies" or "some late payments in the past", not "your external credit score 2 is 0.77". Only loan amounts, payments and the number of payments may be quoted as numbers.
+Write a short letter to the applicant (120-220 words):
+- Open with the decision in the first two sentences, clearly and kindly.
+- For "decline" and "under_review" letters, explain the 2-3 most important risk factors in everyday words, and mention 1-2 genuine strengths.
+- For "approve" letters, confirm the approval and mention 1-2 strengths; do not list risk factors.
+- For "under_review", explain that the application is close to the approval threshold, so a loan officer will look at it personally, and that they may be contacted about adjusting the loan terms.
+- For "decline", say what generally helps future applications (for example, a record of on-time payments), and that they can ask for the decision to be reviewed.
 - Use only the facts in the fact sheet. Do not invent amounts, dates, scores, policies, names or contact details. Sign off as "The Lending Team".
-- Describe each factor only by what its label and value say. Do not compare a factor with the current loan or with anything else, and do not claim why it matters for this particular person (for example, never say a past amount is "similar to" or "at the level of" this loan). Do not explain why lenders look at a factor.
+- Describe each factor only by what its label and value say. Do not compare a factor with the current loan or with anything else, and do not claim why it matters for this particular person (for example, never say a past amount is "similar to" or "at the level of" this loan). You may add one short, general reason why lenders look at that kind of factor (for example, "on-time payments show a reliable repayment record").
 - Prefer factors that are easy for an applicant to understand; you may skip a factor whose meaning would be unclear to them.
 - Never mention or hint at age, gender, marital or family status, children, or any other personal characteristic.
 - No technical terms: never say SHAP, model, algorithm, log-odds, probability of default, PD, score cutoff or threshold value.
 - "SecondLook" is the lender's internal tool. Never mention it to the applicant.
-- If the fact sheet includes "adjusted_terms", the loan could be approved on those terms (a smaller amount and/or more payments). For "under_review", say a loan officer may be able to offer a loan of that amount with regular payments of about that payment over that number of payments. For "decline", say the application cannot be approved as requested, but a loan on those terms may be possible and they can contact us to discuss it. Present it as a possibility the loan officer will confirm, never a promise, and quote the amounts exactly as written. If there is no "adjusted_terms", do not suggest any specific amount or term.
+- If the fact sheet includes "adjusted_terms", the loan could be approved on those terms (a smaller amount and/or more payments). For "under_review", say a loan officer may be able to offer a loan of that amount with regular payments of about that payment over that number of payments. For "decline", say the application cannot be approved as requested, but a loan on those terms may be possible and they can contact us to discuss it. Present it as a possibility the loan officer will confirm, never a promise, and quote the amounts exactly as written. If there is no "adjusted_terms", no change to the loan would be approved: do not say that a loan on different or other terms may be possible, do not say a loan officer may be able to offer anything, and do not repeat the requested amount as an offer.
 
 In reasons_cited, list the codes of the risk factors you mention. In strengths_cited, list the codes of the strengths you mention. Only use codes from the fact sheet."""
 
@@ -61,7 +60,7 @@ In reasons_cited, list the codes of the risk factors you mention. In strengths_c
 class Letter(BaseModel):
     """Structured letter returned by Claude."""
     subject: str = Field(description="Letter subject line")
-    body: str = Field(description="Full letter text: 'Dear Applicant,', three or four short plain paragraphs, signed 'The Lending Team'")
+    body: str = Field(description="Full letter text, plain paragraphs, signed 'The Lending Team'")
     reasons_cited: list[str] = Field(description="Codes of risk factors mentioned in the letter")
     strengths_cited: list[str] = Field(description="Codes of strengths mentioned in the letter")
 
@@ -166,11 +165,10 @@ COMPARISON = re.compile(r"\b((longer|shorter|higher|lower|larger|smaller|bigger|
                         r"|(a |the )?(longer|shorter) (repayment )?(term|period|schedule|window))\b", re.I)
 VEHICLE = re.compile(r"\b(car|vehicle)\b", re.I)
 TOOL_NAME = re.compile(r"Second\s?Look")       # case-sensitive: "take a second look" is fine
-# Hints at a different loan offer; only allowed when the fact sheet has adjusted_terms (found by the notebook 07 audit)
-OFFER = re.compile(r"\b(different|other|adjusted|new|smaller|lower) (loan )?(terms?|loan|amount)\b.{0,60}\b(possible|available|offer\w*)\b"
-                   r"|\boffer you (a|another)\b|\b(offer|discuss|consider) (you )?(a|another) (smaller |different )?loan\b"
-                   r"|\bon (other|different) terms\b|\bloan of [\d,]+.{0,80}\b(may|might|could) be (possible|available)\b", re.I | re.S)
 AMOUNT = re.compile(r"\b\d{1,3}(?:,\d{3})+\b|\b\d{4,}\b")    # 1,000 and up, with or without commas
+# An offer of other terms. "may contact you about adjusting the loan terms" stays allowed for under-review letters.
+NO_PATH_OFFER = re.compile(r"\bmay be able to offer\b|\bloan on (different|other|alternative|new) terms\b"
+                           r"|\b(different|other|alternative|new) (loan )?terms (may|could|might) be possible\b", re.I)
 
 
 def _personal_characteristic(body: str) -> str | None:
@@ -216,8 +214,8 @@ def check_letter(letter: Letter, li: LetterInput) -> list[str]:
         issues.append(f"quotes amounts that are not in the fact sheet: {wrong}")
     if li.adjusted_terms and li.adjusted_terms["regular_payment"] not in letter.body:
         issues.append(f"does not offer the adjusted terms (regular payment {li.adjusted_terms['regular_payment']})")
-    if not li.adjusted_terms and (m := OFFER.search(letter.body)):
-        issues.append(f"suggests a different loan ('{m.group(0)[:60]}') but the fact sheet has no adjusted terms")
+    if not li.adjusted_terms and (m := NO_PATH_OFFER.search(letter.body)):
+        issues.append(f"suggests other loan terms ('{m.group(0)}') but no change to the loan would be approved")
     if li.decision in ("decline", "under_review") and not letter.reasons_cited:
         issues.append("gives no reason for a decline / review")
     if li.decision in ("decline", "under_review") and POSITIVE_FOR_DECLINE.search(letter.body):
@@ -225,8 +223,8 @@ def check_letter(letter: Letter, li: LetterInput) -> list[str]:
     if li.decision == "approve" and letter.reasons_cited:
         issues.append("approval letter lists risk factors")
     words = len(letter.body.split())
-    if not 40 <= words <= 140:
-        issues.append(f"length {words} words is outside 40-140 (keep it short, like a person would write it)")
+    if not 90 <= words <= 280:
+        issues.append(f"length {words} words is outside 90-280")
     return issues
 
 

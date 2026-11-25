@@ -1,9 +1,7 @@
-"""Letter audit (Step 9): four deliberately bad letters must be flagged, a good one must pass.
-
-Claude's answers are cached in tests/fixtures/letter_audit_cache.json, so these tests run offline
-with no API key. After changing a prompt in letter_audit.py, refresh the cache once with
-    python tests/test_letter_audit.py --record        (about 15 Haiku calls, well under one cent)
-"""
+"""Tests for the independent letter audit. No API calls: Claude's answers for five letters are saved in
+tests/fixtures/audit_cases.json (one real letter and four deliberately broken copies), and the deterministic
+verdict rules are tested directly with hand-made claims."""
+import json
 import sys
 from pathlib import Path
 
@@ -11,94 +9,85 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from secondlook.letter_audit import judge_claims, lexicon_tone, summarise  # noqa: E402
 
-from secondlook.letter_audit import AuditCache, Claim, audit_letter, facts_from_sheet, lexicon_tone, match_claims  # noqa: E402
+CASES = json.loads((ROOT / "tests" / "fixtures" / "audit_cases.json").read_text(encoding="utf-8"))
 
-CACHE = Path(__file__).parent / "fixtures" / "letter_audit_cache.json"
-
-SHEET = {
-    "applicant_id": 1, "decision": "under_review",
-    "loan_amount": "500,000", "regular_payment": "25,000", "number_of_payments": "about 20 payments",
-    "risk_factors": [{"code": "EXT_SOURCE_MEAN", "label": "Average external credit score", "value": "0.31"},
-                     {"code": "INST_LATE_SHARE", "label": "Share of past payments made late", "value": "40%"},
-                     {"code": "CREDIT_TO_GOODS", "label": "Loan amount vs price of the goods", "value": "1.25"}],
-    "strengths": [{"code": "BUR_N_ACTIVE_LOANS", "label": "Active loans at other lenders", "value": "0"}],
-    "adjusted_terms": {"loan_amount": "425,000", "regular_payment": "21,250", "number_of_payments": "about 20 payments"},
+FACTS = {
+    "decision": "under_review", "loan_amount": "500,000", "regular_payment": "25,000", "number_of_payments": "about 20 payments",
+    "risk_factors": [{"code": "EXT_SOURCE_MEAN", "label": "Average external credit score", "value": "0.30"}],
+    "strengths": [{"code": "INST_LATE_SHARE_LAST_YEAR", "label": "Share of payments late in the last year", "value": "0%"}],
+    "adjusted_terms": {"loan_amount": "450,000", "regular_payment": "18,000", "number_of_payments": "about 25 payments"},
 }
 
-GOOD = """Dear Applicant,
 
-Thank you for applying. Your application is close, so a loan officer will look at it personally.
-
-The main concerns are your credit scores from other agencies, some late payments in the past, and a loan amount that is high compared with the price of the goods. On the plus side, you have no active loans with other lenders.
-
-A loan officer may be able to offer a loan of 425,000 with regular payments of about 21,250. This is a possibility, not a promise.
-
-The Lending Team"""
-
-BAD = {
-    "invented detail": GOOD.replace("you have no active loans with other lenders.",
-                                    "you have no active loans with other lenders, and the car you plan to buy also helps."),
-    "wrong direction": GOOD.replace("On the plus side, you have no active loans with other lenders.",
-                                    "Your active loans with other lenders also counted against you."),
-    "wrong amount": GOOD.replace("425,000", "400,000"),
-    "rude": """Dear Applicant,
-
-Your application is not good enough. Your credit is poor, you pay late and you want far too much money for what you are buying. Having no other loans is the only thing going for you.
-
-Take 425,000 with payments of 21,250 or don't bother. We are not going to waste more time on this.
-
-The Lending Team""",
-}
-EXPECTED = {"invented detail": "Not in the fact sheet", "wrong direction": "Wrong direction",
-            "wrong amount": "Wrong number", "rude": "Tone"}
+def claim(quote, kind="factor", presented_as="concern", value=None):
+    return {"quote": quote, "kind": kind, "about": "", "value": value, "presented_as": presented_as}
 
 
-@pytest.fixture(scope="module")
-def cache():
-    if not CACHE.exists():
-        pytest.skip("No cached Claude answers: run `python tests/test_letter_audit.py --record` once")
-    return AuditCache(CACHE)
+def audit(case):
+    c = CASES[case]
+    judged = judge_claims(c["raw"]["review"]["claims"], c["raw"]["matches"], c["letter"]["fact_sheet"])
+    return summarise(judged, c["letter"]["fact_sheet"], c["raw"]["review"], lexicon_tone(c["letter"]["body"]))
 
 
-def test_good_letter_passes(cache):
-    audit = audit_letter(None, GOOD, SHEET, cache)
-    assert audit.passed, audit.problems
-    assert audit.faithfulness == 1.0 and audit.coverage == 1.0
+def test_the_real_letter_passes():
+    a = audit("original")
+    assert a["passed"] and a["faithfulness"] == 1.0, a["issues"]
 
 
-@pytest.mark.parametrize("kind", list(BAD))
-def test_bad_letter_is_flagged(cache, kind):
-    audit = audit_letter(None, BAD[kind], SHEET, cache)
-    assert not audit.passed
-    assert any(p.startswith(EXPECTED[kind]) for p in audit.problems), audit.problems
+@pytest.mark.parametrize("case,expected", [
+    ("invented_detail", "car"),
+    ("wrong_direction", "as a concern"),
+    ("wrong_amount", "not in the fact sheet"),
+    ("rude", "tone"),
+])
+def test_each_broken_letter_is_caught(case, expected):
+    a = audit(case)
+    assert not a["passed"]
+    assert any(expected in i for i in a["issues"]), a["issues"]
 
 
-def test_matching_rules_without_claude():
-    facts = facts_from_sheet(SHEET)
-    claims = [Claim(factor_text="credit scores from other agencies", value_quoted="", direction="raises_risk"),
-              Claim(factor_text="active loans with other lenders", value_quoted="", direction="raises_risk"),
-              Claim(factor_text="a loan of 400,000", value_quoted="400,000", direction="would_help"),
-              Claim(factor_text="missed rent payment", value_quoted="", direction="raises_risk")]
-    rows = match_claims(claims, facts)          # no cache: claims the words can't place stay unplaced
-    assert [r["fact_id"] for r in rows] == ["R1", "S1", "P1", None]
-    assert [r["supported"] for r in rows] == [True, False, False, False]
+def test_lexicon_sentiment_misses_the_rude_letter():
+    # The reason the Claude rubric exists: word-list sentiment still rates the insulting letter as very positive
+    assert lexicon_tone(CASES["rude"]["letter"]["body"])["vader_compound"] > 0.5
+    assert audit("rude")["tone"]["respectful"] <= 2
 
 
-def test_lexicons_rank_the_rude_letter_lower():
-    assert lexicon_tone(BAD["rude"])["vader_compound"] < lexicon_tone(GOOD)["vader_compound"]
+def test_direction_value_and_fairness_rules():
+    claims = [claim("your score is low", value="0.30"),                                   # correct
+              claim("your score is a strength", presented_as="strength"),                 # wrong direction
+              claim("your score is 0.55", value="0.55"),                                  # wrong value
+              claim("your score is missing"),                                             # unfair wording
+              claim("you own a boat")]                                                    # not a model reason
+    matches = [{"claim_index": i, "code": "EXT_SOURCE_MEAN", "fair_description": i != 3, "note": "n"} for i in range(4)] + \
+              [{"claim_index": 4, "code": None, "fair_description": True, "note": "n"}]
+    v = [c["verdict"] for c in judge_claims(claims, matches, FACTS)]
+    assert v[0] == "supported"
+    assert "as a strength" in v[1] and "does not match" in v[2] and "misdescribes" in v[3] and "not one of the reasons" in v[4]
 
 
-if __name__ == "__main__" and "--record" in sys.argv:
-    import anthropic
-    from dotenv import load_dotenv
+def test_offers_must_match_the_path():
+    ok = claim("we may offer a loan of 450,000 with payments of about 18,000 over about 25 payments", kind="offer", presented_as="neutral")
+    wrong = claim("we may offer a loan of 440,000", kind="offer", presented_as="neutral")
+    vague = claim("a loan officer may contact you about adjusting the loan terms", kind="offer", presented_as="neutral")
+    v = [c["verdict"] for c in judge_claims([ok, wrong, vague], [], FACTS)]
+    assert v == ["supported", "quotes a loan amount, payment or term that is not in the fact sheet", "supported"]
+    no_path = {**FACTS, "adjusted_terms": None}
+    assert "no path" in judge_claims([ok], [], no_path)[0]["verdict"]
+    assert judge_claims([vague], [], no_path)[0]["verdict"] == "supported"   # the v5 wording is allowed
 
-    from secondlook.letter_audit import Usage
 
-    load_dotenv(ROOT / ".env")
-    client, usage, c = anthropic.Anthropic(), Usage(), AuditCache(CACHE)
-    for name, text in [("good", GOOD), *BAD.items()]:
-        a = audit_letter(client, text, SHEET, c, usage)
-        print(f"{name}: {a.badge()} | {a.problems}")
-    c.save()
-    print(f"{usage.calls} live calls, ${usage.live_cost_usd:.4f}")
+def test_general_statements_are_not_counted():
+    judged = judge_claims([claim("on-time payments show a reliable record", kind="general", presented_as="neutral")], [], FACTS)
+    review = {"respectful": 5, "clear": 5, "empathetic": 5, "tone_note": ""}
+    s = summarise(judged, FACTS, review, {})
+    assert s["n_claims"] == 0 and s["faithfulness"] == 1.0
+    assert any("makes no offer" in i for i in s["issues"])     # a path existed but the letter offered nothing
+
+
+def test_percent_and_ratio_are_the_same_value():
+    facts = {**FACTS, "risk_factors": [{"code": "PREV_AVG_GRANTED_TO_APPLIED", "label": "Past loans granted vs amount requested", "value": "0.97x"}]}
+    c = claim("lenders granted about 97% of the amounts you requested", value="about 97%")
+    m = [{"claim_index": 0, "code": "PREV_AVG_GRANTED_TO_APPLIED", "fair_description": True, "note": ""}]
+    assert judge_claims([c], m, facts)[0]["verdict"] == "supported"

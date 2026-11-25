@@ -112,5 +112,22 @@ def draft_demo_letters(verbose: bool = True) -> dict:
     return report
 
 
+def audit_demo_letters(verbose: bool = True) -> dict:
+    """Audit every letter in letters.json (faithfulness + tone, cached) and save the results to audits.json."""
+    from .letter_audit import audit_letter
+    letters = json.loads((BUNDLE_DIR / "letters.json").read_text(encoding="utf-8"))
+    audits = {}
+    for key, letter in letters.items():
+        a = audit_letter(letter)
+        audits[key] = {k: v for k, v in a.items() if k != "raw"}      # keep the bundle small: no raw Claude output
+    (BUNDLE_DIR / "audits.json").write_text(json.dumps(audits, indent=2, ensure_ascii=False), encoding="utf-8")
+    report = {"audited": len(audits), "passed": sum(a["passed"] for a in audits.values()),
+              "claims": sum(a["n_claims"] for a in audits.values()),
+              "supported": sum(a["n_supported"] for a in audits.values())}
+    if verbose:
+        print(json.dumps(report, indent=2))
+    return report
+
+
 if __name__ == "__main__":
     build()

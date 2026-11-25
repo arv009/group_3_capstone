@@ -8,6 +8,8 @@ data/interim/*
 data/processed/*
 !data/**/.gitkeep
 *.db
+# the small read-only copy of the bundle for the AI Analyst ships with the app (the big DB stays ignored)
+!app/demo_data/analyst.db
 *.sqlite
 
 # --- Model artifacts (rebuild with the notebooks) ---
@@ -35,11 +37,6 @@ Thumbs.db
 # Local tool config
 .claude/
 
-# Local tool config
+# Local only
 .agents/
-
-# The AI Analyst database is part of the app bundle (small, built from it)
-!app/demo_data/analyst.db
-
-# Course materials
 Capstone_Project_Options.pdf

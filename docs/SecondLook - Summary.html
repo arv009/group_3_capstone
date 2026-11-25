@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SecondLook - Summary</title>
+<style>
+  @page { size: A4; margin: 15mm 16mm 14mm 16mm; }
+  body { font-family: "Segoe UI", Arial, sans-serif; font-size: 9.6pt; line-height: 1.38; color: #1d1d1f; margin: 0; }
+  h1 { font-size: 17pt; margin: 0 0 1mm 0; color: #1f4e79; }
+  .sub { font-size: 10pt; color: #444; margin: 0 0 1mm 0; }
+  .meta { font-size: 8.6pt; color: #666; margin: 0 0 3mm 0; border-bottom: 1.5px solid #1f4e79; padding-bottom: 2mm; }
+  .meta a { color: #1f4e79; }
+  h2 { font-size: 11pt; color: #1f4e79; margin: 3.2mm 0 1mm 0; }
+  p { margin: 0 0 1.6mm 0; }
+  ul, ol { margin: 0 0 1.6mm 0; padding-left: 5mm; }
+  li { margin-bottom: 0.6mm; }
+  table { border-collapse: collapse; width: 100%; font-size: 8.7pt; margin: 1mm 0 1.6mm 0; }
+  th, td { border: 1px solid #c9d3de; padding: 1.1mm 1.6mm; vertical-align: top; text-align: left; }
+  th { background: #e8eef5; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .box { background: #f3f6fa; border-left: 3px solid #1f4e79; padding: 1.6mm 2.4mm; margin: 1mm 0 1.6mm 0; }
+  .avoid { break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<h1>SecondLook</h1>
+<p class="sub">An AI-assisted second review for borderline loan declines</p>
+<p class="meta">Group 3 · Uplift Code Camp, Python for Data and AI (Batch 3) · Final presentation, 2 December 2026 ·
+Live app: <a href="https://secondlook.streamlit.app">secondlook.streamlit.app</a> ·
+Code: <a href="https://github.com/Funkchini/secondlook">github.com/Funkchini/secondlook</a></p>
+
+<h2>1. Problem</h2>
+<p>About half of Filipino adults have no formal financial account. Lenders often decline applicants with thin credit files, and usually give no reason. Many of those applicants would have repaid.</p>
+<div class="box"><b>Business question:</b> among applicants a lender would decline, which ones are actually safe to approve, and what realistic changes would get the rest approved?</div>
+
+<h2>2. Data</h2>
+<p>We used the <b>Home Credit Default Risk</b> data from Kaggle: 307,511 past loan applicants, of whom 8.07% had payment difficulties ("default"), plus six credit-history tables (credit bureau records, previous applications, and past instalment, card and cash-loan payments). The data is anonymised and its country is not disclosed.</p>
+<p>The data needed cleaning: 18% of employment values were a placeholder, 41 columns were over half missing, and one income was a 117-million error. We split it 80/20, stratified by outcome: 246,008 applicants to train and <b>61,503 to test</b>. Every result below is on the test set, which the model never saw.</p>
+
+<h2>3. Approach</h2>
+<ol>
+  <li><b>Features.</b> We loaded the history tables into SQLite and wrote SQL to summarise each applicant's past (loan counts, refusals, late-payment rates), then added ratios such as loan-to-income. The model uses 158 features. Gender is left out on purpose.</li>
+  <li><b>Model.</b> LightGBM gradient-boosted trees, compared with a logistic regression baseline and checked with 5-fold cross-validation. The cutoff (approve if the predicted default risk, PD, is below 0.17) maximises profit under stated assumptions: +15% of the loan on repayment, −60% on default. Applicants with PD 0.17–0.22 are flagged <i>under review</i> instead of declined.</li>
+  <li><b>Explain.</b> SHAP shows which factors raised or lowered each applicant's risk, in plain English.</li>
+  <li><b>Path to approval.</b> For applicants not approved, we re-score a grid of smaller loans and longer terms with the real model and suggest the smallest change that would be approved. Age, gender and past defaults are never suggested.</li>
+  <li><b>Letters.</b> Claude Haiku 5.5 drafts a decision letter from the SHAP reasons and the path. Rule checks block invented factors and personal traits. An independent audit (a second Claude lists the letter's claims; Python checks them against the model) flags problems for the loan officer.</li>
+  <li><b>Fairness audit.</b> Approval and error rates by gender, age band and credit file, with 1,000-resample bootstrap intervals, plus an experiment that retrains the model without the sensitive features.</li>
+  <li><b>Personas.</b> K-Means clustering groups the 7,263 applicants we don't approve into five borrower personas.</li>
+  <li><b>AI Analyst.</b> A hand-written agent loop: Claude answers a manager's question by writing read-only SQL and calling SecondLook's own tools, and shows its work.</li>
+</ol>
+<p>Everything is in a public Streamlit app with five pages: Home, Portfolio Dashboard (with Personas), Applicant Review, Model Card and AI Analyst.</p>
+
+<div class="avoid">
+<h2>4. Results</h2>
+<table>
+  <tr><th>Area</th><th>Result</th></tr>
+  <tr><td>Accuracy</td><td>Test ROC AUC <b>0.786</b> (cross-validation 0.784 ± 0.002) vs 0.773 for logistic regression. Predicted and actual default rates match within about 1 point in every decile.</td></tr>
+  <tr><td>Decision rule</td><td><b>88%</b> approved at PD &lt; 0.17, with a <b>5.3%</b> default rate among approved loans (8.07% if everyone were approved).</td></tr>
+  <tr><td>Business value</td><td>About <b>14% more approvals at the same 5% default rate</b> than ranking applicants by their external credit score alone.</td></tr>
+  <tr><td>The opportunity</td><td><b>71%</b> of the 7,263 applicants we don't approve actually repaid. 2,611 are in the under-review band.</td></tr>
+  <tr><td>Path to approval</td><td><b>90.1%</b> of under-review and <b>31.3%</b> of declined applicants have a path, usually a 10% smaller loan or about 10% more payments.</td></tr>
+  <tr><td>Letters</td><td>30 of 30 demo letters pass the rule checks, at about $0.0007 each. The audit finds <b>91.6%</b> of their claims supported and catches all 4 errors we planted, but only 9 of its 16 flags (56%) are real problems, so it supports the officer rather than replacing them.</td></tr>
+  <tr><td>Personas</td><td>Five groups; the largest is "Newer job, clean record" (41%). Repayment is 70–73% in every persona, so each is worth a second look. The groups follow the credit file (Cramér's V 0.93), not age or gender (about 0.10).</td></tr>
+  <tr><td>AI Analyst</td><td><b>20 of 20</b> test answers correct over two runs, each checked against an answer computed separately in pandas; 18 of 18 off-topic probes handled; about $0.0008 per question.</td></tr>
+</table>
+</div>
+
+<h2>5. Fairness findings</h2>
+<ul>
+  <li><b>The model is calibrated in every group</b> (predicted risk within 1 point of the real default rate), so one cutoff means the same risk for everyone.</li>
+  <li><b>It passes the four-fifths check:</b> no group's approval rate is below 0.8 of the best group's. Ages 20–29 come closest, at 0.82.</li>
+  <li><b>But good borrowers are not approved equally.</b> Repayers aged 20–29 are approved 83.1% of the time, against 97.2% at ages 60–69 (a gap of 14.1 points, 95% interval 13.2–15.0). Men and thin-file repayers are also approved less often (gaps of 4.2 and 5.3 points). Every interval excludes zero.</li>
+  <li><b>Removing the sensitive features made it worse.</b> Without age, the model overstates young applicants' risk (11.9% predicted vs 11.3% actual), the age gap widens to 16.3 points, and ages 20–29 fall below the four-fifths line (0.80).</li>
+  <li><b>Our decision:</b> keep the full model. Sensitive traits are never given as reasons, borderline applicants, where young, thin-file and male applicants are over-represented, get a human second look, and declined applicants get a path to approval.</li>
+</ul>
+
+<h2>6. Limitations</h2>
+<ul>
+  <li><b>Decision support only.</b> A loan officer makes every decision and reviews every letter.</li>
+  <li><b>Unknown country.</b> The model must be validated on Philippine applicants before any real use.</li>
+  <li><b>Outcomes exist only for past approved loans,</b> so we cannot see how applicants the lender declined would have behaved.</li>
+  <li><b>SHAP explains the model, not the world.</b> A reason is what drove the score, not a proven cause.</li>
+  <li><b>The letter audit is noisy:</b> about half its flags are false alarms, and verdicts agree only 73% of the time between runs. Letters are respectful but low on empathy.</li>
+  <li><b>The AI Analyst was tested on ten questions we wrote.</b> Vaguer questions will be less reliable, so every answer shows its SQL and tool calls.</li>
+  <li><b>Profit uses illustrative assumptions.</b> Intersections of groups (for example, young men with thin files) were not audited.</li>
+</ul>
+<p><b>Next steps, if continued:</b> validate on local data, audit intersections of groups, improve letter empathy, and monitor calibration as the applicant mix changes.</p>
+
+</body>
+</html>

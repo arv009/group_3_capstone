@@ -3,16 +3,14 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-st.set_page_config(page_title="Applicant Review · SecondLook", layout="wide")
+from lib import (BRAND, DECISION_STYLE, L, P, api_key_available, decision_badge, explain_applicant, footer, load_applicants,
+                 load_audits, load_letters, load_model, money, page_setup, path_for, score_applicants)
 
-from lib import (DECISION_STYLE, L, P, api_key_available, audit_live_letter, decision_badge,  # noqa: E402
-                 explain_applicant, footer, load_applicants, load_letter_audits, load_letters, load_model, money,
-                 path_for, score_applicants)
+page_setup("Applicant Review")
 
 _, meta, _ = load_model()
 scored = score_applicants()
 letters = load_letters()
-audits = load_letter_audits()
 cutoff = meta["cutoff"]
 
 
@@ -42,7 +40,7 @@ with st.sidebar:
         st.stop()
     labels = {int(r.SK_ID_CURR): f"#{int(r.SK_ID_CURR)} · risk {r.PD:.1%}{' · letter ready' if r.HAS_LETTER else ''}" for r in pool.itertuples()}
     sid = st.selectbox("Applicant", list(labels), format_func=labels.get)
-    st.caption(f"{len(pool)} applicants in this view. \"letter ready\" = letter already drafted.")
+    st.caption(f"{len(pool)} applicants in this view. *Letter ready* = letter already drafted.")
 
 row = scored.set_index("SK_ID_CURR").loc[sid]
 exp = explain_applicant(sid)
@@ -66,19 +64,19 @@ st.subheader("Why the model gave this score")
 left, right = st.columns([1, 1])
 with left:
     top = exp["all"].head(12).iloc[::-1]
-    names = [f"{'[sensitive] ' if c == 'sensitive' else ''}{l} = {v}" for l, v, c in zip(top["label"], top["value"], top["category"])]
+    names = [f"{l} = {v}{' (sensitive)' if c == 'sensitive' else ''}" for l, v, c in zip(top["label"], top["value"], top["category"])]
     fig = go.Figure(go.Bar(x=top["shap"], y=names, orientation="h",
-                           marker_color=["#C44E52" if s > 0 else "#4C72B0" for s in top["shap"]]))
-    fig.add_vline(x=0, line_color="black")
-    fig.update_layout(height=460, margin=dict(t=10, l=10), xaxis_title="Push on risk (red = raises, blue = lowers)")
+                           marker_color=[BRAND["red"] if s > 0 else BRAND["teal"] for s in top["shap"]]))
+    fig.add_vline(x=0, line_color=BRAND["navy"])
+    fig.update_layout(height=460, margin=dict(t=10, l=10), xaxis_title="Red raises risk, teal lowers it")
     st.plotly_chart(fig, use_container_width=True)
     st.caption("Each bar is one factor's contribution to this applicant's score (SHAP). They add up exactly to the model's output. "
-               "[sensitive] = sensitive characteristic: shown for transparency, never cited in letters or suggested as a change.")
+               "*(sensitive)* = sensitive characteristic: shown for transparency, never cited in letters or suggested as a change.")
 with right:
-    cat_icon = {"actionable": "loan term", "external score": "external score", "credit history": "history",
-                "profile": "profile", "sensitive": "sensitive"}
+    cat_label = {"actionable": "Loan term", "external score": "External score", "credit history": "Credit history",
+                 "profile": "Profile", "sensitive": "Sensitive"}
     def table(t):
-        return pd.DataFrame({"Factor": t["label"], "Value": t["value"], "Type": t["category"].map(cat_icon)})
+        return pd.DataFrame({"Factor": t["label"], "Value": t["value"], "Type": t["category"].map(cat_label)})
     cfg = {"Factor": st.column_config.TextColumn(width="medium"), "Value": st.column_config.TextColumn(width="small"),
            "Type": st.column_config.TextColumn(width="small")}
     st.markdown("**Raised risk most**")
@@ -137,14 +135,17 @@ if letter is None:
                 try:
                     letter = L.generate_letter(li, use_cache=False)
                     st.session_state[f"letter_{key}"] = letter
-                    with st.spinner("Auditing the letter (faithfulness and tone)..."):
-                        st.session_state[f"audit_{key}"] = audit_live_letter(letter)
+                    try:
+                        from secondlook.letter_audit import audit_letter
+                        st.session_state[f"audit_{key}"] = {k: v for k, v in audit_letter(letter, use_cache=False).items() if k != "raw"}
+                    except Exception as e:  # the letter is still shown; only the audit is missing
+                        st.session_state[f"audit_{key}"] = {"error": str(e)}
                     st.rerun()
                 except Exception as e:     # API, network or refusal: show it, don't crash the demo
                     st.error(f"Could not draft the letter: {e}")
     else:
         st.info("Live drafting needs a Claude API key (add ANTHROPIC_API_KEY to the app's secrets). "
-                "Applicants marked \"letter ready\" have letters drafted in advance.")
+                "Applicants marked *letter ready* have letters drafted in advance.")
 
 if letter:
     lc, rc = st.columns([3, 1])
@@ -159,21 +160,41 @@ if letter:
         from lib import label_of
         st.markdown("**Reasons cited**  \n" + ("\n".join(f"- {label_of(c)}" for c in letter["reasons_cited"]) or "none (approval)"))
         st.markdown("**Strengths cited**  \n" + "\n".join(f"- {label_of(c)}" for c in letter["strengths_cited"]))
-        audit = audits.get(key) or st.session_state.get(f"audit_{key}")
-        if audit:
-            st.markdown("**Letter audit**")
-            badge = st.success if audit["passed"] else st.warning
-            badge(f"{audit['badge']}" + (f" · covers {audit['coverage']:.0%} of the top 3 reasons"
-                                         if audit.get("coverage") is not None else ""))
-            t = audit["tone"]
-            st.caption(f"Tone (Claude rubric, 1-5): respectful {t['respectful']}, clear {t['clear']}, "
-                       f"empathetic {t['empathetic']} · VADER {t['vader_compound']:+.2f} · "
-                       f"TextBlob {t['textblob_polarity']:+.2f}")
-            for problem in audit["problems"]:
-                st.caption(f"Check: {problem}")
         st.caption(f"Drafted by {letter['model']} · prompt {letter['prompt_version']} · {letter['attempts']} attempt(s) · "
-                   f"${letter['cost_usd']:.5f}" + (f" · audit ${audit['cost_usd']:.5f}" if audit else ""))
+                   f"${letter['cost_usd']:.5f}")
         st.download_button("Download letter (.txt)", f"Subject: {letter['subject']}\n\n{letter['body']}", file_name=f"letter_{sid}.txt")
+
+    # ------------------------------------------------------------ independent audit
+    audit = load_audits().get(key) or st.session_state.get(f"audit_{key}")
+    st.markdown("#### Independent audit of this letter")
+    if audit is None:
+        st.caption("No audit for this letter yet.")
+    elif "error" in audit:
+        st.caption(f"The audit could not run: {audit['error']}")
+    else:
+        a1, a2, a3, a4, a5 = st.columns(5)
+        a1.metric("Claims supported", f"{audit['n_supported']} of {audit['n_claims']}",
+                  help="Each factual claim is checked against the model's real reasons: right factor, right direction, "
+                       "matching numbers, fair wording. General statements are not counted.")
+        t = audit["tone"]
+        a2.metric("Respectful", f"{t['respectful']}/5")
+        a3.metric("Clear", f"{t['clear']}/5")
+        a4.metric("Empathetic", f"{t['empathetic']}/5")
+        a5.metric("VADER sentiment", f"{t['vader_compound']:+.2f}",
+                  help="Word-list sentiment from -1 to +1. It rates almost every polite letter as very positive, "
+                       "even a rude one, so the Claude rubric is the one to trust for tone.")
+        if audit["passed"]:
+            st.success("No issues found. Every checked claim matches the model's reasons and the tone is respectful.")
+        else:
+            st.warning("**Worth a second look before sending:**\n" + "\n".join(f"- {i}" for i in audit["issues"]))
+        with st.expander("Claim by claim"):
+            st.dataframe(pd.DataFrame([{"Claim in the letter": c["quote"], "Type": c["kind"], "Presented as": c["presented_as"],
+                                        "Verdict": c["verdict"]} for c in audit["claims"]]),
+                         hide_index=True, use_container_width=True)
+        st.caption(f"Claude reads only the letter and lists its claims, a second call matches them to the fact sheet, and Python "
+                   f"checks direction and numbers. Tone note: {t['note']} · Audit cost ${audit['cost_usd']:.5f}. "
+                   "The audit can be wrong (about half of its flags were real problems in our test), so treat a flag as "
+                   "a prompt to re-read, not a verdict.")
 
 # ---------------------------------------------------------------- officer decision
 st.subheader("Loan officer decision")
@@ -184,7 +205,7 @@ with d1:
                       index=0 if decision == "approve" else 3)
 with d2:
     note = st.text_area("Note for the file", placeholder="e.g. Late payments in the last year were during a job change; now employed 3 years.")
-if st.button("Record decision"):
+if st.button("Record decision", type="primary"):
     log.append({"Applicant": sid, "Model decision": DECISION_STYLE[decision][0], "PD": f"{exp['pd']:.1%}", "Officer decision": choice, "Note": note})
     st.success("Decision recorded for this session.")
 if log:

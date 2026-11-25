@@ -1,364 +1,254 @@
-"""Independent audit of a drafted letter: faithfulness and tone (Phase 2, Step 9; notebook 07).
+"""Independent audit of a drafted letter: is every claim faithful to the model's reasons, and is the tone right?
 
-The guardrails in letters.py check which factor codes a letter says it cites and scan for banned words.
-They cannot see a sentence that cites the right code but says something else (Phase 1's "the car you
-plan to buy" for a car the applicant already owns). This module audits the finished text instead.
+The rule checks in letters.py verify WHICH factors a letter cites, not WHAT it says about them. A letter can
+cite the right factor and still misdescribe it ("the car you plan to buy" for a car the applicant already owns).
+This module adds a second, independent check:
 
-Faithfulness
-  1. extract_claims(): a Claude Haiku 5.5 call reads ONLY the letter, never the fact sheet, and lists
-     every factual claim as {factor_text, value_quoted, direction}. It cannot read the fact sheet into
-     the letter because it never sees it.
-  2. match_claims() (plain Python): each claim is matched to a fact-sheet entry by word overlap,
-     preferring the kind its direction implies (raises risk -> risk factor, lowers risk -> strength,
-     would help -> adjusted terms). Claims the overlap cannot place go to one more small Claude call
-     that only picks the closest entry (or none). A claim is SUPPORTED when it matches an entry, its
-     direction agrees with the SHAP sign, and every number it quotes appears in that entry.
-  3. faithfulness = supported claims / all claims; coverage = share of the top 3 risk factors the
-     letter mentions. Every unsupported claim is explained in plain words.
+  1. Blind review (Claude): reads ONLY the letter, never the fact sheet, and lists every factual claim with the
+     value it quotes and whether the letter presents it as a concern or a strength. It also rates the tone.
+  2. Matching (Claude): links each claim to a fact-sheet factor (or none) and says whether the wording is a fair
+     description of that factor's label and value.
+  3. Verdict (Python, deterministic): a claim is supported only if it matches a factor the model really gave,
+     in the right direction (raised vs lowered risk), with numbers that agree with the fact sheet, and is fairly
+     worded. Loan details and offers must quote amounts from the fact sheet.
+  4. Tone, three ways: VADER and TextBlob (lexicon-based, run locally) and the Claude rubric from step 1.
 
-Tone, three ways
-  * VADER compound score (-1 to 1): a word lexicon tuned for short social-media text
-  * TextBlob polarity (-1 to 1) and subjectivity (0 to 1): another word lexicon
-  * a Claude rubric: respectful, clear and empathetic, each 1 to 5 with a one-line reason
-
-Every Claude answer is cached on disk by a hash of its prompt (like letters.py), so re-running the
-notebook or the tests costs nothing and needs no network once the cache holds the answers.
+faithfulness = supported claims / checkable claims. General statements ("a loan officer will review it",
+"on-time payments show a reliable record") are allowed by the prompt and not counted.
 """
 from __future__ import annotations
 
 import hashlib
 import json
 import re
-from dataclasses import dataclass, field
-from pathlib import Path
+import time
 from typing import Literal
 
 from pydantic import BaseModel, Field
 
 from .config import PROCESSED_DIR
-from .letters import MODEL, PRICE_IN, PRICE_OUT
+from .letters import EFFORT, MODEL, PRICE_IN, PRICE_OUT, _client
 
-AUDIT_VERSION = "a1"
-EFFORT = "low"
-CACHE_PATH = PROCESSED_DIR / "letter_audit_cache.json"
-
+AUDIT_VERSION = "a4"
+CACHE_PATH = PROCESSED_DIR / "audit_cache.json"
+MIN_RESPECTFUL = 4          # Claude tone rubric: a letter scoring below this on respect is flagged
 
 # ---------------------------------------------------------------------------
 # Structured outputs
 # ---------------------------------------------------------------------------
 class Claim(BaseModel):
-    factor_text: str = Field(description="What the claim is about, in the letter's own words, e.g. 'credit scores from other agencies'")
-    value_quoted: str = Field(description="Any number or specific value the claim quotes, e.g. '508,842' or '40%'. Empty if none")
-    direction: Literal["raises_risk", "lowers_risk", "would_help", "none"] = Field(
-        description="raises_risk: counted against the applicant. lowers_risk: counted in their favour. "
-                    "would_help: a change or offer the letter suggests. none: a plain statement of fact")
+    quote: str = Field(description="The exact words from the letter that make this claim")
+    kind: Literal["factor", "loan_terms", "offer", "general"] = Field(
+        description="factor: something about the applicant's record, scores, history or a loan ratio given as part "
+                    "of the decision; loan_terms: the requested amount, payment or number of payments; offer: new "
+                    "terms the lender may offer; general: policy, process or general lender reasoning")
+    about: str = Field(description="What the claim is about, in a few plain words")
+    value: str | None = Field(description="The number or value the letter states for it, exactly as written, or null")
+    presented_as: Literal["concern", "strength", "neutral"] = Field(
+        description="concern if the letter presents it as counting against the applicant, strength if in their favour")
 
 
-class Claims(BaseModel):
+class LetterReview(BaseModel):
     claims: list[Claim]
+    respectful: int = Field(description="1-5: courteous and never blaming or judgemental")
+    clear: int = Field(description="1-5: plain words, easy for anyone to follow")
+    empathetic: int = Field(description="1-5: acknowledges the applicant's situation and next steps")
+    tone_note: str = Field(description="One sentence on the tone")
 
 
-class ClaimMatch(BaseModel):
+class Match(BaseModel):
+    # Field order matters: the note (reasoning) is written before the verdict
     claim_index: int
-    fact_id: str = Field(description="ID of the fact the claim is about (e.g. R2), or 'none' if no fact fits")
+    code: str | None = Field(description="Code of the fact-sheet entry the claim describes, or null if none")
+    note: str = Field(description="One short sentence comparing the claim with that entry")
+    fair_description: bool = Field(description="True if the wording fairly describes that entry's label and value")
 
 
-class ClaimMatches(BaseModel):
-    matches: list[ClaimMatch]
+class Matches(BaseModel):
+    matches: list[Match]
 
 
-class ToneRubric(BaseModel):
-    respectful: int = Field(ge=1, le=5, description="1 = rude or blaming, 5 = consistently respectful")
-    respectful_reason: str
-    clear: int = Field(ge=1, le=5, description="1 = confusing or full of jargon, 5 = easy for anyone to follow")
-    clear_reason: str
-    empathetic: int = Field(ge=1, le=5, description="1 = cold, 5 = kindly acknowledges the applicant's position")
-    empathetic_reason: str
+REVIEW_SYSTEM = """You audit decision letters that a consumer lender sends to loan applicants. You see only the letter.
 
+1. List every factual claim the letter makes about the applicant or their loan, one entry per distinct fact. Copy the exact words as the quote. Classify each one:
+- factor: something about the applicant's record, credit scores, payment history, past loans, other lenders, documents, or a loan ratio, given as part of the decision.
+- loan_terms: the amount, regular payment or number of payments they asked for.
+- offer: new terms the lender may be able to offer.
+- general: policy, process, next steps, or a general statement of why lenders look at something.
+Give the value exactly as the letter states it (or null), and whether the letter presents the fact as a concern (counting against the applicant), a strength (in their favour) or neutral. Judge this from how the letter frames it (for example, a fact listed in a paragraph about strengths is a strength), not from your own view of whether the fact sounds good or bad.
 
-EXTRACT_SYSTEM = """You read a letter from a lender to a loan applicant and list every factual claim it makes about the applicant, their application or their loan.
-A claim is a statement about a factor that counted against them, a factor that counted in their favour, a loan offer or change that could help, or a specific fact about them or their loan.
-Do NOT list: the decision itself, thanks or courtesy, apologies, the offer to review the decision or to contact the lender, or statements that something is not a promise.
-Keep each factor_text short and in the letter's own words."""
+2. Rate the tone from 1 (poor) to 5 (excellent): respectful (courteous, never blaming), clear (plain words), empathetic (acknowledges the applicant's situation and what they can do next). Add one sentence on the tone."""
 
-MATCH_SYSTEM = """You match claims from a loan letter to a list of facts. For each claim, give the ID of the fact it is about, or 'none' if no fact is about the same thing.
-Only judge what the claim is ABOUT. Do not judge whether it is accurate."""
+MATCH_SYSTEM = """You check claims taken from a loan decision letter against the fact sheet the letter had to be based on.
 
-TONE_SYSTEM = """You rate the tone of a letter from a lender to a loan applicant. Score respectful, clear and empathetic from 1 to 5, with one short sentence of reason for each."""
+The fact sheet lists the factors that raised the applicant's estimated risk (section risk_factors), the factors that lowered it (section strengths), the loan they applied for (LOAN_REQUESTED) and, if any, new terms that would be approved (LOAN_OFFER).
 
+For each claim, give the code of the entry it describes, or null if it describes none of them. A claim that names a group of factors (for example "your external credit scores") belongs to the closest listed factor. Write a one-sentence note, then say whether the wording is a fair description of that entry's label and value.
 
-# ---------------------------------------------------------------------------
-# Cache and Claude calls
-# ---------------------------------------------------------------------------
-class AuditCache:
-    """Disk cache of structured Claude answers, keyed by a hash of (model, version, schema, prompts).
+It is NOT fair if it changes the meaning: for example it says information is missing or limited when the fact is a low score, says a car is being bought when the fact is a car already owned, gives a different number, claims a threshold, comparison or cause the fact does not state, or overstates it (for example "consistently healthy" from a single score).
 
-    With client=None a cache miss raises instead of calling the API, so tests stay offline."""
-
-    def __init__(self, path: Path | None = CACHE_PATH):
-        self.path = path
-        self.data: dict = json.loads(path.read_text(encoding="utf-8")) if path and path.exists() else {}
-        self.hits = 0
-
-    @staticmethod
-    def key(system: str, user: str, schema: type[BaseModel]) -> str:
-        return hashlib.sha256(f"{MODEL}|{AUDIT_VERSION}|{schema.__name__}|{system}|{user}".encode()).hexdigest()[:24]
-
-    def parse(self, client, usage: "Usage", system: str, user: str, schema: type[BaseModel]):
-        k = self.key(system, user, schema)
-        if k in self.data:              # cached: free now, but still counted at what it cost to produce
-            self.hits += 1
-            entry = self.data[k]
-            usage.add(entry["input_tokens"], entry["output_tokens"], cached=True)
-            return schema.model_validate(entry["output"])
-        if client is None:
-            raise LookupError("Answer not cached and no Claude client given")
-        response = client.messages.parse(model=MODEL, max_tokens=4000, system=system, output_config={"effort": EFFORT},
-                                         messages=[{"role": "user", "content": user}], output_format=schema)
-        usage.add(response.usage.input_tokens, response.usage.output_tokens)
-        if response.stop_reason == "refusal":
-            raise RuntimeError("Claude declined the audit request")
-        self.data[k] = {"output": response.parsed_output.model_dump(),
-                        "input_tokens": response.usage.input_tokens, "output_tokens": response.usage.output_tokens}
-        return response.parsed_output
-
-    def save(self) -> None:
-        if self.path:
-            self.path.parent.mkdir(parents=True, exist_ok=True)
-            self.path.write_text(json.dumps(self.data, indent=1, sort_keys=True), encoding="utf-8")
-
-
-@dataclass
-class Usage:
-    """Tokens and cost of the Claude calls behind the audits. cost_usd includes answers reused from the cache
-    (what the audit cost to produce); live_cost_usd only the calls made in this run."""
-    calls: int = 0               # live API calls
-    cached_calls: int = 0
-    input_tokens: int = 0
-    output_tokens: int = 0
-    live_cost_usd: float = 0.0
-
-    def add(self, tokens_in: int, tokens_out: int, cached: bool = False) -> None:
-        cost = tokens_in * PRICE_IN / 1e6 + tokens_out * PRICE_OUT / 1e6
-        self.input_tokens += tokens_in
-        self.output_tokens += tokens_out
-        if cached:
-            self.cached_calls += 1
-        else:
-            self.calls += 1
-            self.live_cost_usd += cost
-
-    @property
-    def cost_usd(self) -> float:
-        return self.input_tokens * PRICE_IN / 1e6 + self.output_tokens * PRICE_OUT / 1e6
-
+It IS fair to use an everyday word that matches the section (a risk factor described as low, weak or on the low side; a strength described as good or solid), to leave out the exact value, or to add one short general reason why lenders look at that kind of factor (for example "on-time payments show a reliable repayment record" or "a long-held ID document points to stability"). Do not judge whether it counts for or against the applicant; that is checked separately."""
 
 # ---------------------------------------------------------------------------
-# Faithfulness
+# Deterministic verdict
 # ---------------------------------------------------------------------------
-STOPWORDS = set("""a an the and or of to in on for with by from at as is are was were be been your you our we us it its this that
-these those has have had not no than then so if would could some any about more less much very also just only one their
-there which what how when into over under up down out such counted against favour favor helped help main reason reasons
-factor factors risk well quite low high strong""".split())
-KIND_OF_DIRECTION = {"raises_risk": "R", "lowers_risk": "S", "would_help": "P"}
-EXPECTED_DIRECTION = {"R": "raises_risk", "S": "lowers_risk", "P": "would_help", "L": "none", "D": "none"}
-SAME_WORD = {"repayment": "payment", "agency": "external", "outside": "external", "lender": "external"}
-MATCH_THRESHOLD = 0.5            # share of the claim's content words that must appear in the fact
-NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+_NUM = re.compile(r"-?\d[\d,]*\.?\d*")
+LOAN_CODES = {"LOAN_REQUESTED", "LOAN_OFFER"}
 
 
-def _words(text: str) -> set[str]:
-    """Content words in lower case, with a plural 's' removed so 'scores' matches 'score'."""
-    words = re.findall(r"[a-z]+", text.lower())
-    words = [w[:-1] if len(w) > 3 and w.endswith("s") else w for w in words if w not in STOPWORDS]
-    return {SAME_WORD.get(w, w) for w in words}
+def matcher_entries(fact_sheet: dict) -> list[dict]:
+    """Everything the matcher may link a claim to: the factors plus the loan applied for and any offer."""
+    entries = [{"code": f["code"], "label": f["label"], "value": f["value"], "section": s}
+               for s in ("risk_factors", "strengths") for f in fact_sheet.get(s, [])]
+    entries.append({"code": "LOAN_REQUESTED", "label": "The loan applied for: amount, regular payment, number of payments (if the decision is approve, this is also the loan approved)",
+                    "value": f"{fact_sheet.get('loan_amount')}, {fact_sheet.get('regular_payment')}, {fact_sheet.get('number_of_payments')}",
+                    "section": "loan"})
+    if adj := fact_sheet.get("adjusted_terms"):
+        entries.append({"code": "LOAN_OFFER", "label": "New terms that would be approved: amount, regular payment, number of payments",
+                        "value": f"{adj['loan_amount']}, {adj['regular_payment']}, {adj['number_of_payments']}", "section": "loan"})
+    return entries
 
 
-def overlap(claim_text: str, fact_text: str) -> float:
-    a, b = _words(claim_text), _words(fact_text)
-    return len(a & b) / len(a) if a else 0.0
+def _numbers(text: str | None) -> list[float]:
+    out = []
+    for n in _NUM.findall(text or ""):
+        try:
+            out.append(float(n.replace(",", "").rstrip(".")))
+        except ValueError:
+            pass
+    return out
 
 
-def numbers_in(text: str) -> set[str]:
-    """Every number in a text, without thousands separators: '508,842' -> '508842'."""
-    return {n.replace(",", "").rstrip(".") for n in NUMBER.findall(text)}
+def _close(a: float, b: float) -> bool:
+    """Same number allowing for rounding in prose: 0.65 vs 0.65, 9 vs 9.20 days, 11% vs 11%."""
+    tol = 0.011 if abs(b) < 1 else max(0.5, 0.01 * abs(b))
+    return abs(a - b) <= tol
 
 
-def facts_from_sheet(sheet: dict) -> dict[str, str]:
-    """The fact sheet (letters.LetterInput as a dict) as numbered facts:
-    R = risk factors, S = strengths, P = adjusted terms (path to approval), L = the requested loan, D = the decision."""
-    facts = {f"R{i + 1}": f"{f['label']}: {f['value']}" for i, f in enumerate(sheet.get("risk_factors", []))}
-    facts |= {f"S{i + 1}": f"{f['label']}: {f['value']}" for i, f in enumerate(sheet.get("strengths", []))}
-    if t := sheet.get("adjusted_terms"):
-        facts["P1"] = (f"Adjusted loan (a loan on different, adjusted terms that may be possible): loan amount "
-                       f"{t['loan_amount']}, regular payment {t['regular_payment']}, {t['number_of_payments']}")
-    # The decision itself, worded the way the letter prompt asks each decision to be explained
-    facts["D1"] = {"approve": "Decision: the application is approved",
-                   "under_review": "Decision: under review; the application is close to approval, so a loan officer "
-                                   "will look at it personally and may contact the applicant about adjusting the loan",
-                   "decline": "Decision: declined as requested; the applicant can ask for the decision to be reviewed"
-                   }.get(sheet.get("decision"), "Decision")
-    facts["L1"] = (f"Requested loan: loan amount {sheet['loan_amount']}, regular payment {sheet['regular_payment']}, "
-                   f"{sheet['number_of_payments']}")
-    return facts
+def _same_value(a: float, b: float) -> bool:
+    """Like _close, but a share may be written either way: '97%' in a letter equals '0.97x' on the fact sheet."""
+    return _close(a, b) or _close(a / 100, b) or _close(a * 100, b)
 
 
-def extract_claims(client, body: str, usage: Usage, cache: AuditCache) -> list[Claim]:
-    """Claude lists the letter's claims. It sees only the letter."""
-    return cache.parse(client, usage, EXTRACT_SYSTEM, f"LETTER:\n{body}", Claims).claims
-
-
-def match_claims(claims: list[Claim], facts: dict[str, str], client=None, usage: Usage | None = None,
-                 cache: AuditCache | None = None) -> list[dict]:
-    """Match each claim to a fact and decide whether it is supported. One dict per claim."""
-    def score(c: Claim, fid: str) -> float:
-        """Word overlap; a fact that contains every number the claim quotes is a strong match on its own."""
-        quoted = numbers_in(c.value_quoted) | numbers_in(c.factor_text)
-        if quoted and quoted <= numbers_in(facts[fid]):
-            return 1.0
-        return overlap(c.factor_text, facts[fid])
-
-    scores = [{fid: score(c, fid) for fid in facts} for c in claims]
-
-    def candidates(i: int) -> list[str]:
-        """Facts above the threshold, best first; facts of the kind the claim's direction implies come first,
-        so 'a smaller loan could be offered' lands on the adjusted terms, not on a risk factor about the loan."""
-        kind = KIND_OF_DIRECTION.get(claims[i].direction)
-        quoted = numbers_in(claims[i].value_quoted) | numbers_in(claims[i].factor_text)
-        by_words = sorted([f for f, v in scores[i].items() if v >= MATCH_THRESHOLD and f[0] == kind],
-                          key=lambda f: -scores[i][f])
-        by_number = [f for f in facts if quoted and quoted <= numbers_in(facts[f])]
-        rest = sorted([f for f, v in scores[i].items() if v >= MATCH_THRESHOLD], key=lambda f: -scores[i][f])
-        # 1) a fact of the kind the direction implies whose words match, 2) a fact holding every quoted number,
-        # 3) any other fact whose words match
-        return list(dict.fromkeys(by_words + by_number + rest))
-
-    # Give each fact to one claim where possible (claims that quote numbers may share their fact) (two claims about two different scores should land on the
-    # two score facts, not both on one); claims left over may share a fact.
-    matched, used = {}, set()
-    for i in sorted(range(len(claims)), key=lambda i: -max(scores[i].values(), default=0)):
-        cands = candidates(i)
-        if cands and (numbers_in(claims[i].value_quoted) | numbers_in(claims[i].factor_text)):
-            matched[i] = cands[0]           # claims that quote numbers may share a fact (amount, payment, term)
-            continue
-        free = [f for f in cands if f not in used]
-        if free:
-            matched[i] = free[0]
-            used.add(free[0])
-    rows = []
+def judge_claims(claims: list[dict], matches: list[dict], fact_sheet: dict) -> list[dict]:
+    """Attach a verdict ('supported' | an issue string | 'not checked') to every claim."""
+    risk = {f["code"]: f for f in fact_sheet.get("risk_factors", [])}
+    strong = {f["code"]: f for f in fact_sheet.get("strengths", [])}
+    adj = fact_sheet.get("adjusted_terms") or {}
+    loan_text = " ".join([fact_sheet.get("loan_amount", ""), fact_sheet.get("regular_payment", ""),
+                          fact_sheet.get("number_of_payments", "")])
+    by_index = {m["claim_index"]: m for m in matches}
+    judged = []
+    loan_numbers = _numbers(loan_text + " " + " ".join(adj.values()))
     for i, c in enumerate(claims):
-        fid = matched.get(i) or next(iter(candidates(i)), None)
-        rows.append({"claim": c.factor_text, "value": c.value_quoted, "direction": c.direction,
-                     "fact_id": fid, "matched_by": "words" if fid else None})
-
-    # Claims the word overlap could not place: one Claude call picks only WHICH fact each is about.
-    unplaced = [i for i, r in enumerate(rows) if r["fact_id"] is None]
-    if unplaced and cache is not None:
-        listing = "\n".join(f"{fid}: {t}" for fid, t in facts.items())
-        asked = "\n".join(f"{i}: {claims[i].factor_text}" for i in unplaced)
-        out = cache.parse(client, usage or Usage(), MATCH_SYSTEM, f"FACTS:\n{listing}\n\nCLAIMS:\n{asked}", ClaimMatches)
-        for m in out.matches:
-            if m.claim_index in unplaced and m.fact_id in facts:
-                rows[m.claim_index].update(fact_id=m.fact_id, matched_by="claude")
-
-    for r in rows:
-        if r["fact_id"] is None and r["direction"] == "would_help" and "P1" in facts:
-            r.update(fact_id="P1", matched_by="offer")      # an unplaced offer can only be the adjusted terms
-        fid = r["fact_id"]
-        if fid is None:
-            r["supported"], r["problem"] = False, f"Not in the fact sheet: \"{r['claim']}\"."
-            continue
-        expected = EXPECTED_DIRECTION[fid[0]]
-        quoted = numbers_in(r["value"]) | numbers_in(r["claim"])
-        direction_ok = (r["direction"] in (expected, "none") or fid[0] == "D"     # the decision has no direction
-                        or (fid[0] in "PL" and r["direction"] == "would_help"))
-        if not direction_ok:
-            said = {"raises_risk": "counted against them", "lowers_risk": "counted in their favour",
-                    "would_help": "would help"}[r["direction"]]
-            truth = {"raises_risk": "raised the risk", "lowers_risk": "lowered the risk",
-                     "would_help": "is the suggested change", "none": "is a plain fact"}[expected]
-            r["supported"] = False
-            r["problem"] = f"Wrong direction: the letter says \"{r['claim']}\" {said}, but in the fact sheet it {truth}."
-        elif quoted - numbers_in(facts[fid]) - numbers_in(facts["L1"]):   # restating the requested loan is fine
-            r["supported"] = False
-            r["problem"] = f"Wrong number: the letter quotes {r['value'] or r['claim']}, but the fact sheet says {facts[fid]}."
+        verdict = "supported"
+        m = by_index.get(i, {})
+        code = m.get("code")
+        if c["kind"] == "general":
+            verdict = "not checked"
+        elif c["kind"] == "offer" or code in LOAN_CODES or (c["kind"] == "loan_terms" and not code):
+            # Loan details and offers: every number must be one of the fact sheet's loan figures
+            amounts = [n for n in _numbers(c["quote"]) if abs(n) >= 1000]
+            if c["kind"] == "offer" and amounts and not adj:
+                verdict = "offers specific new terms, but the model found no path to approval"
+            elif any(not any(_close(n, a) for a in loan_numbers) for n in _numbers(c["quote"]) if abs(n) >= 1):
+                verdict = "quotes a loan amount, payment or term that is not in the fact sheet"
+            elif code in LOAN_CODES and not m.get("fair_description", True):
+                verdict = f"misdescribes the loan terms: {m.get('note', '')}"
         else:
-            r["supported"], r["problem"] = True, ""
-    return rows
+            fact = risk.get(code) or strong.get(code)
+            if fact is None:
+                verdict = "not one of the reasons the model gave"
+            elif code in risk and c["presented_as"] == "strength":
+                verdict = f"presents a factor that raised risk ({fact['label']}) as a strength"
+            elif code in strong and c["presented_as"] == "concern":
+                verdict = f"presents a strength ({fact['label']}) as a concern"
+            elif c.get("value") and _numbers(c["value"]) and _numbers(fact["value"]) and \
+                    not any(_same_value(n, f) for n in _numbers(c["value"]) for f in _numbers(fact["value"]) + loan_numbers):
+                verdict = f"value '{c['value']}' does not match the fact sheet ('{fact['value']}')"
+            elif not m.get("fair_description", True):
+                verdict = f"misdescribes {fact['label']}: {m.get('note', '')}"
+        judged.append({**c, "code": by_index.get(i, {}).get("code"), "verdict": verdict})
+    return judged
 
 
-# ---------------------------------------------------------------------------
-# Tone
-# ---------------------------------------------------------------------------
+def summarise(judged: list[dict], fact_sheet: dict, review: dict, tone_lexicon: dict) -> dict:
+    checkable = [c for c in judged if c["verdict"] != "not checked"]
+    supported = [c for c in checkable if c["verdict"] == "supported"]
+    issues = [f"\"{c['quote']}\": {c['verdict']}" for c in checkable if c["verdict"] != "supported"]
+    top3 = [f["code"] for f in fact_sheet.get("risk_factors", [])[:3]]
+    mentioned = {c["code"] for c in judged if c.get("code")}
+    if fact_sheet.get("adjusted_terms") and not any(c["kind"] == "offer" for c in judged):
+        issues.append("the model found a path to approval, but the letter makes no offer")
+    review = {**review, **{k: min(5, max(1, int(review[k]))) for k in ("respectful", "clear", "empathetic")}}
+    if review["respectful"] < MIN_RESPECTFUL:
+        issues.append(f"tone: respect scored {review['respectful']}/5 ({review['tone_note']})")
+    return {
+        "faithfulness": len(supported) / len(checkable) if checkable else 1.0,
+        "n_claims": len(checkable), "n_supported": len(supported),
+        "coverage_top3": (sum(c in mentioned for c in top3) / len(top3)) if top3 and fact_sheet.get("decision") != "approve" else None,
+        "passed": not issues, "issues": issues, "claims": judged,
+        "tone": {"respectful": review["respectful"], "clear": review["clear"], "empathetic": review["empathetic"],
+                 "note": review["tone_note"], **tone_lexicon},
+    }
+
+
 def lexicon_tone(text: str) -> dict:
-    """VADER compound and TextBlob polarity / subjectivity (no API calls)."""
+    """VADER compound (-1..1) and TextBlob polarity (-1..1) / subjectivity (0..1): word-list sentiment, no API."""
     from textblob import TextBlob
     from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-
     blob = TextBlob(text).sentiment
-    return {"vader_compound": round(SentimentIntensityAnalyzer().polarity_scores(text)["compound"], 3),
-            "textblob_polarity": round(blob.polarity, 3), "textblob_subjectivity": round(blob.subjectivity, 3)}
-
-
-def tone_scores(client, body: str, usage: Usage, cache: AuditCache) -> dict:
-    rubric = cache.parse(client, usage, TONE_SYSTEM, f"LETTER:\n{body}", ToneRubric)
-    return lexicon_tone(body) | rubric.model_dump()
+    return {"vader_compound": SentimentIntensityAnalyzer().polarity_scores(text)["compound"],
+            "textblob_polarity": blob.polarity, "textblob_subjectivity": blob.subjectivity}
 
 
 # ---------------------------------------------------------------------------
-# Full audit
+# Claude calls with cache
 # ---------------------------------------------------------------------------
-TONE_FLOOR = 3          # a rubric score below this on any dimension flags the letter
+def _key(letter: dict) -> str:
+    raw = json.dumps([letter["subject"], letter["body"], letter["fact_sheet"], AUDIT_VERSION, MODEL], sort_keys=True)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()
 
 
-@dataclass
-class Audit:
-    claims: list[dict]
-    faithfulness: float           # supported claims / all claims (1.0 when there are none)
-    coverage: float | None        # share of the top 3 risk factors mentioned (None for approvals)
-    tone: dict
-    problems: list[str] = field(default_factory=list)
-    cost_usd: float = 0.0
-
-    @property
-    def n_supported(self) -> int:
-        return sum(c["supported"] for c in self.claims)
-
-    @property
-    def passed(self) -> bool:
-        return not self.problems
-
-    def badge(self) -> str:
-        return f"{self.n_supported} of {len(self.claims)} claims supported"
-
-    def to_dict(self) -> dict:
-        return {"badge": self.badge(), "passed": self.passed, "faithfulness": self.faithfulness,
-                "coverage": self.coverage, "tone": self.tone, "problems": self.problems, "claims": self.claims,
-                "cost_usd": round(self.cost_usd, 6), "audit_version": AUDIT_VERSION}
+def _load(path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 
-def letter_body(body: str) -> str:
-    """Drop the greeting and the sign-off; they carry no claims."""
-    return body.replace("Dear Applicant,", "").replace("The Lending Team", "").strip()
+def _parse(client, system: str, content: str, schema):
+    r = client.messages.parse(model=MODEL, max_tokens=8000, system=system, output_config={"effort": EFFORT},
+                              messages=[{"role": "user", "content": content}], output_format=schema)
+    if r.stop_reason == "refusal":
+        raise RuntimeError("Claude declined to audit this letter")
+    return r.parsed_output, r.usage.input_tokens, r.usage.output_tokens
 
 
-def audit_letter(client, body: str, fact_sheet: dict, cache: AuditCache, usage: Usage | None = None) -> Audit:
-    """Faithfulness and tone for one letter. fact_sheet is the letter's LetterInput as a dict.
-    Pass client=None to use cached answers only."""
-    usage = usage or Usage()
-    start = usage.cost_usd
-    text = letter_body(body)
-    facts = facts_from_sheet(fact_sheet)
-    claims = match_claims(extract_claims(client, text, usage, cache), facts, client, usage, cache)
-    tone = tone_scores(client, text, usage, cache)
-
-    top3 = [k for k in facts if k.startswith("R")][:3]
-    mentioned = {c["fact_id"] for c in claims if c["supported"]}
-    coverage = sum(r in mentioned for r in top3) / len(top3) if top3 and fact_sheet.get("decision") != "approve" else None
-    faithfulness = sum(c["supported"] for c in claims) / len(claims) if claims else 1.0
-
-    problems = [c["problem"] for c in claims if not c["supported"]]
-    low = [k for k in ("respectful", "clear", "empathetic") if tone[k] < TONE_FLOOR]
-    if low:
-        problems.append("Tone: " + "; ".join(f"{k} {tone[k]}/5 ({tone[k + '_reason']})" for k in low))
-    return Audit(claims, faithfulness, coverage, tone, problems, usage.cost_usd - start)
+def audit_letter(letter: dict, use_cache: bool = True, cache_path=None) -> dict:
+    """Audit one letter dict (subject, body, fact_sheet), e.g. a result of letters.generate_letter."""
+    path = cache_path or CACHE_PATH
+    key = _key(letter)
+    cache = _load(path) if use_cache else {}
+    if key in cache:
+        raw = cache[key]
+    else:
+        client = _client()
+        start = time.time()
+        review, i1, o1 = _parse(client, REVIEW_SYSTEM, f"Letter:\nSubject: {letter['subject']}\n\n{letter['body']}", LetterReview)
+        factors = matcher_entries(letter["fact_sheet"])
+        claims = [c.model_dump() for c in review.claims]
+        to_match = [{"claim_index": i, "quote": c["quote"], "about": c["about"], "value": c["value"]}
+                    for i, c in enumerate(claims) if c["kind"] in ("factor", "loan_terms")]
+        matches, i2, o2 = (Matches(matches=[]), 0, 0) if not to_match else _parse(
+            client, MATCH_SYSTEM, json.dumps({"fact_sheet": factors, "claims": to_match}, indent=2), Matches)
+        tokens_in, tokens_out = i1 + i2, o1 + o2
+        raw = {"review": review.model_dump(), "matches": [m.model_dump() for m in matches.matches],
+               "input_tokens": tokens_in, "output_tokens": tokens_out,
+               "cost_usd": round(tokens_in * PRICE_IN / 1e6 + tokens_out * PRICE_OUT / 1e6, 6),
+               "seconds": round(time.time() - start, 1), "model": MODEL, "audit_version": AUDIT_VERSION}
+        if use_cache:
+            cache = _load(path)
+            cache[key] = raw
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(cache, indent=2, ensure_ascii=False), encoding="utf-8")
+    judged = judge_claims(raw["review"]["claims"], raw["matches"], letter["fact_sheet"])
+    result = summarise(judged, letter["fact_sheet"], raw["review"], lexicon_tone(letter["body"]))
+    return {**result, "raw": raw, "cost_usd": raw["cost_usd"], "model": raw["model"], "audit_version": raw["audit_version"]}

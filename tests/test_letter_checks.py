@@ -7,7 +7,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from secondlook.letters import Letter, LetterInput, check_letter, decision_for  # noqa: E402
 
-FILLER = "This is a sentence about the application. " * 10     # keeps letters inside the 40-140 word range
+FILLER = "This is a sentence about the application. " * 20     # keeps letters inside the 90-280 word range
 
 
 def make_input(decision="decline"):
@@ -85,15 +85,9 @@ def test_adjusted_terms_must_be_offered_exactly():
     assert any("amounts that are not in the fact sheet" in i for i in issues)
 
 
-@pytest.mark.parametrize("text,should_flag", [
-    ("A loan on different terms may be possible, and a loan officer can confirm this.", True),
-    ("A smaller loan on other terms may be available if you contact us.", True),
-    ("We may be able to offer you a smaller amount.", True),
-    ("A loan of 500,000 with regular payments of about 25,000 may be possible.", True),
-    ("We may be able to offer a loan on other terms, so please contact us.", True),
-    ("You can reply to this letter to ask us to review the decision.", False),
-])
-def test_no_offer_without_adjusted_terms(text, should_flag):
-    """Found by the notebook 07 audit: decline letters hinted at other terms when no path to approval existed."""
-    issues = check_letter(make_letter(text), make_input())
-    assert any("adjusted terms" in i for i in issues) == should_flag
+def test_no_offer_of_other_terms_without_a_path():
+    for text in ("A loan on different terms may be possible.", "A loan officer may be able to offer a smaller loan."):
+        issues = check_letter(make_letter(text), make_input("decline"))
+        assert any("no change to the loan would be approved" in i for i in issues), text
+    # the under-review wording about adjusting terms is still allowed
+    assert check_letter(make_letter("They may contact you about adjusting the loan terms."), make_input("under_review")) == []

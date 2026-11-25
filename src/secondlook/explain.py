@@ -43,7 +43,7 @@ LABELS = {
     "PREV_AVG_TERM": "Average term of past loans", "PREV_AVG_AMT_APPLIED": "Average amount requested before",
     "PREV_YEARS_SINCE_LAST_DECISION": "Time since last application", "PREV_N_APPROVED": "Past applications approved",
     "INST_LATE_SHARE": "Share of past payments late", "INST_LATE_SHARE_LAST_YEAR": "Share of payments late in the last year",
-    "INST_AVG_DAYS_LATE": "Average days late on past payments", "INST_MAX_DAYS_LATE": "Most days late on one payment",
+    "INST_AVG_DAYS_LATE": "Average days late on past payments", "INST_MAX_DAYS_LATE": "Most days late on any past payment",
     "INST_UNDERPAID_SHARE": "Share of past payments underpaid", "INST_TOTAL_UNDERPAID": "Total amount underpaid",
     "POS_LATE_MONTH_SHARE": "Share of months late on store/cash loans", "POS_N_COMPLETED": "Store/cash loans completed",
     "CC_AVG_UTILISATION": "Credit card balance vs limit", "CC_AVG_BALANCE": "Average credit card balance",

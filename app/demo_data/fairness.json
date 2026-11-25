@@ -1,252 +1,457 @@
 {
  "cutoff": 0.17,
- "groups": {
-  "gender": [
+ "n_test": 61503,
+ "n_boot": 1000,
+ "tables": {
+  "Gender": [
    {
-    "group": "men",
-    "applicants": 20940,
-    "approval_rate": 0.8444603629417383,
-    "default_rate": 0.10167144221585482,
-    "repayer_approval": 0.8806549359417363,
-    "repayer_decline": 0.11934506405826373,
-    "default_rate_approved": 0.06316801447718147,
-    "mean_pd": 0.0928264162402222,
-    "calibration_gap": -0.008845025975632623,
-    "ratio_to_best": 0.9369776994550785,
-    "below_four_fifths": false
+    "Group": "Female",
+    "Applicants": 40561,
+    "Default rate": 0.06991938068588052,
+    "Approval rate": 0.9012598308720199,
+    "Approval rate of repayers": 0.9222001325381047,
+    "Decline rate of repayers": 0.07779986746189527,
+    "Default rate of approved": 0.04830944304628515,
+    "Mean predicted PD": 0.07233653902047367,
+    "Calibration gap": 0.0024171583345931474,
+    "Four-fifths ratio": 1.0
    },
    {
-    "group": "women",
-    "applicants": 40561,
-    "approval_rate": 0.9012598308720199,
-    "default_rate": 0.06991938068588052,
-    "repayer_approval": 0.9222001325381047,
-    "repayer_decline": 0.07779986746189527,
-    "default_rate_approved": 0.04830944304628515,
-    "mean_pd": 0.07233653902047367,
-    "calibration_gap": 0.0024171583345931474,
-    "ratio_to_best": 1.0,
-    "below_four_fifths": false
+    "Group": "Male",
+    "Applicants": 20940,
+    "Default rate": 0.10167144221585482,
+    "Approval rate": 0.8444603629417383,
+    "Approval rate of repayers": 0.8806549359417363,
+    "Decline rate of repayers": 0.11934506405826373,
+    "Default rate of approved": 0.06316801447718147,
+    "Mean predicted PD": 0.0928264162402222,
+    "Calibration gap": -0.008845025975632623,
+    "Four-fifths ratio": 0.9369776994550785
    }
   ],
-  "age_band": [
+  "Age band": [
    {
-    "group": "20s",
-    "applicants": 8905,
-    "approval_rate": 0.791577765300393,
-    "default_rate": 0.11297024143739472,
-    "repayer_approval": 0.8311178630206355,
-    "repayer_decline": 0.1688821369793645,
-    "default_rate_approved": 0.06866222159171513,
-    "mean_pd": 0.1126646672419121,
-    "calibration_gap": -0.0003055741954826191,
-    "ratio_to_best": 0.8207982278695207,
-    "below_four_fifths": false
+    "Group": "20-29",
+    "Applicants": 8905,
+    "Default rate": 0.11297024143739472,
+    "Approval rate": 0.791577765300393,
+    "Approval rate of repayers": 0.8311178630206355,
+    "Decline rate of repayers": 0.1688821369793645,
+    "Default rate of approved": 0.06866222159171513,
+    "Mean predicted PD": 0.1126646672419121,
+    "Calibration gap": -0.0003055741954826191,
+    "Four-fifths ratio": 0.8207982278695207
    },
    {
-    "group": "30s",
-    "applicants": 16487,
-    "approval_rate": 0.8420573785406684,
-    "default_rate": 0.09571177291199126,
-    "repayer_approval": 0.8763833925816621,
-    "repayer_decline": 0.12361660741833791,
-    "default_rate_approved": 0.05884895195562918,
-    "mean_pd": 0.09401383668896192,
-    "calibration_gap": -0.001697936223029342,
-    "ratio_to_best": 0.8731412558162865,
-    "below_four_fifths": false
+    "Group": "30-39",
+    "Applicants": 16487,
+    "Default rate": 0.09571177291199126,
+    "Approval rate": 0.8420573785406684,
+    "Approval rate of repayers": 0.8763833925816621,
+    "Decline rate of repayers": 0.12361660741833791,
+    "Default rate of approved": 0.05884895195562918,
+    "Mean predicted PD": 0.09401383668896192,
+    "Calibration gap": -0.001697936223029342,
+    "Four-fifths ratio": 0.8731412558162865
    },
    {
-    "group": "40s",
-    "applicants": 15303,
-    "approval_rate": 0.8928968176174606,
-    "default_rate": 0.07580213030124812,
-    "repayer_approval": 0.9176270946758114,
-    "repayer_decline": 0.08237290532418862,
-    "default_rate_approved": 0.050204918032786885,
-    "mean_pd": 0.07532762250026465,
-    "calibration_gap": -0.000474507800983473,
-    "ratio_to_best": 0.9258573922836568,
-    "below_four_fifths": false
+    "Group": "40-49",
+    "Applicants": 15303,
+    "Default rate": 0.07580213030124812,
+    "Approval rate": 0.8928968176174606,
+    "Approval rate of repayers": 0.9176270946758114,
+    "Decline rate of repayers": 0.08237290532418862,
+    "Default rate of approved": 0.050204918032786885,
+    "Mean predicted PD": 0.07532762250026465,
+    "Calibration gap": -0.000474507800983473,
+    "Four-fifths ratio": 0.9258573922836568
    },
    {
-    "group": "50s",
-    "applicants": 13617,
-    "approval_rate": 0.933318645810384,
-    "default_rate": 0.06345009914077991,
-    "repayer_approval": 0.9491884262526464,
-    "repayer_decline": 0.05081157374735357,
-    "default_rate_approved": 0.04752537571799512,
-    "mean_pd": 0.06070797756891204,
-    "calibration_gap": -0.0027421215718678726,
-    "ratio_to_best": 0.9677713600609188,
-    "below_four_fifths": false
+    "Group": "50-59",
+    "Applicants": 13617,
+    "Default rate": 0.06345009914077991,
+    "Approval rate": 0.933318645810384,
+    "Approval rate of repayers": 0.9491884262526464,
+    "Decline rate of repayers": 0.05081157374735357,
+    "Default rate of approved": 0.04752537571799512,
+    "Mean predicted PD": 0.06070797756891204,
+    "Calibration gap": -0.0027421215718678726,
+    "Four-fifths ratio": 0.9677713600609188
    },
    {
-    "group": "60s",
-    "applicants": 7191,
-    "approval_rate": 0.964399944374913,
-    "default_rate": 0.04964539007092199,
-    "repayer_approval": 0.9720515071700322,
-    "repayer_decline": 0.027948492829967808,
-    "default_rate_approved": 0.042105263157894736,
-    "mean_pd": 0.04802746251874354,
-    "calibration_gap": -0.001617927552178447,
-    "ratio_to_best": 1.0,
-    "below_four_fifths": false
+    "Group": "60-69",
+    "Applicants": 7191,
+    "Default rate": 0.04964539007092199,
+    "Approval rate": 0.964399944374913,
+    "Approval rate of repayers": 0.9720515071700322,
+    "Decline rate of repayers": 0.027948492829967808,
+    "Default rate of approved": 0.042105263157894736,
+    "Mean predicted PD": 0.04802746251874354,
+    "Calibration gap": -0.001617927552178447,
+    "Four-fifths ratio": 1.0
    }
   ],
-  "credit_file": [
+  "Credit file": [
    {
-    "group": "bureau history",
-    "applicants": 52727,
-    "approval_rate": 0.8910425398752062,
-    "default_rate": 0.07728488250801298,
-    "repayer_approval": 0.9158102441831785,
-    "repayer_decline": 0.08418975581682153,
-    "default_rate_approved": 0.051636797071218765,
-    "mean_pd": 0.07585205760905543,
-    "calibration_gap": -0.0014328248989575465,
-    "ratio_to_best": 1.0,
-    "below_four_fifths": false
+    "Group": "Bureau history",
+    "Applicants": 52727,
+    "Default rate": 0.07728488250801298,
+    "Approval rate": 0.8910425398752062,
+    "Approval rate of repayers": 0.9158102441831785,
+    "Decline rate of repayers": 0.08418975581682153,
+    "Default rate of approved": 0.051636797071218765,
+    "Mean predicted PD": 0.07585205760905543,
+    "Calibration gap": -0.0014328248989575465,
+    "Four-fifths ratio": 1.0
    },
    {
-    "group": "thin file",
-    "applicants": 8776,
-    "approval_rate": 0.827028258887876,
-    "default_rate": 0.10141294439380127,
-    "repayer_approval": 0.8624144052751712,
-    "repayer_decline": 0.13758559472482879,
-    "default_rate_approved": 0.06296500413337007,
-    "mean_pd": 0.10011373819247789,
-    "calibration_gap": -0.0012992062013233857,
-    "ratio_to_best": 0.9281579968153982,
-    "below_four_fifths": false
+    "Group": "Thin file",
+    "Applicants": 8776,
+    "Default rate": 0.10141294439380127,
+    "Approval rate": 0.827028258887876,
+    "Approval rate of repayers": 0.8624144052751712,
+    "Decline rate of repayers": 0.13758559472482879,
+    "Default rate of approved": 0.06296500413337007,
+    "Mean predicted PD": 0.10011373819247789,
+    "Calibration gap": -0.0012992062013233857,
+    "Four-fifths ratio": 0.9281579968153982
    }
   ]
  },
  "gaps": [
   {
-   "group": "gender",
-   "a": "women",
-   "b": "men",
-   "metric": "repayer_approval",
-   "gap": 0.04154519659636846,
-   "low": 0.03630665605183631,
-   "high": 0.04696689782893738,
-   "real": true
+   "Grouping": "Gender",
+   "Comparison": "Female vs Male",
+   "Metric": "Approval rate",
+   "Gap": 0.056799467930281566,
+   "95% CI low": 0.051120276021700405,
+   "95% CI high": 0.0623175602705173,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "gender",
-   "a": "women",
-   "b": "men",
-   "metric": "approval_rate",
-   "gap": 0.056799467930281566,
-   "low": 0.051120276021700405,
-   "high": 0.0623175602705173,
-   "real": true
+   "Grouping": "Gender",
+   "Comparison": "Female vs Male",
+   "Metric": "Approval rate of repayers",
+   "Gap": 0.04154519659636846,
+   "95% CI low": 0.036330095283269234,
+   "95% CI high": 0.04697890835673657,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "age_band",
-   "a": "60s",
-   "b": "20s",
-   "metric": "repayer_approval",
-   "gap": 0.1409336441493967,
-   "low": 0.13238707641026246,
-   "high": 0.15028399190961736,
-   "real": true
+   "Grouping": "Gender",
+   "Comparison": "Female vs Male",
+   "Metric": "Default rate of approved",
+   "Gap": -0.01485857143089632,
+   "95% CI low": -0.01919125875357654,
+   "95% CI high": -0.010558487110169509,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "age_band",
-   "a": "60s",
-   "b": "20s",
-   "metric": "approval_rate",
-   "gap": 0.17282217907452002,
-   "low": 0.1636851885929327,
-   "high": 0.18281938622608732,
-   "real": true
+   "Grouping": "Gender",
+   "Comparison": "Female vs Male",
+   "Metric": "Four-fifths ratio",
+   "Gap": 0.9369776994550785,
+   "95% CI low": 0.9309426188714833,
+   "95% CI high": 0.9432238929615533,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "age_band",
-   "a": "40s",
-   "b": "20s",
-   "metric": "repayer_approval",
-   "gap": 0.08650923165517588,
-   "low": 0.07691373315457678,
-   "high": 0.09535754780852178,
-   "real": true
+   "Grouping": "Age band",
+   "Comparison": "60-69 vs 20-29",
+   "Metric": "Approval rate",
+   "Gap": 0.17282217907452002,
+   "95% CI low": 0.1636851885929327,
+   "95% CI high": 0.18281938622608732,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "age_band",
-   "a": "40s",
-   "b": "20s",
-   "metric": "approval_rate",
-   "gap": 0.10131905231706761,
-   "low": 0.09253611263290254,
-   "high": 0.11108230325515701,
-   "real": true
+   "Grouping": "Age band",
+   "Comparison": "60-69 vs 20-29",
+   "Metric": "Approval rate of repayers",
+   "Gap": 0.1409336441493967,
+   "95% CI low": 0.13238838363373026,
+   "95% CI high": 0.15009941807451205,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "credit_file",
-   "a": "bureau history",
-   "b": "thin file",
-   "metric": "repayer_approval",
-   "gap": 0.053395838908007254,
-   "low": 0.0455068767664705,
-   "high": 0.060865426499479354,
-   "real": true
+   "Grouping": "Age band",
+   "Comparison": "60-69 vs 20-29",
+   "Metric": "Default rate of approved",
+   "Gap": -0.026556958433820395,
+   "95% CI low": -0.03406306523759251,
+   "95% CI high": -0.019162016792541637,
+   "Real (CI excludes no gap)": true
   },
   {
-   "group": "credit_file",
-   "a": "bureau history",
-   "b": "thin file",
-   "metric": "approval_rate",
-   "gap": 0.0640142809873302,
-   "low": 0.055665474388301286,
-   "high": 0.07224513207730276,
-   "real": true
+   "Grouping": "Age band",
+   "Comparison": "60-69 vs 20-29",
+   "Metric": "Four-fifths ratio",
+   "Gap": 0.8207982278695207,
+   "95% CI low": 0.8111168359637906,
+   "95% CI high": 0.8297003600241497,
+   "Real (CI excludes no gap)": true
+  },
+  {
+   "Grouping": "Credit file",
+   "Comparison": "Bureau history vs Thin file",
+   "Metric": "Approval rate",
+   "Gap": 0.0640142809873302,
+   "95% CI low": 0.055665474388301286,
+   "95% CI high": 0.07224513207730276,
+   "Real (CI excludes no gap)": true
+  },
+  {
+   "Grouping": "Credit file",
+   "Comparison": "Bureau history vs Thin file",
+   "Metric": "Approval rate of repayers",
+   "Gap": 0.053395838908007254,
+   "95% CI low": 0.046066837392226986,
+   "95% CI high": 0.061331178571077144,
+   "Real (CI excludes no gap)": true
+  },
+  {
+   "Grouping": "Credit file",
+   "Comparison": "Bureau history vs Thin file",
+   "Metric": "Default rate of approved",
+   "Gap": -0.011328207062151305,
+   "95% CI low": -0.017299379838925773,
+   "95% CI high": -0.005402941895049566,
+   "Real (CI excludes no gap)": true
+  },
+  {
+   "Grouping": "Credit file",
+   "Comparison": "Bureau history vs Thin file",
+   "Metric": "Four-fifths ratio",
+   "Gap": 0.9281579968153982,
+   "95% CI low": 0.9191077908022806,
+   "95% CI high": 0.937384380925957,
+   "Real (CI excludes no gap)": true
   }
  ],
- "experiment": [
-  {
-   "metric": "AUC",
-   "shipped model": "0.7864185490018085",
-   "without sensitive features": "0.7849904476547904"
+ "experiment": {
+  "dropped": [
+   "AGE_YEARS",
+   "EMPLOYED_TO_AGE",
+   "NAME_FAMILY_STATUS",
+   "CNT_CHILDREN",
+   "CNT_FAM_MEMBERS"
+  ],
+  "alt_cutoff": 0.2,
+  "cv_auc": 0.781984809625104,
+  "models": {
+   "Shipped, cutoff 0.17": {
+    "ROC AUC": 0.7864185490018085,
+    "Brier score": 0.06572608177714317,
+    "Cutoff": 0.17,
+    "Approval rate": 0.8819081996000195,
+    "Default rate of approved": 0.053152654867256635,
+    "Good borrowers declined": 5181,
+    "Profit (billions)": 3.678969019275,
+    "Gender: Approval rate of repayers gap": 0.04154519659636846,
+    "Gender: Approval rate of repayers CI": [
+     0.036330095283269234,
+     0.04697890835673657
+    ],
+    "Gender: Four-fifths ratio": 0.9369776994550785,
+    "Gender: Four-fifths ratio CI": [
+     0.9309426188714833,
+     0.9432238929615533
+    ],
+    "Age band: Approval rate of repayers gap": 0.1409336441493967,
+    "Age band: Approval rate of repayers CI": [
+     0.13238838363373026,
+     0.15009941807451205
+    ],
+    "Age band: Four-fifths ratio": 0.8207982278695207,
+    "Age band: Four-fifths ratio CI": [
+     0.8111168359637906,
+     0.8297003600241497
+    ],
+    "Credit file: Approval rate of repayers gap": 0.053395838908007254,
+    "Credit file: Approval rate of repayers CI": [
+     0.046066837392226986,
+     0.061331178571077144
+    ],
+    "Credit file: Four-fifths ratio": 0.9281579968153982,
+    "Credit file: Four-fifths ratio CI": [
+     0.9191077908022806,
+     0.937384380925957
+    ]
+   },
+   "Without sensitive, cutoff 0.17": {
+    "ROC AUC": 0.7849439158406128,
+    "Brier score": 0.06574663923347493,
+    "Cutoff": 0.17,
+    "Approval rate": 0.8811602686047835,
+    "Default rate of approved": 0.053363841015610584,
+    "Good borrowers declined": 5236,
+    "Profit (billions)": 3.673472426775,
+    "Gender: Approval rate of repayers gap": 0.04239764961345638,
+    "Gender: Approval rate of repayers CI": [
+     0.037165386664085136,
+     0.0479717674158815
+    ],
+    "Gender: Four-fifths ratio": 0.9364267642106445,
+    "Gender: Four-fifths ratio CI": [
+     0.9302907001819978,
+     0.9427809942100139
+    ],
+    "Age band: Approval rate of repayers gap": 0.16338428053650556,
+    "Age band: Approval rate of repayers CI": [
+     0.15455905554856228,
+     0.1727966037362291
+    ],
+    "Age band: Four-fifths ratio": 0.797409469666779,
+    "Age band: Four-fifths ratio CI": [
+     0.7879771823601681,
+     0.8059561051098395
+    ],
+    "Credit file: Approval rate of repayers gap": 0.048728693885400465,
+    "Credit file: Approval rate of repayers CI": [
+     0.04084133879780172,
+     0.05624034939995455
+    ],
+    "Credit file: Four-fifths ratio": 0.933504492256104,
+    "Credit file: Four-fifths ratio CI": [
+     0.9241973536568778,
+     0.9422480124494195
+    ]
+   },
+   "Without sensitive, cutoff 0.2 (its best)": {
+    "ROC AUC": 0.7849439158406128,
+    "Brier score": 0.06574663923347493,
+    "Cutoff": 0.2,
+    "Approval rate": 0.909614165162675,
+    "Default rate of approved": 0.05721793221793222,
+    "Good borrowers declined": 3795,
+    "Profit (billions)": 3.685747444875,
+    "Gender: Approval rate of repayers gap": 0.03375034396600918,
+    "Gender: Approval rate of repayers CI": [
+     0.029149008380197912,
+     0.03884405610103972
+    ],
+    "Gender: Four-fifths ratio": 0.948799846622841,
+    "Gender: Four-fifths ratio CI": [
+     0.9431919930682827,
+     0.9540605497126585
+    ],
+    "Age band: Approval rate of repayers gap": 0.12447580910932032,
+    "Age band: Approval rate of repayers CI": [
+     0.11604900876172411,
+     0.13243305037531636
+    ],
+    "Age band: Four-fifths ratio": 0.8418033660144834,
+    "Age band: Four-fifths ratio CI": [
+     0.8338330104385673,
+     0.850171352685418
+    ],
+    "Credit file: Approval rate of repayers gap": 0.036054562060876205,
+    "Credit file: Approval rate of repayers CI": [
+     0.029220352076575893,
+     0.04297510013803343
+    ],
+    "Credit file: Four-fifths ratio": 0.9498371914973549,
+    "Credit file: Four-fifths ratio CI": [
+     0.9420383176891278,
+     0.9578627271556514
+    ]
+   },
+   "Shipped, cutoff 0.2 (reference)": {
+    "ROC AUC": 0.7864185490018085,
+    "Brier score": 0.06572608177714317,
+    "Cutoff": 0.2,
+    "Approval rate": 0.9102645399411411,
+    "Default rate of approved": 0.05773078022292084,
+    "Good borrowers declined": 3786,
+    "Profit (billions)": 3.6728717273999996,
+    "Gender: Approval rate of repayers gap": 0.0310943567239379,
+    "Gender: Approval rate of repayers CI": [
+     0.026755986091471458,
+     0.03580564413108927
+    ],
+    "Gender: Four-fifths ratio": 0.9511193121092695,
+    "Gender: Four-fifths ratio CI": [
+     0.9458255992983086,
+     0.9561825342641906
+    ],
+    "Age band: Approval rate of repayers gap": 0.1083106840187481,
+    "Age band: Approval rate of repayers CI": [
+     0.10044350454081905,
+     0.11616773596208578
+    ],
+    "Age band: Four-fifths ratio": 0.8606232118034994,
+    "Age band: Four-fifths ratio CI": [
+     0.8523098877977873,
+     0.8687147133565204
+    ],
+    "Credit file: Approval rate of repayers gap": 0.037565799571460445,
+    "Credit file: Approval rate of repayers CI": [
+     0.030988258094564,
+     0.044393740195716604
+    ],
+    "Credit file: Four-fifths ratio": 0.9471811421931985,
+    "Credit file: Four-fifths ratio CI": [
+     0.9389373874712058,
+     0.9550079986048259
+    ]
+   }
   },
-  {
-   "metric": "best cutoff",
-   "shipped model": "0.17",
-   "without sensitive features": "0.2"
-  },
-  {
-   "metric": "profit at best cutoff (M)",
-   "shipped model": "3678.969019275",
-   "without sensitive features": "3686.5528467749996"
-  },
-  {
-   "metric": "profit at 0.17 (M)",
-   "shipped model": "3678.969019275",
-   "without sensitive features": "3675.7891759500003"
-  },
-  {
-   "metric": "approval rate at 0.17",
-   "shipped model": "0.8819081996000195",
-   "without sensitive features": "0.8810952311269369"
-  },
-  {
-   "metric": "EO gap women vs men",
-   "shipped model": "+4.2 (3.6 to 4.7)",
-   "without sensitive features": "+4.2 (3.6 to 4.7)"
-  },
-  {
-   "metric": "EO gap 60s vs 20s",
-   "shipped model": "+14.1 (13.2 to 15.0)",
-   "without sensitive features": "+16.0 (15.1 to 17.0)"
-  },
-  {
-   "metric": "EO gap bureau history vs thin file",
-   "shipped model": "+5.3 (4.6 to 6.1)",
-   "without sensitive features": "+4.7 (3.9 to 5.5)"
-  }
- ]
+  "age": [
+   {
+    "Group": "20-29",
+    "Actual default rate": 0.11297024143739472,
+    "Mean PD, shipped": 0.1126646672419121,
+    "Mean PD, without sensitive": 0.11874608718221544,
+    "Approval rate, shipped": 0.791577765300393,
+    "Approval rate, without sensitive": 0.7702414373947221,
+    "Default rate of approved, shipped": 0.06866222159171513,
+    "Default rate of approved, without sensitive": 0.06619040676483452,
+    "Calibration gap, without sensitive": 0.005775845744820721
+   },
+   {
+    "Group": "30-39",
+    "Actual default rate": 0.09571177291199126,
+    "Mean PD, shipped": 0.09401383668896192,
+    "Mean PD, without sensitive": 0.09065355334886506,
+    "Approval rate, shipped": 0.8420573785406684,
+    "Approval rate, without sensitive": 0.8515800327530781,
+    "Default rate of approved, shipped": 0.05884895195562918,
+    "Default rate of approved, without sensitive": 0.060327635327635326,
+    "Calibration gap, without sensitive": -0.005058219563126201
+   },
+   {
+    "Group": "40-49",
+    "Actual default rate": 0.07580213030124812,
+    "Mean PD, shipped": 0.07532762250026465,
+    "Mean PD, without sensitive": 0.074258854477128,
+    "Approval rate, shipped": 0.8928968176174606,
+    "Approval rate, without sensitive": 0.8968176174606286,
+    "Default rate of approved, shipped": 0.050204918032786885,
+    "Default rate of approved, without sensitive": 0.05144272806761877,
+    "Calibration gap, without sensitive": -0.001543275824120116
+   },
+   {
+    "Group": "50-59",
+    "Actual default rate": 0.06345009914077991,
+    "Mean PD, shipped": 0.06070797756891204,
+    "Mean PD, without sensitive": 0.0638272714608178,
+    "Approval rate, shipped": 0.933318645810384,
+    "Approval rate, without sensitive": 0.9271498861716971,
+    "Default rate of approved, shipped": 0.04752537571799512,
+    "Default rate of approved, without sensitive": 0.04728712871287129,
+    "Calibration gap, without sensitive": 0.000377172320037894
+   },
+   {
+    "Group": "60-69",
+    "Actual default rate": 0.04964539007092199,
+    "Mean PD, shipped": 0.04802746251874354,
+    "Mean PD, without sensitive": 0.04779879100213693,
+    "Approval rate, shipped": 0.964399944374913,
+    "Approval rate, without sensitive": 0.9659296342650535,
+    "Default rate of approved, shipped": 0.042105263157894736,
+    "Default rate of approved, without sensitive": 0.041462712352433054,
+    "Calibration gap, without sensitive": -0.0018465990687850584
+   }
+  ]
+ }
 }

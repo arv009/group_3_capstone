@@ -1,6 +1,45 @@
 [theme]
-primaryColor = "#C44E52"
-font = "sans serif"
+# SecondLook brand (web UI guide): Deep Navy, Fintech Teal, status colours, Montserrat headings, Inter body
+base = "light"
+primaryColor = "#21A6B8"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F7F9"
+textColor = "#1E293B"
+linkColor = "#1A8A99"
+borderColor = "#E2E8F0"
+dataframeBorderColor = "#E2E8F0"
+dataframeHeaderBackgroundColor = "#F4F7F9"
+showWidgetBorder = true
+baseRadius = "8px"
+buttonRadius = "8px"
+greenColor = "#10B981"
+orangeColor = "#F59E0B"
+redColor = "#EF4444"
+blueColor = "#21A6B8"
+font = "Inter, \"Segoe UI\", system-ui, sans-serif"
+headingFont = "Montserrat, Inter, \"Segoe UI\", sans-serif"
+headingFontWeights = [700, 700, 600, 600, 600, 600]
+headingFontSizes = ["2.5rem", "2rem", "1.5rem", "1.25rem", "1rem", "0.875rem"]
+chartCategoricalColors = ["#0A2E52", "#21A6B8", "#F59E0B", "#94A3B8", "#3B82C4", "#10B981", "#EF4444"]
+
+# Google Fonts (latin, variable weight). Declared as font faces so the fallback list above is kept.
+[[theme.fontFaces]]
+family = "Inter"
+url = "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+weight = "400 700"
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Montserrat"
+url = "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2"
+weight = "600 700"
+style = "normal"
+
+[theme.sidebar]
+backgroundColor = "#F4F7F9"
+
+[client]
+toolbarMode = "viewer"
 
 [server]
 headless = true

@@ -1,0 +1,996 @@
+{
+  "original": {
+    "letter": {
+      "subject": "Update on your loan application",
+      "body": "Thank you for applying with us. We are writing to let you know that your application is under review. This means it is close to the approval threshold, so a loan officer will look at it personally before a final decision is made.\n\nWe reviewed several parts of your application. The main factors that lowered our confidence were external credit scores that are on the low side, a requested loan amount that is somewhat higher than the price of the goods it would cover, and a repayment period of about 18 payments. Lenders look at these factors because they help show how well a loan can be repaid.\n\nYour application also has real strengths. Your car is about 4 years old, and none of your payments were late in the last year. On-time payments show a reliable repayment record, which we value.\n\nA loan officer may be able to offer a loan of 508,842 with regular payments of about 27,718 over about 18 payments. We may contact you to talk through adjusting the loan terms. This would be a possibility for the loan officer to confirm, not a guarantee.\n\nIf you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
+      "fact_sheet": {
+        "applicant_id": 135305,
+        "decision": "under_review",
+        "loan_amount": "565,380",
+        "regular_payment": "30,798",
+        "number_of_payments": "about 18 payments",
+        "risk_factors": [
+          {
+            "code": "EXT_SOURCE_MEAN",
+            "label": "Average external credit score",
+            "value": "0.24"
+          },
+          {
+            "code": "CREDIT_TO_GOODS",
+            "label": "Loan amount vs price of goods",
+            "value": "1.34x"
+          },
+          {
+            "code": "EXT_SOURCE_MAX",
+            "label": "Highest external credit score",
+            "value": "0.27"
+          },
+          {
+            "code": "CREDIT_TERM",
+            "label": "Loan term (number of payments)",
+            "value": "about 18 payments"
+          }
+        ],
+        "strengths": [
+          {
+            "code": "OWN_CAR_AGE",
+            "label": "Age of the car the applicant already owns",
+            "value": "4 years old"
+          },
+          {
+            "code": "PREV_AVG_TERM",
+            "label": "Average term of past loans",
+            "value": "about 9 payments"
+          },
+          {
+            "code": "INST_LATE_SHARE_LAST_YEAR",
+            "label": "Share of payments late in the last year",
+            "value": "0%"
+          }
+        ],
+        "adjusted_terms": {
+          "loan_amount": "508,842",
+          "regular_payment": "27,718",
+          "number_of_payments": "about 18 payments"
+        }
+      }
+    },
+    "raw": {
+      "review": {
+        "claims": [
+          {
+            "quote": "your application is under review",
+            "kind": "general",
+            "about": "application status",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "it is close to the approval threshold",
+            "kind": "general",
+            "about": "application position relative to approval threshold",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "a loan officer will look at it personally before a final decision is made",
+            "kind": "general",
+            "about": "review process",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "external credit scores that are on the low side",
+            "kind": "factor",
+            "about": "external credit scores",
+            "value": "on the low side",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a requested loan amount that is somewhat higher than the price of the goods it would cover",
+            "kind": "factor",
+            "about": "requested loan amount compared to price of goods",
+            "value": "somewhat higher",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a repayment period of about 18 payments",
+            "kind": "loan_terms",
+            "about": "requested repayment period",
+            "value": "about 18 payments",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "Your car is about 4 years old",
+            "kind": "factor",
+            "about": "age of car",
+            "value": "about 4 years old",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "none of your payments were late in the last year",
+            "kind": "factor",
+            "about": "payment history over last year",
+            "value": "none late",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "A loan officer may be able to offer a loan of 508,842",
+            "kind": "offer",
+            "about": "possible loan amount offered",
+            "value": "508,842",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "regular payments of about 27,718 over about 18 payments",
+            "kind": "offer",
+            "about": "possible regular payment and number of payments",
+            "value": "about 27,718 over about 18 payments",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "We may contact you to talk through adjusting the loan terms",
+            "kind": "offer",
+            "about": "possible contact to adjust loan terms",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "This would be a possibility for the loan officer to confirm, not a guarantee",
+            "kind": "offer",
+            "about": "offer is not guaranteed",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "please reply to this letter",
+            "kind": "general",
+            "about": "next step for applicant questions",
+            "value": null,
+            "presented_as": "neutral"
+          }
+        ],
+        "respectful": 4,
+        "clear": 4,
+        "empathetic": 3,
+        "tone_note": "The letter is polite and explains the reasons for the review in plain language, though it offers little warmth and gives only a brief next step."
+      },
+      "matches": [
+        {
+          "claim_index": 3,
+          "code": "EXT_SOURCE_MEAN",
+          "note": "The claim describes the average external credit score of 0.24 as on the low side, which matches the low value of that risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 4,
+          "code": "CREDIT_TO_GOODS",
+          "note": "The claim says the loan amount is somewhat higher than the price of goods, matching the 1.34x ratio without giving the exact figure.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 5,
+          "code": "CREDIT_TERM",
+          "note": "The claim gives the repayment period as about 18 payments, matching the fact sheet value.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 6,
+          "code": "OWN_CAR_AGE",
+          "note": "The claim says the applicant's car is about 4 years old, matching the age of the car already owned.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 7,
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "note": "The claim says none of the payments were late in the last year, matching the 0% late share.",
+          "fair_description": true
+        }
+      ],
+      "input_tokens": 3745,
+      "output_tokens": 1193,
+      "cost_usd": 0.000971,
+      "seconds": 5.5,
+      "model": "claude-haiku-5-5",
+      "audit_version": "a4"
+    }
+  },
+  "invented_detail": {
+    "letter": {
+      "subject": "Update on your loan application",
+      "body": "Thank you for applying with us. We are writing to let you know that your application is under review. This means it is close to the approval threshold, so a loan officer will look at it personally before a final decision is made.\n\nWe reviewed several parts of your application. The main factors that lowered our confidence were external credit scores that are on the low side, a requested loan amount that is somewhat higher than the price of the goods it would cover, and a repayment period of about 18 payments. Lenders look at these factors because they help show how well a loan can be repaid.\n\nYour application also has real strengths. The car you plan to buy is about 4 years old, and none of your payments were late in the last year. On-time payments show a reliable repayment record, which we value.\n\nA loan officer may be able to offer a loan of 508,842 with regular payments of about 27,718 over about 18 payments. We may contact you to talk through adjusting the loan terms. This would be a possibility for the loan officer to confirm, not a guarantee.\n\nIf you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
+      "fact_sheet": {
+        "applicant_id": 135305,
+        "decision": "under_review",
+        "loan_amount": "565,380",
+        "regular_payment": "30,798",
+        "number_of_payments": "about 18 payments",
+        "risk_factors": [
+          {
+            "code": "EXT_SOURCE_MEAN",
+            "label": "Average external credit score",
+            "value": "0.24"
+          },
+          {
+            "code": "CREDIT_TO_GOODS",
+            "label": "Loan amount vs price of goods",
+            "value": "1.34x"
+          },
+          {
+            "code": "EXT_SOURCE_MAX",
+            "label": "Highest external credit score",
+            "value": "0.27"
+          },
+          {
+            "code": "CREDIT_TERM",
+            "label": "Loan term (number of payments)",
+            "value": "about 18 payments"
+          }
+        ],
+        "strengths": [
+          {
+            "code": "OWN_CAR_AGE",
+            "label": "Age of the car the applicant already owns",
+            "value": "4 years old"
+          },
+          {
+            "code": "PREV_AVG_TERM",
+            "label": "Average term of past loans",
+            "value": "about 9 payments"
+          },
+          {
+            "code": "INST_LATE_SHARE_LAST_YEAR",
+            "label": "Share of payments late in the last year",
+            "value": "0%"
+          }
+        ],
+        "adjusted_terms": {
+          "loan_amount": "508,842",
+          "regular_payment": "27,718",
+          "number_of_payments": "about 18 payments"
+        }
+      }
+    },
+    "raw": {
+      "review": {
+        "claims": [
+          {
+            "quote": "your application is under review",
+            "kind": "general",
+            "about": "application status",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "it is close to the approval threshold",
+            "kind": "general",
+            "about": "application position relative to approval threshold",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "a loan officer will look at it personally before a final decision is made",
+            "kind": "general",
+            "about": "review process",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "external credit scores that are on the low side",
+            "kind": "factor",
+            "about": "external credit scores",
+            "value": "on the low side",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a requested loan amount that is somewhat higher than the price of the goods it would cover",
+            "kind": "factor",
+            "about": "requested loan amount compared with price of goods",
+            "value": "somewhat higher",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a repayment period of about 18 payments",
+            "kind": "factor",
+            "about": "repayment period",
+            "value": "about 18 payments",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "Lenders look at these factors because they help show how well a loan can be repaid",
+            "kind": "general",
+            "about": "why lenders review these factors",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "The car you plan to buy is about 4 years old",
+            "kind": "factor",
+            "about": "age of car to be purchased",
+            "value": "about 4 years old",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "none of your payments were late in the last year",
+            "kind": "factor",
+            "about": "late payments in last year",
+            "value": "none",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "On-time payments show a reliable repayment record, which we value",
+            "kind": "general",
+            "about": "value of on-time payments",
+            "value": null,
+            "presented_as": "strength"
+          },
+          {
+            "quote": "a loan officer may be able to offer a loan of 508,842",
+            "kind": "offer",
+            "about": "possible loan amount offer",
+            "value": "508,842",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "regular payments of about 27,718 over about 18 payments",
+            "kind": "offer",
+            "about": "possible regular payment and number of payments",
+            "value": "about 27,718 over about 18 payments",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "We may contact you to talk through adjusting the loan terms",
+            "kind": "offer",
+            "about": "possible contact to adjust loan terms",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "This would be a possibility for the loan officer to confirm, not a guarantee",
+            "kind": "general",
+            "about": "offer is not guaranteed",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "please reply to this letter",
+            "kind": "general",
+            "about": "next step for questions",
+            "value": null,
+            "presented_as": "neutral"
+          }
+        ],
+        "respectful": 5,
+        "clear": 4,
+        "empathetic": 3,
+        "tone_note": "The letter is courteous and balances weaknesses with strengths, though its wording is somewhat formal and it offers little acknowledgement of the applicant's situation beyond a brief invitation to reply."
+      },
+      "matches": [
+        {
+          "claim_index": 3,
+          "code": "EXT_SOURCE_MEAN",
+          "note": "The claim says external credit scores are on the low side, matching the low average external credit score of 0.24 in risk factors.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 4,
+          "code": "CREDIT_TO_GOODS",
+          "note": "The claim says the loan amount is somewhat higher than the goods price, matching the 1.34x ratio, though it omits the exact figure.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 5,
+          "code": "CREDIT_TERM",
+          "note": "The claim gives the repayment period as about 18 payments, matching the loan term value.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 7,
+          "code": "OWN_CAR_AGE",
+          "note": "The claim says the car you plan to buy is about 4 years old, but the fact sheet says the 4-year-old car is one the applicant already owns, not one being bought.",
+          "fair_description": false
+        },
+        {
+          "claim_index": 8,
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "note": "The claim says none of the payments were late in the last year, matching the 0% late share in strengths.",
+          "fair_description": true
+        }
+      ],
+      "input_tokens": 3757,
+      "output_tokens": 1364,
+      "cost_usd": 0.001058,
+      "seconds": 6.3,
+      "model": "claude-haiku-5-5",
+      "audit_version": "a4"
+    }
+  },
+  "wrong_direction": {
+    "letter": {
+      "subject": "Update on your loan application",
+      "body": "Thank you for applying with us. We are writing to let you know that your application is under review. This means it is close to the approval threshold, so a loan officer will look at it personally before a final decision is made.\n\nWe reviewed several parts of your application. The main factors that lowered our confidence were external credit scores that are on the low side, a requested loan amount that is somewhat higher than the price of the goods it would cover, and a repayment period of about 18 payments. Lenders look at these factors because they help show how well a loan can be repaid.\n\nYour application also has real strengths. Your car is about 4 years old, and we are concerned that you have no record of late payments in the last year, which counts against your application.\n\nA loan officer may be able to offer a loan of 508,842 with regular payments of about 27,718 over about 18 payments. We may contact you to talk through adjusting the loan terms. This would be a possibility for the loan officer to confirm, not a guarantee.\n\nIf you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
+      "fact_sheet": {
+        "applicant_id": 135305,
+        "decision": "under_review",
+        "loan_amount": "565,380",
+        "regular_payment": "30,798",
+        "number_of_payments": "about 18 payments",
+        "risk_factors": [
+          {
+            "code": "EXT_SOURCE_MEAN",
+            "label": "Average external credit score",
+            "value": "0.24"
+          },
+          {
+            "code": "CREDIT_TO_GOODS",
+            "label": "Loan amount vs price of goods",
+            "value": "1.34x"
+          },
+          {
+            "code": "EXT_SOURCE_MAX",
+            "label": "Highest external credit score",
+            "value": "0.27"
+          },
+          {
+            "code": "CREDIT_TERM",
+            "label": "Loan term (number of payments)",
+            "value": "about 18 payments"
+          }
+        ],
+        "strengths": [
+          {
+            "code": "OWN_CAR_AGE",
+            "label": "Age of the car the applicant already owns",
+            "value": "4 years old"
+          },
+          {
+            "code": "PREV_AVG_TERM",
+            "label": "Average term of past loans",
+            "value": "about 9 payments"
+          },
+          {
+            "code": "INST_LATE_SHARE_LAST_YEAR",
+            "label": "Share of payments late in the last year",
+            "value": "0%"
+          }
+        ],
+        "adjusted_terms": {
+          "loan_amount": "508,842",
+          "regular_payment": "27,718",
+          "number_of_payments": "about 18 payments"
+        }
+      }
+    },
+    "raw": {
+      "review": {
+        "claims": [
+          {
+            "quote": "your application is under review",
+            "kind": "general",
+            "about": "application status",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "it is close to the approval threshold",
+            "kind": "general",
+            "about": "application close to approval threshold",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "a loan officer will look at it personally before a final decision is made",
+            "kind": "general",
+            "about": "loan officer review before decision",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "external credit scores that are on the low side",
+            "kind": "factor",
+            "about": "external credit scores",
+            "value": "on the low side",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a requested loan amount that is somewhat higher than the price of the goods it would cover",
+            "kind": "factor",
+            "about": "requested loan amount compared to price of goods",
+            "value": "somewhat higher",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a repayment period of about 18 payments",
+            "kind": "loan_terms",
+            "about": "repayment period",
+            "value": "about 18 payments",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "Lenders look at these factors because they help show how well a loan can be repaid",
+            "kind": "general",
+            "about": "why lenders review these factors",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "Your car is about 4 years old",
+            "kind": "factor",
+            "about": "car age",
+            "value": "about 4 years",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "we are concerned that you have no record of late payments in the last year, which counts against your application",
+            "kind": "factor",
+            "about": "no late payments in last year",
+            "value": "no late payments in the last year",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "A loan officer may be able to offer a loan of 508,842",
+            "kind": "offer",
+            "about": "possible loan amount offer",
+            "value": "508,842",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "regular payments of about 27,718 over about 18 payments",
+            "kind": "offer",
+            "about": "possible regular payment and number of payments",
+            "value": "about 27,718 over about 18 payments",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "We may contact you to talk through adjusting the loan terms",
+            "kind": "offer",
+            "about": "possible contact to adjust loan terms",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "This would be a possibility for the loan officer to confirm, not a guarantee",
+            "kind": "offer",
+            "about": "offer is not guaranteed",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "please reply to this letter",
+            "kind": "general",
+            "about": "next step for questions",
+            "value": null,
+            "presented_as": "neutral"
+          }
+        ],
+        "respectful": 4,
+        "clear": 3,
+        "empathetic": 2,
+        "tone_note": "The letter is polite and sets out next steps, but it is somewhat muddled in places, labels the applicant's missing late payments as a concern, and shows little acknowledgement of the applicant's situation."
+      },
+      "matches": [
+        {
+          "claim_index": 3,
+          "code": "EXT_SOURCE_MEAN",
+          "note": "The claim says external credit scores are on the low side, matching the average external credit score of 0.24 listed as a risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 4,
+          "code": "CREDIT_TO_GOODS",
+          "note": "The claim says the loan amount is somewhat higher than the price of goods, matching the 1.34x ratio listed as a risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 5,
+          "code": "CREDIT_TERM",
+          "note": "The claim gives the repayment period as about 18 payments, matching the loan term risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 7,
+          "code": "OWN_CAR_AGE",
+          "note": "The claim says the car is about 4 years old, matching the age of the car the applicant already owns listed as a strength.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 8,
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "note": "The claim says there were no late payments in the last year, matching the 0% share of late payments listed as a strength, and adds that this counts against the application, which the fact sheet does not state as a cause.",
+          "fair_description": false
+        }
+      ],
+      "input_tokens": 3757,
+      "output_tokens": 1342,
+      "cost_usd": 0.001047,
+      "seconds": 5.9,
+      "model": "claude-haiku-5-5",
+      "audit_version": "a4"
+    }
+  },
+  "wrong_amount": {
+    "letter": {
+      "subject": "Update on your loan application",
+      "body": "Thank you for applying with us. We are writing to let you know that your application is under review. This means it is close to the approval threshold, so a loan officer will look at it personally before a final decision is made.\n\nWe reviewed several parts of your application. The main factors that lowered our confidence were external credit scores that are on the low side, a requested loan amount that is somewhat higher than the price of the goods it would cover, and a repayment period of about 18 payments. Lenders look at these factors because they help show how well a loan can be repaid.\n\nYour application also has real strengths. Your car is about 4 years old, and none of your payments were late in the last year. On-time payments show a reliable repayment record, which we value.\n\nA loan officer may be able to offer a loan of 500,000 with regular payments of about 27,718 over about 18 payments. We may contact you to talk through adjusting the loan terms. This would be a possibility for the loan officer to confirm, not a guarantee.\n\nIf you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
+      "fact_sheet": {
+        "applicant_id": 135305,
+        "decision": "under_review",
+        "loan_amount": "565,380",
+        "regular_payment": "30,798",
+        "number_of_payments": "about 18 payments",
+        "risk_factors": [
+          {
+            "code": "EXT_SOURCE_MEAN",
+            "label": "Average external credit score",
+            "value": "0.24"
+          },
+          {
+            "code": "CREDIT_TO_GOODS",
+            "label": "Loan amount vs price of goods",
+            "value": "1.34x"
+          },
+          {
+            "code": "EXT_SOURCE_MAX",
+            "label": "Highest external credit score",
+            "value": "0.27"
+          },
+          {
+            "code": "CREDIT_TERM",
+            "label": "Loan term (number of payments)",
+            "value": "about 18 payments"
+          }
+        ],
+        "strengths": [
+          {
+            "code": "OWN_CAR_AGE",
+            "label": "Age of the car the applicant already owns",
+            "value": "4 years old"
+          },
+          {
+            "code": "PREV_AVG_TERM",
+            "label": "Average term of past loans",
+            "value": "about 9 payments"
+          },
+          {
+            "code": "INST_LATE_SHARE_LAST_YEAR",
+            "label": "Share of payments late in the last year",
+            "value": "0%"
+          }
+        ],
+        "adjusted_terms": {
+          "loan_amount": "508,842",
+          "regular_payment": "27,718",
+          "number_of_payments": "about 18 payments"
+        }
+      }
+    },
+    "raw": {
+      "review": {
+        "claims": [
+          {
+            "quote": "your application is under review",
+            "kind": "general",
+            "about": "application status",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "it is close to the approval threshold",
+            "kind": "general",
+            "about": "application closeness to approval threshold",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "a loan officer will look at it personally before a final decision is made",
+            "kind": "general",
+            "about": "review process by loan officer",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "external credit scores that are on the low side",
+            "kind": "factor",
+            "about": "external credit scores",
+            "value": "on the low side",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a requested loan amount that is somewhat higher than the price of the goods it would cover",
+            "kind": "factor",
+            "about": "requested loan amount compared to price of goods",
+            "value": "somewhat higher",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a repayment period of about 18 payments",
+            "kind": "loan_terms",
+            "about": "repayment period",
+            "value": "about 18 payments",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "Lenders look at these factors because they help show how well a loan can be repaid",
+            "kind": "general",
+            "about": "why lenders review these factors",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "Your car is about 4 years old",
+            "kind": "factor",
+            "about": "age of applicant's car",
+            "value": "about 4 years old",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "none of your payments were late in the last year",
+            "kind": "factor",
+            "about": "payment history in last year",
+            "value": "none late",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "On-time payments show a reliable repayment record, which we value",
+            "kind": "general",
+            "about": "value of on-time payments",
+            "value": null,
+            "presented_as": "strength"
+          },
+          {
+            "quote": "a loan of 500,000",
+            "kind": "offer",
+            "about": "possible loan amount offered",
+            "value": "500,000",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "regular payments of about 27,718 over about 18 payments",
+            "kind": "offer",
+            "about": "possible regular payment and number of payments",
+            "value": "about 27,718 over about 18 payments",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "We may contact you to talk through adjusting the loan terms",
+            "kind": "offer",
+            "about": "possible contact to adjust loan terms",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "This would be a possibility for the loan officer to confirm, not a guarantee",
+            "kind": "offer",
+            "about": "offer is not guaranteed",
+            "value": null,
+            "presented_as": "neutral"
+          }
+        ],
+        "respectful": 4,
+        "clear": 4,
+        "empathetic": 3,
+        "tone_note": "The letter is courteous and explains the factors without blame, though it is somewhat formal and gives limited guidance on what the applicant can do to strengthen the application."
+      },
+      "matches": [
+        {
+          "claim_index": 3,
+          "code": "EXT_SOURCE_MEAN",
+          "note": "The claim says external credit scores are on the low side, matching the average external credit score of 0.24 listed as a risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 4,
+          "code": "CREDIT_TO_GOODS",
+          "note": "The claim says the loan amount is somewhat higher than the price of goods, matching the 1.34x ratio listed as a risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 5,
+          "code": "CREDIT_TERM",
+          "note": "The claim gives the repayment period as about 18 payments, matching the loan term risk factor.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 7,
+          "code": "OWN_CAR_AGE",
+          "note": "The claim says the applicant's car is about 4 years old, matching the age of the car already owned listed as a strength.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 8,
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "note": "The claim says none of the payments were late in the last year, matching the 0% late share strength.",
+          "fair_description": true
+        }
+      ],
+      "input_tokens": 3747,
+      "output_tokens": 1284,
+      "cost_usd": 0.001017,
+      "seconds": 5.6,
+      "model": "claude-haiku-5-5",
+      "audit_version": "a4"
+    }
+  },
+  "rude": {
+    "letter": {
+      "subject": "Update on your loan application",
+      "body": "Frankly, applications like yours waste our time, and you should not have applied. We are writing to let you know that your application is under review. This means it is close to the approval threshold, so a loan officer will look at it personally before a final decision is made.\n\nWe reviewed several parts of your application. The main factors that lowered our confidence were external credit scores that are on the low side, a requested loan amount that is somewhat higher than the price of the goods it would cover, and a repayment period of about 18 payments. Lenders look at these factors because they help show how well a loan can be repaid.\n\nYour application also has real strengths. Your car is about 4 years old, and none of your payments were late in the last year. On-time payments show a reliable repayment record, which we value.\n\nA loan officer may be able to offer a loan of 508,842 with regular payments of about 27,718 over about 18 payments. We may contact you to talk through adjusting the loan terms. This would be a possibility for the loan officer to confirm, not a guarantee.\n\nIf you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
+      "fact_sheet": {
+        "applicant_id": 135305,
+        "decision": "under_review",
+        "loan_amount": "565,380",
+        "regular_payment": "30,798",
+        "number_of_payments": "about 18 payments",
+        "risk_factors": [
+          {
+            "code": "EXT_SOURCE_MEAN",
+            "label": "Average external credit score",
+            "value": "0.24"
+          },
+          {
+            "code": "CREDIT_TO_GOODS",
+            "label": "Loan amount vs price of goods",
+            "value": "1.34x"
+          },
+          {
+            "code": "EXT_SOURCE_MAX",
+            "label": "Highest external credit score",
+            "value": "0.27"
+          },
+          {
+            "code": "CREDIT_TERM",
+            "label": "Loan term (number of payments)",
+            "value": "about 18 payments"
+          }
+        ],
+        "strengths": [
+          {
+            "code": "OWN_CAR_AGE",
+            "label": "Age of the car the applicant already owns",
+            "value": "4 years old"
+          },
+          {
+            "code": "PREV_AVG_TERM",
+            "label": "Average term of past loans",
+            "value": "about 9 payments"
+          },
+          {
+            "code": "INST_LATE_SHARE_LAST_YEAR",
+            "label": "Share of payments late in the last year",
+            "value": "0%"
+          }
+        ],
+        "adjusted_terms": {
+          "loan_amount": "508,842",
+          "regular_payment": "27,718",
+          "number_of_payments": "about 18 payments"
+        }
+      }
+    },
+    "raw": {
+      "review": {
+        "claims": [
+          {
+            "quote": "external credit scores that are on the low side",
+            "kind": "factor",
+            "about": "external credit scores",
+            "value": "on the low side",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a requested loan amount that is somewhat higher than the price of the goods it would cover",
+            "kind": "factor",
+            "about": "requested loan amount compared to price of goods",
+            "value": "somewhat higher",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "a repayment period of about 18 payments",
+            "kind": "loan_terms",
+            "about": "repayment period",
+            "value": "about 18 payments",
+            "presented_as": "concern"
+          },
+          {
+            "quote": "Your car is about 4 years old",
+            "kind": "factor",
+            "about": "age of car",
+            "value": "about 4 years old",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "none of your payments were late in the last year",
+            "kind": "factor",
+            "about": "payment history in last year",
+            "value": "none late",
+            "presented_as": "strength"
+          },
+          {
+            "quote": "A loan officer may be able to offer a loan of 508,842 with regular payments of about 27,718 over about 18 payments",
+            "kind": "offer",
+            "about": "possible loan amount, payment and number of payments",
+            "value": "508,842; about 27,718; about 18 payments",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "your application is under review",
+            "kind": "general",
+            "about": "application status",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "it is close to the approval threshold",
+            "kind": "general",
+            "about": "application position relative to approval threshold",
+            "value": "close to the approval threshold",
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "a loan officer will look at it personally before a final decision is made",
+            "kind": "general",
+            "about": "review process",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "We may contact you to talk through adjusting the loan terms",
+            "kind": "general",
+            "about": "possible contact to adjust terms",
+            "value": null,
+            "presented_as": "neutral"
+          },
+          {
+            "quote": "Lenders look at these factors because they help show how well a loan can be repaid",
+            "kind": "general",
+            "about": "why lenders review these factors",
+            "value": null,
+            "presented_as": "neutral"
+          }
+        ],
+        "respectful": 1,
+        "clear": 4,
+        "empathetic": 1,
+        "tone_note": "The letter opens by insulting the applicant ('applications like yours waste our time, and you should not have applied'), which makes it deeply disrespectful, though the rest is plain and offers a next step."
+      },
+      "matches": [
+        {
+          "claim_index": 0,
+          "code": "EXT_SOURCE_MEAN",
+          "note": "The claim describes average external credit scores as on the low side, matching the fact sheet's low average score of 0.24.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 1,
+          "code": "CREDIT_TO_GOODS",
+          "note": "The claim says the loan amount is somewhat higher than the price of goods, matching the 1.34x ratio.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 2,
+          "code": "CREDIT_TERM",
+          "note": "The claim gives the repayment period as about 18 payments, matching the fact sheet's loan term.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 3,
+          "code": "OWN_CAR_AGE",
+          "note": "The claim states the applicant's car is about 4 years old, matching the age of the car already owned.",
+          "fair_description": true
+        },
+        {
+          "claim_index": 4,
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "note": "The claim says none of the payments were late in the last year, matching the 0% late share.",
+          "fair_description": true
+        }
+      ],
+      "input_tokens": 3756,
+      "output_tokens": 1124,
+      "cost_usd": 0.000938,
+      "seconds": 5.3,
+      "model": "claude-haiku-5-5",
+      "audit_version": "a4"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-"""Load Home Credit tables straight from the Kaggle zip, without extracting it (or from extracted CSVs in data/raw/)."""
+"""Load Home Credit tables straight from the Kaggle zip, without extracting it."""
 from __future__ import annotations
 
 import zipfile
@@ -36,13 +36,10 @@ def load_table(name: str, zip_path=RAW_ZIP, **read_csv_kwargs) -> pd.DataFrame:
     """
     if name not in TABLES:
         raise ValueError(f"Unknown table {name!r}. Choose one of: {', '.join(TABLES)}")
-    if name == "HomeCredit_columns_description":
-        read_csv_kwargs.setdefault("encoding", "latin-1")
-    csv_path = zip_path.parent / f"{name}.csv"
-    if not zip_path.exists() and csv_path.exists():   # the CSVs were extracted (e.g. kagglehub download)
-        return pd.read_csv(csv_path, **read_csv_kwargs)
     if not zip_path.exists():
         raise FileNotFoundError(f"{zip_path} not found. See README > Data to download it.")
+    if name == "HomeCredit_columns_description":
+        read_csv_kwargs.setdefault("encoding", "latin-1")
     with zipfile.ZipFile(zip_path) as z, z.open(f"{name}.csv") as f:
         return pd.read_csv(f, **read_csv_kwargs)
 

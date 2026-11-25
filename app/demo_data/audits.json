@@ -1,0 +1,3356 @@
+{
+  "455989|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 5,
+    "n_supported": 5,
+    "coverage_top3": null,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "You are approved for a loan of 254,700",
+        "kind": "loan_terms",
+        "about": "approved loan amount",
+        "value": "254,700",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "repaid with regular payments of 20,250",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "20,250",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "over about 13 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "13",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your application shows strengths that supported this decision.",
+        "kind": "general",
+        "about": "application strengths supported decision",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your average external credit score is 0.64",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.64",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your external credit score 2 is 0.77",
+        "kind": "factor",
+        "about": "external credit score 2",
+        "value": "0.77",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_2",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at external credit scores because they give a broader picture of how someone has managed credit with other organizations.",
+        "kind": "general",
+        "about": "why lenders use external credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The payment amount and number of payments are set out in your loan agreement, so take a moment to check that they work for your budget.",
+        "kind": "general",
+        "about": "payment amount and number set out in loan agreement",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have any questions about your loan or the next steps, our team is happy to help you understand them.",
+        "kind": "general",
+        "about": "team available to answer questions on next steps",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 3,
+      "note": "The letter is warm, courteous and plain, and it invites the applicant to check terms and ask questions, though it does little to acknowledge the applicant's personal situation.",
+      "vader_compound": 0.9923,
+      "textblob_polarity": 0.14791666666666667,
+      "textblob_subjectivity": 0.41682692307692304
+    },
+    "cost_usd": 0.000854,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "348947|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8,
+    "n_claims": 5,
+    "n_supported": 4,
+    "coverage_top3": null,
+    "passed": false,
+    "issues": [
+      "\"Your regular repayment amount of 13,500 also shows that the payment plan fits the loan we are offering, which lenders consider when reviewing a loan.\": misdescribes Regular repayment amount: The claim says the 13,500 repayment amount fits the loan offered, adding a general reason lenders review this, but the fact sheet does not state that the plan fits the loan as a comparison."
+    ],
+    "claims": [
+      {
+        "quote": "We are pleased to offer you a loan of 270,000",
+        "kind": "loan_terms",
+        "about": "loan amount offered",
+        "value": "270,000",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "repaid through regular payments of 13,500",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "13,500",
+        "presented_as": "neutral",
+        "code": "AMT_ANNUITY",
+        "verdict": "supported"
+      },
+      {
+        "quote": "over about 20 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "about 20",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your external credit score is a real strength, and it is one of the factors that helped us reach this decision.",
+        "kind": "factor",
+        "about": "external credit score",
+        "value": null,
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your regular repayment amount of 13,500 also shows that the payment plan fits the loan we are offering, which lenders consider when reviewing a loan.",
+        "kind": "factor",
+        "about": "repayment amount fits the loan",
+        "value": "13,500",
+        "presented_as": "strength",
+        "code": "AMT_ANNUITY",
+        "verdict": "misdescribes Regular repayment amount: The claim says the 13,500 repayment amount fits the loan offered, adding a general reason lenders review this, but the fact sheet does not state that the plan fits the loan as a comparison."
+      },
+      {
+        "quote": "which lenders consider when reviewing a loan",
+        "kind": "general",
+        "about": "lenders review repayment fit as a general practice",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Please review the loan terms carefully before you accept.",
+        "kind": "general",
+        "about": "advice to review loan terms before accepting",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have any questions about your payments or the next steps, please contact us and a member of our team will be happy to help.",
+        "kind": "general",
+        "about": "next steps and contacting the lender",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 3,
+      "note": "The letter is warm, plain and respectful, opening with good news and inviting questions, though it says little about the applicant's situation beyond the approval.",
+      "vader_compound": 0.9849,
+      "textblob_polarity": 0.2136363636363636,
+      "textblob_subjectivity": 0.40034965034965037
+    },
+    "cost_usd": 0.000859,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "220042|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8333333333333334,
+    "n_claims": 6,
+    "n_supported": 5,
+    "coverage_top3": null,
+    "passed": false,
+    "issues": [
+      "\"We also considered the regular repayment amount of 5,404 and the loan amount of 74,182, which were part of the overall picture that led to this approval.\": not one of the reasons the model gave"
+    ],
+    "claims": [
+      {
+        "quote": "your loan application has been approved",
+        "kind": "general",
+        "about": "application decision",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "We are glad to offer you a loan of 74,182",
+        "kind": "loan_terms",
+        "about": "loan amount",
+        "value": "74,182",
+        "presented_as": "neutral",
+        "code": "AMT_CREDIT",
+        "verdict": "supported"
+      },
+      {
+        "quote": "repaid through regular payments of 5,404",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "5,404",
+        "presented_as": "neutral",
+        "code": "AMT_ANNUITY",
+        "verdict": "supported"
+      },
+      {
+        "quote": "over about 14 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "about 14",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your payment record",
+        "kind": "factor",
+        "about": "payment record",
+        "value": null,
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "None of your payments in the last year were late",
+        "kind": "factor",
+        "about": "late payments in last year",
+        "value": "none late",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "We also considered the regular repayment amount of 5,404 and the loan amount of 74,182, which were part of the overall picture that led to this approval.",
+        "kind": "factor",
+        "about": "repayment amount and loan amount as part of decision",
+        "value": "5,404 and 74,182",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not one of the reasons the model gave"
+      },
+      {
+        "quote": "Please keep up your on-time payments, as they will continue to help you in the future.",
+        "kind": "general",
+        "about": "advice to keep paying on time",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The next step is to review the loan details with you so you know exactly what to expect.",
+        "kind": "general",
+        "about": "next step of reviewing loan details",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is warm and positive and tells the applicant what to do next, though it is a little generic in acknowledging their situation.",
+      "vader_compound": 0.9772,
+      "textblob_polarity": 0.1392857142857143,
+      "textblob_subjectivity": 0.34253663003663004
+    },
+    "cost_usd": 0.000891,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "287213|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 6,
+    "n_supported": 6,
+    "coverage_top3": null,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "your loan application has been approved",
+        "kind": "general",
+        "about": "application decision",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The approved loan amount is 889,515",
+        "kind": "loan_terms",
+        "about": "approved loan amount",
+        "value": "889,515",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "regular payments of 26,136 over about 34 payments",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "26,136",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "regular payments of 26,136 over about 34 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "34",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your average external credit score is 0.73",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.73",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your highest external credit score is 0.77",
+        "kind": "factor",
+        "about": "highest external credit score",
+        "value": "0.77",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MAX",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at scores like these as a sign of a reliable repayment record",
+        "kind": "general",
+        "about": "lenders' use of credit scores",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "your identification details were updated 13.1 years ago, which shows a stable history",
+        "kind": "factor",
+        "about": "time since identification details updated",
+        "value": "13.1 years",
+        "presented_as": "strength",
+        "code": "YEARS_SINCE_ID_PUBLISH",
+        "verdict": "supported"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 3,
+      "note": "The letter is warm, polite and easy to follow, though it gives little acknowledgement of the applicant's situation beyond a general offer to help with questions.",
+      "vader_compound": 0.9921,
+      "textblob_polarity": 0.13125,
+      "textblob_subjectivity": 0.45961538461538465
+    },
+    "cost_usd": 0.000869,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "131441|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8333333333333334,
+    "n_claims": 6,
+    "n_supported": 5,
+    "coverage_top3": null,
+    "passed": false,
+    "issues": [
+      "\"Your regular repayment amount of 13,869 is a clear, fixed figure you can plan around each period\": misdescribes Regular repayment amount: The letter calls the repayment amount fixed and easy to plan around, which adds a claim about fixed terms that the fact sheet does not state."
+    ],
+    "claims": [
+      {
+        "quote": "We are pleased to offer you a loan of 364,428",
+        "kind": "loan_terms",
+        "about": "loan amount",
+        "value": "364,428",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of 13,869",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "13,869",
+        "presented_as": "neutral",
+        "code": "AMT_ANNUITY",
+        "verdict": "supported"
+      },
+      {
+        "quote": "over about 26 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "about 26",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "based in part on several strengths in your financial history",
+        "kind": "general",
+        "about": "decision based on financial history strengths",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your average external credit score is 0.57",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.57",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "lenders generally view a solid external credit record as a sign of reliable repayment",
+        "kind": "general",
+        "about": "lender view of external credit record",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your past loans also had an average term of about 6 payments",
+        "kind": "factor",
+        "about": "average term of past loans",
+        "value": "about 6 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "which shows you have experience completing repayment plans",
+        "kind": "general",
+        "about": "past loan experience with repayment plans",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your regular repayment amount of 13,869 is a clear, fixed figure you can plan around each period",
+        "kind": "loan_terms",
+        "about": "regular repayment amount is fixed",
+        "value": "13,869",
+        "presented_as": "neutral",
+        "code": "AMT_ANNUITY",
+        "verdict": "misdescribes Regular repayment amount: The letter calls the repayment amount fixed and easy to plan around, which adds a claim about fixed terms that the fact sheet does not state."
+      },
+      {
+        "quote": "Please review the loan terms carefully before you accept",
+        "kind": "general",
+        "about": "next step to review loan terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "keep up with each payment on schedule to maintain a strong record with us",
+        "kind": "general",
+        "about": "payment record maintenance",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "please contact us and a member of our team will be glad to help",
+        "kind": "general",
+        "about": "contact for questions",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 3,
+      "note": "The letter is warm, positive and easy to follow, though it does little to acknowledge the applicant's situation beyond offering help with questions.",
+      "vader_compound": 0.9896,
+      "textblob_polarity": 0.0912280701754386,
+      "textblob_subjectivity": 0.36423751686909583
+    },
+    "cost_usd": 0.00097,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "230043|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 4,
+    "n_supported": 4,
+    "coverage_top3": null,
+    "passed": false,
+    "issues": [
+      "tone: respect scored 3/5 (The letter opens warmly but then lists past cancelled applications as a strength, which is confusing and unexplained, and it gives little acknowledgement of the applicant's situation.)"
+    ],
+    "claims": [
+      {
+        "quote": "We are pleased to offer you a loan of 138,474",
+        "kind": "loan_terms",
+        "about": "loan amount",
+        "value": "138,474",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of 9,765 over about 14 payments",
+        "kind": "loan_terms",
+        "about": "regular payment amount and number of payments",
+        "value": "9,765; about 14 payments",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your past applications show that 75% were cancelled",
+        "kind": "factor",
+        "about": "share of past applications cancelled",
+        "value": "75%",
+        "presented_as": "strength",
+        "code": "PREV_CANCELED_SHARE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "The regular repayment amount of 9,765 is also one of the details we considered as part of your overall profile.",
+        "kind": "factor",
+        "about": "regular repayment amount considered in profile",
+        "value": "9,765",
+        "presented_as": "strength",
+        "code": "AMT_ANNUITY",
+        "verdict": "supported"
+      },
+      {
+        "quote": "lenders may look at when they consider how a request has been managed over time",
+        "kind": "general",
+        "about": "lenders review how requests are managed over time",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Please review the loan terms carefully before you accept.",
+        "kind": "general",
+        "about": "applicant should review terms before accepting",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have any questions about your repayments or the next steps, reply to this letter and our team will be glad to help.",
+        "kind": "general",
+        "about": "next steps and how to get help",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 3,
+      "clear": 2,
+      "empathetic": 2,
+      "note": "The letter opens warmly but then lists past cancelled applications as a strength, which is confusing and unexplained, and it gives little acknowledgement of the applicant's situation.",
+      "vader_compound": 0.9799,
+      "textblob_polarity": 0.07066115702479339,
+      "textblob_subjectivity": 0.44993642720915444
+    },
+    "cost_usd": 0.000796,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "416405|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8,
+    "n_claims": 5,
+    "n_supported": 4,
+    "coverage_top3": null,
+    "passed": false,
+    "issues": [
+      "\"Your regular repayment amount is set at a level that fits within our lending guidelines\": misdescribes Regular repayment amount: Claim says the regular repayment amount fits lending guidelines, a comparison the fact sheet does not state; it only gives the amount 10,125 as a strength."
+    ],
+    "claims": [
+      {
+        "quote": "your loan application has been approved",
+        "kind": "general",
+        "about": "application decision",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The approved loan amount is 202,500",
+        "kind": "loan_terms",
+        "about": "approved loan amount",
+        "value": "202,500",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "regular payments of 10,125 over about 20 payments",
+        "kind": "loan_terms",
+        "about": "regular payment amount and number of payments",
+        "value": "10,125; about 20 payments",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "A loan officer will be in touch to confirm the final details and walk you through the next steps.",
+        "kind": "general",
+        "about": "next steps after approval",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your regular repayment amount is set at a level that fits within our lending guidelines",
+        "kind": "factor",
+        "about": "regular repayment amount fits lending guidelines",
+        "value": null,
+        "presented_as": "strength",
+        "code": "AMT_ANNUITY",
+        "verdict": "misdescribes Regular repayment amount: Claim says the regular repayment amount fits lending guidelines, a comparison the fact sheet does not state; it only gives the amount 10,125 as a strength."
+      },
+      {
+        "quote": "the loan amount is in line with the price of the goods it is meant to cover",
+        "kind": "factor",
+        "about": "loan amount compared with price of goods",
+        "value": null,
+        "presented_as": "strength",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "We also saw a favorable external credit score, which helps show a reliable history of managing credit.",
+        "kind": "factor",
+        "about": "external credit score",
+        "value": "favorable",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MIN",
+        "verdict": "supported"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 4,
+      "note": "The letter is warm, plain and courteous, explaining the approval, the next steps and how to ask questions, though it says little about the applicant's feelings or situation.",
+      "vader_compound": 0.9856,
+      "textblob_polarity": 0.15999999999999998,
+      "textblob_subjectivity": 0.3953846153846154
+    },
+    "cost_usd": 0.000845,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "282459|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 5,
+    "n_supported": 5,
+    "coverage_top3": null,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "your loan application has been approved",
+        "kind": "general",
+        "about": "application decision",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan of 778,802",
+        "kind": "loan_terms",
+        "about": "approved loan amount",
+        "value": "778,802",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "regular payments of 37,598",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "37,598",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "over about 21 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "about 21",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "We looked at several parts of your application, and two of them worked in your favor.",
+        "kind": "general",
+        "about": "review of application factors",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your average external credit score is 0.57",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.57",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the car you already own is 5 years old",
+        "kind": "factor",
+        "about": "age of vehicle owned",
+        "value": "5 years",
+        "presented_as": "strength",
+        "code": "OWN_CAR_AGE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders often view steady credit information and a dependable vehicle as signs of stability.",
+        "kind": "general",
+        "about": "lender view of credit information and vehicle",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your loan officer will contact you with the next steps for signing and receiving your funds.",
+        "kind": "general",
+        "about": "next steps via loan officer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have any questions about your loan or your payment schedule, please reach out to us and we will be glad to help.",
+        "kind": "general",
+        "about": "contact for questions",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 3,
+      "note": "The letter is warm, courteous and easy to follow, with clear next steps, though it does little to acknowledge the applicant's situation beyond the good news.",
+      "vader_compound": 0.9753,
+      "textblob_polarity": 0.21969696969696972,
+      "textblob_subjectivity": 0.4433566433566434
+    },
+    "cost_usd": 0.000863,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "246526|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 6,
+    "n_supported": 6,
+    "coverage_top3": null,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "We are pleased to offer you a loan of 900,000",
+        "kind": "loan_terms",
+        "about": "loan amount offered",
+        "value": "900,000",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "regular payments of 45,000 over about 20 payments",
+        "kind": "loan_terms",
+        "about": "regular payment amount",
+        "value": "45,000",
+        "presented_as": "neutral",
+        "code": "AMT_ANNUITY",
+        "verdict": "supported"
+      },
+      {
+        "quote": "regular payments of 45,000 over about 20 payments",
+        "kind": "loan_terms",
+        "about": "number of payments",
+        "value": "about 20",
+        "presented_as": "neutral",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your external credit scores were strong, with an average of 0.77",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.77",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a highest score of 0.83",
+        "kind": "factor",
+        "about": "highest external credit score",
+        "value": "0.83",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MAX",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the car you already own is 4 years old, which we considered as part of your overall profile",
+        "kind": "factor",
+        "about": "age of car already owned",
+        "value": "4 years",
+        "presented_as": "strength",
+        "code": "OWN_CAR_AGE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "These scores are one of the ways lenders can see a reliable record of managing credit.",
+        "kind": "general",
+        "about": "purpose of credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Please review the loan terms carefully before you accept.",
+        "kind": "general",
+        "about": "next step before accepting",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have any questions about your repayment schedule or the next steps, please reply to this letter and our team will be glad to help.",
+        "kind": "general",
+        "about": "how to get help",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is warm and courteous, uses mostly plain language, and invites questions, though it says little about the applicant's situation beyond the good news.",
+      "vader_compound": 0.9858,
+      "textblob_polarity": 0.19871794871794873,
+      "textblob_subjectivity": 0.4700197238658777
+    },
+    "cost_usd": 0.000898,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "370614|approve|v7|claude-haiku-5-5": {
+    "faithfulness": 0.6666666666666666,
+    "n_claims": 3,
+    "n_supported": 2,
+    "coverage_top3": null,
+    "passed": false,
+    "issues": [
+      "\"your external credit scores, which were strong across the reports we reviewed\": misdescribes Average external credit score: The claim calls the external credit scores strong across reports, while the fact sheet lists an average score of 0.68 as a strength, with the highest and lowest also listed; calling them strong is an everyday word matching the strengths section, but 'across the reports we reviewed' adds a consistency claim the single average does not state."
+    ],
+    "claims": [
+      {
+        "quote": "your loan application has been approved",
+        "kind": "general",
+        "about": "application outcome",
+        "value": "approved",
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The approved loan amount is 697,500",
+        "kind": "loan_terms",
+        "about": "approved loan amount",
+        "value": "697,500",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a regular payment of 27,662 over about 25 payments",
+        "kind": "loan_terms",
+        "about": "regular payment and number of payments",
+        "value": "27,662; about 25 payments",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your external credit scores, which were strong across the reports we reviewed",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "strong",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "misdescribes Average external credit score: The claim calls the external credit scores strong across reports, while the fact sheet lists an average score of 0.68 as a strength, with the highest and lowest also listed; calling them strong is an everyday word matching the strengths section, but 'across the reports we reviewed' adds a consistency claim the single average does not state."
+      },
+      {
+        "quote": "Lenders look at these scores because they give a helpful picture of how someone has managed credit elsewhere",
+        "kind": "general",
+        "about": "why lenders review credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Please review the loan terms carefully before you accept",
+        "kind": "general",
+        "about": "next step before accepting",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 5,
+      "empathetic": 4,
+      "note": "The letter is warm, courteous and plain, though it offers little acknowledgement of the applicant's situation beyond thanks and an invitation to ask questions.",
+      "vader_compound": 0.988,
+      "textblob_polarity": 0.22592592592592592,
+      "textblob_subjectivity": 0.5408221408221409
+    },
+    "cost_usd": 0.000712,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "135305|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 7,
+    "n_supported": 7,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "Your application is not approved yet, and it is now under review.",
+        "kind": "general",
+        "about": "application status",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Because your application is close to our approval range, a loan officer will look at it personally.",
+        "kind": "general",
+        "about": "application close to approval range, personal review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your external credit scores are around 0.24 on average and 0.27 at the highest.",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "0.24 average, 0.27 highest",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "External credit scores help show a borrower's repayment history with other lenders.",
+        "kind": "general",
+        "about": "purpose of external credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The requested loan amount is 1.34 times the price of the goods it is meant to cover.",
+        "kind": "factor",
+        "about": "loan amount to price of goods ratio",
+        "value": "1.34",
+        "presented_as": "concern",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "The loan term is about 18 payments, and longer terms add to the overall risk of a loan.",
+        "kind": "loan_terms",
+        "about": "loan term number of payments",
+        "value": "18",
+        "presented_as": "concern",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "longer terms add to the overall risk of a loan.",
+        "kind": "general",
+        "about": "longer loan terms increase risk",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your car is 4 years old",
+        "kind": "factor",
+        "about": "age of car",
+        "value": "4 years",
+        "presented_as": "strength",
+        "code": "OWN_CAR_AGE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "0% of your payments were late in the last year.",
+        "kind": "factor",
+        "about": "late payments in last year",
+        "value": "0%",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "On-time payments show a reliable repayment record, which we value.",
+        "kind": "general",
+        "about": "on-time payments valued by lender",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "A loan officer may contact you about adjusting the loan terms.",
+        "kind": "general",
+        "about": "loan officer may contact about adjusting terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan officer may be able to offer a loan of 508,842",
+        "kind": "offer",
+        "about": "possible loan amount offer",
+        "value": "508,842",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of about 27,718 over about 18 payments",
+        "kind": "offer",
+        "about": "possible offer regular payment amount and number of payments",
+        "value": "27,718 over 18 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "This is a possibility the loan officer will confirm, not a promise.",
+        "kind": "general",
+        "about": "offer is not guaranteed",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is polite and balanced, though it uses dense unexplained figures and offers little guidance on concrete next steps beyond contacting the lender.",
+      "vader_compound": 0.9261,
+      "textblob_polarity": 0.002083333333333335,
+      "textblob_subjectivity": 0.23696581196581198
+    },
+    "cost_usd": 0.001064,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "209138|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 0.875,
+    "n_claims": 8,
+    "n_supported": 7,
+    "coverage_top3": 1.0,
+    "passed": false,
+    "issues": [
+      "\"your past loans have averaged about 10 payments, which shows you have repaid loans over a sustained period\": misdescribes Average term of past loans: The claim gives the same average of about 10 payments for past loans and adds a general remark that this shows repayment over a sustained period, which overstates the single average figure."
+    ],
+    "claims": [
+      {
+        "quote": "Your application is close to our approval level, so a loan officer will look at it personally before a final decision is made.",
+        "kind": "general",
+        "about": "application is close to approval level and will be reviewed personally by a loan officer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "About 11% of your payments in the last year were late",
+        "kind": "factor",
+        "about": "share of payments that were late in the last year",
+        "value": "11%",
+        "presented_as": "concern",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "late payments are a key sign of repayment reliability",
+        "kind": "general",
+        "about": "why late payments matter to lenders",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your highest external credit score is 0.65",
+        "kind": "factor",
+        "about": "highest external credit score",
+        "value": "0.65",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MAX",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your time in your current job is 1.2 years, which gives us less history to rely on",
+        "kind": "factor",
+        "about": "time in current job",
+        "value": "1.2 years",
+        "presented_as": "concern",
+        "code": "YEARS_EMPLOYED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your address is also outside your registered city.",
+        "kind": "factor",
+        "about": "address location relative to registered city",
+        "value": "outside registered city",
+        "presented_as": "concern",
+        "code": "REG_CITY_NOT_LIVE_CITY",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your average external credit score is 0.65",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.65",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "you have higher education",
+        "kind": "factor",
+        "about": "education level",
+        "value": "higher education",
+        "presented_as": "strength",
+        "code": "NAME_EDUCATION_TYPE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans have averaged about 10 payments, which shows you have repaid loans over a sustained period",
+        "kind": "factor",
+        "about": "average number of payments on past loans",
+        "value": "about 10 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "misdescribes Average term of past loans: The claim gives the same average of about 10 payments for past loans and adds a general remark that this shows repayment over a sustained period, which overstates the single average figure."
+      },
+      {
+        "quote": "a loan of 490,496 with regular payments of about 27,278 over about 18 payments",
+        "kind": "offer",
+        "about": "possible alternative loan amount, payment and number of payments",
+        "value": "490,496; about 27,278; about 18 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "The loan officer will confirm whether this is available, and may contact you to discuss adjusting the loan terms.",
+        "kind": "general",
+        "about": "next steps for confirming the offer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and lists strengths alongside concerns, but it uses some technical wording and gives little guidance on what the applicant can do next.",
+      "vader_compound": 0.9468,
+      "textblob_polarity": 0.020175438596491232,
+      "textblob_subjectivity": 0.37027665317139
+    },
+    "cost_usd": 0.001051,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "312774|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 7,
+    "n_supported": 7,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "your application is under review, which means it is close to our approval standard",
+        "kind": "general",
+        "about": "application status relative to approval standard",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan officer will look at it personally before any final decision is made",
+        "kind": "general",
+        "about": "review process by loan officer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Two external credit scores are part of our review",
+        "kind": "general",
+        "about": "number of external credit scores used in review",
+        "value": "2",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your average external credit score is 0.34",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.34",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your lowest external credit score is 0.15",
+        "kind": "factor",
+        "about": "lowest external credit score",
+        "value": "0.15",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MIN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at these scores because they give a picture of how someone has handled credit in the past",
+        "kind": "general",
+        "about": "why lenders review credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "None of your payments were late in the last year",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "0",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "one of your external credit scores is 0.60",
+        "kind": "factor",
+        "about": "one external credit score",
+        "value": "0.60",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_3",
+        "verdict": "supported"
+      },
+      {
+        "quote": "On-time payments show a reliable repayment record",
+        "kind": "general",
+        "about": "why on-time payments matter",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan officer may be able to offer a loan of 360,000",
+        "kind": "offer",
+        "about": "possible loan amount offered",
+        "value": "360,000",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of about 16,384 over about 22 payments",
+        "kind": "offer",
+        "about": "possible regular payment and number of payments",
+        "value": "16,384 over 22 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "You may be contacted to discuss adjusting your loan terms",
+        "kind": "offer",
+        "about": "possible contact to adjust loan terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "This is a possibility the loan officer will confirm, not a guarantee",
+        "kind": "general",
+        "about": "offer is not guaranteed",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have questions in the meantime, please contact us",
+        "kind": "general",
+        "about": "next step for applicant questions",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and lists strengths alongside concerns, but its use of unexplained decimal scores and a vague offer makes it somewhat hard to follow and offers little acknowledgement of the applicant's situation.",
+      "vader_compound": 0.9631,
+      "textblob_polarity": 0.0,
+      "textblob_subjectivity": 0.2870421245421246
+    },
+    "cost_usd": 0.000978,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "210293|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8333333333333334,
+    "n_claims": 6,
+    "n_supported": 5,
+    "coverage_top3": 0.3333333333333333,
+    "passed": false,
+    "issues": [
+      "\"which shows a record of approvals\": misdescribes Past loans granted vs amount requested: The claim says a record of approvals is shown, which loosely relates to the past granted-vs-requested ratio but adds a characterization the entry does not state directly."
+    ],
+    "claims": [
+      {
+        "quote": "Your application is under review and has not been declined.",
+        "kind": "general",
+        "about": "application status",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "A loan officer will look at it personally and may contact you about adjusting the loan terms.",
+        "kind": "general",
+        "about": "next steps, officer review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your application is close to the level needed for approval as requested.",
+        "kind": "general",
+        "about": "how close application is to approval",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Two factors weighed on the estimate.",
+        "kind": "general",
+        "about": "factors in the estimate",
+        "value": "2",
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The requested loan amount is 1.42 times the price of the goods",
+        "kind": "factor",
+        "about": "requested loan amount compared to price of goods",
+        "value": "1.42 times",
+        "presented_as": "concern",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the loan term is about 20 payments",
+        "kind": "loan_terms",
+        "about": "requested loan term",
+        "value": "about 20 payments",
+        "presented_as": "concern",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at these because they affect how manageable repayments are over time.",
+        "kind": "general",
+        "about": "why lenders look at loan ratio and term",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "past loans were granted for 0.86 times the amount requested",
+        "kind": "factor",
+        "about": "past loan approvals relative to amount requested",
+        "value": "0.86 times",
+        "presented_as": "strength",
+        "code": "PREV_AVG_GRANTED_TO_APPLIED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "which shows a record of approvals",
+        "kind": "factor",
+        "about": "record of past loan approvals",
+        "value": null,
+        "presented_as": "strength",
+        "code": "PREV_AVG_GRANTED_TO_APPLIED",
+        "verdict": "misdescribes Past loans granted vs amount requested: The claim says a record of approvals is shown, which loosely relates to the past granted-vs-requested ratio but adds a characterization the entry does not state directly."
+      },
+      {
+        "quote": "A loan officer may be able to offer a loan of 640,080",
+        "kind": "offer",
+        "about": "possible alternative loan amount",
+        "value": "640,080",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of about 28,420 over about 23 payments",
+        "kind": "offer",
+        "about": "possible alternative payment amount and number of payments",
+        "value": "about 28,420 over about 23 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "This is a possibility the loan officer will confirm, not a guarantee.",
+        "kind": "general",
+        "about": "offer is not guaranteed",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and balanced, but its jargon such as ratios and estimate wording makes it less plain, and it offers little acknowledgement of the applicant's situation beyond next steps.",
+      "vader_compound": 0.885,
+      "textblob_polarity": 0.0625,
+      "textblob_subjectivity": 0.31298076923076923
+    },
+    "cost_usd": 0.000945,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "248335|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8571428571428571,
+    "n_claims": 7,
+    "n_supported": 6,
+    "coverage_top3": 0.6666666666666666,
+    "passed": false,
+    "issues": [
+      "\"The requested loan term of about 18 payments also adds to the overall risk.\": misdescribes Loan term (number of payments): The claim says the requested term of about 18 payments adds to risk, matching the term entry, though it adds a causal judgment about overall risk that the fact does not state."
+    ],
+    "claims": [
+      {
+        "quote": "Your external credit scores are low on average and at their highest",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "low on average and at their highest",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "about 12% of your payments over the last year were late",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "about 12%",
+        "presented_as": "concern",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "The requested loan term of about 18 payments also adds to the overall risk.",
+        "kind": "loan_terms",
+        "about": "requested loan term",
+        "value": "about 18 payments",
+        "presented_as": "concern",
+        "code": "CREDIT_TERM",
+        "verdict": "misdescribes Loan term (number of payments): The claim says the requested term of about 18 payments adds to risk, matching the term entry, though it adds a causal judgment about overall risk that the fact does not state."
+      },
+      {
+        "quote": "The loan amount matches the price of the goods at 1.00x",
+        "kind": "factor",
+        "about": "loan amount relative to price of goods",
+        "value": "1.00x",
+        "presented_as": "strength",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans were granted at 0.90x of the amount you requested",
+        "kind": "factor",
+        "about": "past loans granted relative to amount requested",
+        "value": "0.90x",
+        "presented_as": "strength",
+        "code": "PREV_AVG_GRANTED_TO_APPLIED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your existing car is one year old.",
+        "kind": "factor",
+        "about": "age of existing car",
+        "value": "one year old",
+        "presented_as": "strength",
+        "code": "OWN_CAR_AGE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "A loan officer may be able to offer a loan of 393,534 with regular payments of about 16,522 over about 24 payments.",
+        "kind": "offer",
+        "about": "possible alternative loan offer",
+        "value": "393,534 with regular payments of about 16,522 over about 24 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "a loan officer will look at it personally before a final decision is made",
+        "kind": "general",
+        "about": "loan officer personal review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Late payments matter to us because they show how reliably a loan is repaid.",
+        "kind": "general",
+        "about": "why late payments matter",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is courteous and balanced, listing strengths alongside concerns, though it offers little warmth and only briefly points to next steps like replying or requesting a review.",
+      "vader_compound": 0.8987,
+      "textblob_polarity": 0.0,
+      "textblob_subjectivity": 0.3345726495726496
+    },
+    "cost_usd": 0.000967,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "284410|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 6,
+    "n_supported": 6,
+    "coverage_top3": 1.0,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "Your external credit scores are on the lower side",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "lower side",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your most recent loan from another lender was taken out about 5 weeks ago",
+        "kind": "factor",
+        "about": "timing of most recent loan from another lender",
+        "value": "about 5 weeks ago",
+        "presented_as": "concern",
+        "code": "BUR_YEARS_SINCE_LAST_LOAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "you are using about 73% of the credit available to you at other lenders",
+        "kind": "factor",
+        "about": "credit utilisation at other lenders",
+        "value": "about 73%",
+        "presented_as": "concern",
+        "code": "BUR_DEBT_TO_CREDIT",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders generally look at how much of available credit is in use because it can signal how much room there is to take on new payments.",
+        "kind": "general",
+        "about": "why lenders look at credit in use",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You have never been late on a past payment",
+        "kind": "factor",
+        "about": "payment history",
+        "value": "never late",
+        "presented_as": "strength",
+        "code": "INST_MAX_DAYS_LATE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "on-time payments show a reliable repayment record",
+        "kind": "general",
+        "about": "meaning of on-time payments",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your past loans have also typically run for about 12 payments.",
+        "kind": "factor",
+        "about": "typical length of past loans",
+        "value": "about 12 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your application is close to our approval level, so a loan officer will look at it personally before a final decision is made.",
+        "kind": "general",
+        "about": "review process",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan of 168,934 with regular payments of about 9,813 over about 17 payments",
+        "kind": "offer",
+        "about": "possible loan offer amount, payment and number of payments",
+        "value": "168,934; about 9,813; about 17 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "They may contact you to discuss adjusting the loan terms.",
+        "kind": "general",
+        "about": "possible contact about adjusting terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is courteous and explains its reasoning in plain language, though it lists the applicant's weaknesses bluntly and offers little acknowledgement of their situation beyond inviting questions.",
+      "vader_compound": 0.898,
+      "textblob_polarity": 0.0786682615629984,
+      "textblob_subjectivity": 0.3832351858667648
+    },
+    "cost_usd": 0.000946,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "140627|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 0.75,
+    "n_claims": 8,
+    "n_supported": 6,
+    "coverage_top3": 0.6666666666666666,
+    "passed": false,
+    "issues": [
+      "\"your past loans were generally for terms of about 12 payments, which shows you have managed longer repayment plans before\": misdescribes Average term of past loans: The claim says past loans were generally for about 12 payments and presents this as experience with longer plans; the fact sheet lists average term of past loans as about 12 payments as a strength.",
+      "\"Your application is close to the level we can approve\": not one of the reasons the model gave"
+    ],
+    "claims": [
+      {
+        "quote": "Our external credit scores on your file are on the lower side",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "lower side",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past payments have on average been paid a little late",
+        "kind": "factor",
+        "about": "payment history timeliness",
+        "value": "a little late on average",
+        "presented_as": "concern",
+        "code": "INST_AVG_DAYS_LATE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans were also granted for slightly more than you requested, which we looked at closely",
+        "kind": "factor",
+        "about": "past loans granted above requested amount",
+        "value": "slightly more than requested",
+        "presented_as": "concern",
+        "code": "PREV_AVG_GRANTED_TO_APPLIED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "You have a higher education level",
+        "kind": "factor",
+        "about": "education level",
+        "value": "higher",
+        "presented_as": "strength",
+        "code": "NAME_EDUCATION_TYPE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans were generally for terms of about 12 payments, which shows you have managed longer repayment plans before",
+        "kind": "factor",
+        "about": "past loan terms",
+        "value": "about 12 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "misdescribes Average term of past loans: The claim says past loans were generally for about 12 payments and presents this as experience with longer plans; the fact sheet lists average term of past loans as about 12 payments as a strength."
+      },
+      {
+        "quote": "Lenders value this kind of history because it points to a reliable track record",
+        "kind": "general",
+        "about": "lenders value repayment history",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your application is close to the level we can approve",
+        "kind": "factor",
+        "about": "application position relative to approval level",
+        "value": "close to approval level",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not one of the reasons the model gave"
+      },
+      {
+        "quote": "A loan officer may be able to offer a loan of 679,671 with regular payments of about 28,737 over about 24 payments",
+        "kind": "offer",
+        "about": "possible loan offer amount, payment and number of payments",
+        "value": "679,671; about 28,737; about 24 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "We may contact you about adjusting the loan terms",
+        "kind": "offer",
+        "about": "possible adjustment of loan terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "a loan officer will look at it personally before we reach a final decision",
+        "kind": "general",
+        "about": "loan officer personal review before final decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "This is a possibility the loan officer will confirm with you, not a promise",
+        "kind": "general",
+        "about": "offer is not guaranteed",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is courteous and balanced, listing both strengths and concerns, though it offers little guidance on what the applicant can do next beyond watching for a call.",
+      "vader_compound": 0.8198,
+      "textblob_polarity": 0.0536764705882353,
+      "textblob_subjectivity": 0.42658371040723986
+    },
+    "cost_usd": 0.001047,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "137038|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 9,
+    "n_supported": 9,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "your application is not approved yet, and a loan officer will now review it personally because it is close to our approval requirements",
+        "kind": "general",
+        "about": "application status and review process",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You currently have 7 active loans at other lenders",
+        "kind": "factor",
+        "about": "number of active loans at other lenders",
+        "value": "7",
+        "presented_as": "concern",
+        "code": "BUR_N_ACTIVE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your total debt at other lenders is 1,951,776",
+        "kind": "factor",
+        "about": "total debt at other lenders",
+        "value": "1,951,776",
+        "presented_as": "concern",
+        "code": "BUR_TOTAL_DEBT",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your past loans have also been granted in amounts that differ from what was requested, which is one more thing we consider",
+        "kind": "factor",
+        "about": "past loans granted in amounts different from requested",
+        "value": null,
+        "presented_as": "concern",
+        "code": "PREV_AVG_GRANTED_TO_APPLIED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "None of your payments were late in the last year, which shows a reliable repayment record",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "none",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your lowest external credit score is 0.41",
+        "kind": "factor",
+        "about": "lowest external credit score",
+        "value": "0.41",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MIN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the ID on file was last updated 13.0 years ago",
+        "kind": "factor",
+        "about": "time since ID on file was last updated",
+        "value": "13.0 years",
+        "presented_as": "strength",
+        "code": "YEARS_SINCE_ID_PUBLISH",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders also look at how long a customer has been with us",
+        "kind": "general",
+        "about": "lenders consider length of customer relationship",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan officer may be able to offer a loan of 727,785",
+        "kind": "offer",
+        "about": "possible loan amount offered",
+        "value": "727,785",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of about 25,636 over about 28 payments",
+        "kind": "offer",
+        "about": "possible regular payment and number of payments",
+        "value": "25,636 over about 28 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "This is a possibility the loan officer will confirm, not a promise",
+        "kind": "general",
+        "about": "offer is not guaranteed",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "A loan officer may contact you to discuss adjusting the loan terms",
+        "kind": "offer",
+        "about": "possible adjustment of loan terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and balances strengths with concerns, but its factor language is somewhat dense and it gives little acknowledgement of the applicant's situation or clear next steps beyond replying with questions.",
+      "vader_compound": 0.8027,
+      "textblob_polarity": 0.012745098039215686,
+      "textblob_subjectivity": 0.3579562594268476
+    },
+    "cost_usd": 0.001059,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "383075|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 6,
+    "n_supported": 6,
+    "coverage_top3": 0.3333333333333333,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "Your application is close to the level we can approve as requested",
+        "kind": "general",
+        "about": "how close the application is to approval as requested",
+        "value": null,
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Some of the information from outside credit scores is part of what we are reviewing",
+        "kind": "factor",
+        "about": "outside credit scores under review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the regular repayment amount and the length of the loan also affect the decision",
+        "kind": "general",
+        "about": "regular repayment amount and loan length affect decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your credit card balance is at 0% of your limit",
+        "kind": "factor",
+        "about": "credit card balance as share of limit",
+        "value": "0%",
+        "presented_as": "strength",
+        "code": "CC_AVG_UTILISATION",
+        "verdict": "supported"
+      },
+      {
+        "quote": "none of your payments were late in the last year",
+        "kind": "factor",
+        "about": "late payments in last year",
+        "value": "0",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders value these because they show a reliable approach to managing credit.",
+        "kind": "general",
+        "about": "why lenders value credit card balance and payment history",
+        "value": null,
+        "presented_as": "strength",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan officer may be able to offer a loan of 717,430",
+        "kind": "offer",
+        "about": "possible offered loan amount",
+        "value": "717,430",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of about 36,752 over about 20 payments",
+        "kind": "offer",
+        "about": "possible offered regular payment and number of payments",
+        "value": "36,752 over about 20 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "A loan officer may contact you to discuss adjusting the loan terms.",
+        "kind": "offer",
+        "about": "possible contact to adjust loan terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "This is a possibility the loan officer will confirm, not a guarantee.",
+        "kind": "general",
+        "about": "offered terms are not guaranteed",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a loan officer will look at it personally before we reach a final decision",
+        "kind": "general",
+        "about": "loan officer personally reviews application before final decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and thanks the applicant for their patience, but its wording on the approval level and the offered terms is somewhat vague and does not clearly explain what the applicant can do next.",
+      "vader_compound": 0.9072,
+      "textblob_polarity": 0.07999999999999999,
+      "textblob_subjectivity": 0.36955128205128207
+    },
+    "cost_usd": 0.000882,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "173037|under_review|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 5,
+    "n_supported": 5,
+    "coverage_top3": 0.3333333333333333,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "It is close to the level needed for approval as requested.",
+        "kind": "general",
+        "about": "how close the application is to approval",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The average length of your past loans was about 42 payments.",
+        "kind": "factor",
+        "about": "average length of past loans",
+        "value": "about 42 payments",
+        "presented_as": "neutral",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at loan length as part of understanding repayment history.",
+        "kind": "general",
+        "about": "why lenders look at loan length",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The requested regular payment of 40,244 and the loan term of about 13 payments also played a part in the review.",
+        "kind": "loan_terms",
+        "about": "requested regular payment and loan term",
+        "value": "regular payment 40,244; term about 13 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "None of your payments were late in the last year, which is 0%, and on-time payments show a reliable repayment record.",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "0%",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your ID document was last changed 13.2 years ago, which points to a stable identity record.",
+        "kind": "factor",
+        "about": "time since ID document was last changed",
+        "value": "13.2 years",
+        "presented_as": "strength",
+        "code": "YEARS_SINCE_ID_PUBLISH",
+        "verdict": "supported"
+      },
+      {
+        "quote": "A loan officer may be able to offer a loan of 509,400 with regular payments of about 36,585 over about 14 payments.",
+        "kind": "offer",
+        "about": "possible alternative loan amount, payment and term",
+        "value": "loan 509,400; payments about 36,585; about 14 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "The loan officer will confirm the terms and may contact you to discuss adjusting your loan.",
+        "kind": "general",
+        "about": "next steps after offer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you have questions, please reply to this letter.",
+        "kind": "general",
+        "about": "how to ask questions",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 2,
+      "note": "The letter is courteous and lists strengths, but its figures and technical phrasing are hard to follow and it offers little acknowledgement of the applicant's situation beyond a simple reply invitation.",
+      "vader_compound": 0.9217,
+      "textblob_polarity": 0.018181818181818184,
+      "textblob_subjectivity": 0.2692890442890443
+    },
+    "cost_usd": 0.000932,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "257448|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 3,
+    "n_supported": 3,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "are currently low, with an average of 0.17",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "0.17",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "12% of payments were late in the last year",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "12%",
+        "presented_as": "concern",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your ID document was last changed 14.3 years ago",
+        "kind": "factor",
+        "about": "ID document age",
+        "value": "14.3 years",
+        "presented_as": "strength",
+        "code": "YEARS_SINCE_ID_PUBLISH",
+        "verdict": "supported"
+      },
+      {
+        "quote": "lenders generally view a long-held ID as a sign of stability",
+        "kind": "general",
+        "about": "lender view of long-held ID",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Late payments are a concern because they suggest regular repayments may be harder to keep up",
+        "kind": "general",
+        "about": "why late payments matter",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "lenders generally look for a steady record of on-time payments over time",
+        "kind": "general",
+        "about": "what lenders look for in future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you believe this decision should be reviewed, you can ask for a review of this decision",
+        "kind": "general",
+        "about": "right to request a review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and gives a clear reason and a path forward, but it uses some technical wording like external credit scores and the review sentence is repetitive and unhelpful about how to ask.",
+      "vader_compound": 0.9274,
+      "textblob_polarity": -0.0403030303030303,
+      "textblob_subjectivity": 0.3665355477855478
+    },
+    "cost_usd": 0.000733,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "184845|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 5,
+    "n_supported": 5,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "we are unable to approve your loan application for $273,636 as requested",
+        "kind": "loan_terms",
+        "about": "requested loan amount",
+        "value": "$273,636",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your external credit scores are on the lower side, with an average of 0.26",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "0.26",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "about 33% of your payments in the last year were late",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "33%",
+        "presented_as": "concern",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at these measures because they show how reliably a loan is likely to be repaid.",
+        "kind": "general",
+        "about": "why lenders review credit measures",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You have a higher education level",
+        "kind": "factor",
+        "about": "education level",
+        "value": "higher",
+        "presented_as": "strength",
+        "code": "NAME_EDUCATION_TYPE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans had an average term of about 12 payments",
+        "kind": "factor",
+        "about": "average term of past loans",
+        "value": "about 12 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a record of on-time payments over time is one of the most helpful steps you can take",
+        "kind": "general",
+        "about": "helpful step for future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you would like us to review this decision, you are welcome to ask.",
+        "kind": "general",
+        "about": "option to request a review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is courteous and acknowledges disappointment, though it is somewhat formal and gives little detail on how to improve beyond a general suggestion.",
+      "vader_compound": 0.9682,
+      "textblob_polarity": 0.00714285714285715,
+      "textblob_subjectivity": 0.45297619047619053
+    },
+    "cost_usd": 0.000815,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "412892|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 6,
+    "n_supported": 6,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "we are unable to approve your loan application for 832,500 as requested",
+        "kind": "loan_terms",
+        "about": "requested loan amount",
+        "value": "832,500",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Several factors in your application weighed against approval.",
+        "kind": "general",
+        "about": "factors weighing against approval",
+        "value": null,
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Our external credit scores were low across the sources we reviewed, with an average of 0.21",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.21",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a lowest score of 0.07",
+        "kind": "factor",
+        "about": "lowest external credit score",
+        "value": "0.07",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MIN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a highest score of 0.34",
+        "kind": "factor",
+        "about": "highest external credit score",
+        "value": "0.34",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MAX",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at these scores because they give a general picture of how a borrower has handled credit in the past.",
+        "kind": "general",
+        "about": "why lenders use credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The loan term of about 35 payments is a manageable length",
+        "kind": "factor",
+        "about": "loan term length",
+        "value": "about 35 payments",
+        "presented_as": "strength",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the loan amount of 832,500 is equal to the price of the goods being financed",
+        "kind": "factor",
+        "about": "loan amount compared with price of goods",
+        "value": "832,500",
+        "presented_as": "strength",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "What generally helps future applications is building a record of on-time payments, whether on existing bills, accounts or small loans, and keeping balances manageable over time.",
+        "kind": "general",
+        "about": "advice for future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You are welcome to ask us to review this decision, and we would be glad to go over it with you.",
+        "kind": "general",
+        "about": "option to request a review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 5,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is courteous and non-blaming, uses mostly plain language, though the raw decimal scores and the mention of strengths add some density, and it offers a review but says little about the applicant's situation.",
+      "vader_compound": 0.9517,
+      "textblob_polarity": 0.036666666666666674,
+      "textblob_subjectivity": 0.4483333333333334
+    },
+    "cost_usd": 0.000957,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "402566|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 0.875,
+    "n_claims": 8,
+    "n_supported": 7,
+    "coverage_top3": 1.0,
+    "passed": false,
+    "issues": [
+      "\"Your average external credit score is low at 0.29, which means our lenders see limited repayment history in outside sources.\": misdescribes Average external credit score: The claim gives the average external credit score as 0.29 and calls it low, but adds that lenders see limited repayment history in outside sources, which is a cause the fact sheet does not state."
+    ],
+    "claims": [
+      {
+        "quote": "we are unable to approve your loan application as requested for 325,908",
+        "kind": "loan_terms",
+        "about": "requested loan amount",
+        "value": "325,908",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your average external credit score is low at 0.29, which means our lenders see limited repayment history in outside sources.",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.29",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "misdescribes Average external credit score: The claim gives the average external credit score as 0.29 and calls it low, but adds that lenders see limited repayment history in outside sources, which is a cause the fact sheet does not state."
+      },
+      {
+        "quote": "The requested loan would also be repaid over about 15 payments",
+        "kind": "loan_terms",
+        "about": "number of payments for requested loan",
+        "value": "15",
+        "presented_as": "concern",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the loan amount is 1.32 times the price of the goods it would cover",
+        "kind": "factor",
+        "about": "loan amount to goods price ratio",
+        "value": "1.32",
+        "presented_as": "concern",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your ID document was last updated about 8 months ago, which is another factor lenders consider.",
+        "kind": "factor",
+        "about": "time since ID document update",
+        "value": "about 8 months",
+        "presented_as": "concern",
+        "code": "YEARS_SINCE_ID_PUBLISH",
+        "verdict": "supported"
+      },
+      {
+        "quote": "None of your payments in the last year were late, which shows a reliable repayment record.",
+        "kind": "factor",
+        "about": "late payments in last year",
+        "value": "0",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your past loans have also averaged about 6 payments in length.",
+        "kind": "factor",
+        "about": "average length of past loans",
+        "value": "about 6 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a steady record of on-time payments over time is one of the most helpful things you can build",
+        "kind": "offer",
+        "about": "building on-time payment record for future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "You are welcome to ask us to review this decision.",
+        "kind": "general",
+        "about": "option to request a review of the decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Please contact us if you would like to discuss your options.",
+        "kind": "general",
+        "about": "invitation to discuss options",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and points to strengths and a review option, but its jargon-heavy factor descriptions and lack of acknowledgement of the applicant's situation make it less clear and warm.",
+      "vader_compound": 0.9485,
+      "textblob_polarity": 0.029131652661064433,
+      "textblob_subjectivity": 0.35301120448179274
+    },
+    "cost_usd": 0.001018,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "303234|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 9,
+    "n_supported": 9,
+    "coverage_top3": 1.0,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "we are unable to approve your loan application as requested for 545,040",
+        "kind": "loan_terms",
+        "about": "requested loan amount",
+        "value": "545,040",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "43% of payments in the last year were late",
+        "kind": "factor",
+        "about": "share of late payments in the last year",
+        "value": "43%",
+        "presented_as": "concern",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "past payments were late by an average of 9.20 days",
+        "kind": "factor",
+        "about": "average days payments were late",
+        "value": "9.20 days",
+        "presented_as": "concern",
+        "code": "INST_AVG_DAYS_LATE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look at this closely because on-time payments show a reliable repayment record.",
+        "kind": "general",
+        "about": "why lenders look at payment timeliness",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The requested loan term of about 20 payments",
+        "kind": "loan_terms",
+        "about": "requested number of payments",
+        "value": "about 20 payments",
+        "presented_as": "concern",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "an average external credit score of 0.26",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.26",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "You have taken out 3 past store or cash loans",
+        "kind": "factor",
+        "about": "past store or cash loans",
+        "value": "3",
+        "presented_as": "strength",
+        "code": "POS_N_LOANS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "you have 8.3 years of time in your current job",
+        "kind": "factor",
+        "about": "time in current job",
+        "value": "8.3 years",
+        "presented_as": "strength",
+        "code": "YEARS_EMPLOYED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "a loan officer may be able to offer a loan of 354,276",
+        "kind": "offer",
+        "about": "possible alternative loan amount",
+        "value": "354,276",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "with regular payments of about 15,742 over about 23 payments",
+        "kind": "offer",
+        "about": "possible alternative payment amount and number of payments",
+        "value": "about 15,742 over about 23 payments",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "keeping up a record of on-time payments is one of the most helpful steps you can take",
+        "kind": "general",
+        "about": "advice on improving future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You are also welcome to ask us to review this decision.",
+        "kind": "general",
+        "about": "option to request a review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 2,
+      "note": "The letter is courteous and gives reasons and an alternative, but it uses dense figures like 0.26 and 9.20 days without explanation and offers little acknowledgement of the applicant's situation.",
+      "vader_compound": 0.9726,
+      "textblob_polarity": 0.03768115942028987,
+      "textblob_subjectivity": 0.4627647714604236
+    },
+    "cost_usd": 0.00106,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "229518|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 8,
+    "n_supported": 8,
+    "coverage_top3": 1.0,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "we are unable to approve your loan application as requested",
+        "kind": "general",
+        "about": "loan application decision",
+        "value": null,
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Several factors in your application raised our estimated risk.",
+        "kind": "general",
+        "about": "factors raising estimated risk",
+        "value": null,
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "About 40% of your past payments were late",
+        "kind": "factor",
+        "about": "share of past payments that were late",
+        "value": "40%",
+        "presented_as": "concern",
+        "code": "INST_LATE_SHARE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your lowest external credit score was 0.22",
+        "kind": "factor",
+        "about": "lowest external credit score",
+        "value": "0.22",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MIN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the requested loan would be repaid over about 21 payments",
+        "kind": "loan_terms",
+        "about": "number of payments requested",
+        "value": "21",
+        "presented_as": "concern",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the loan amount is 1.21 times the price of the goods it would cover",
+        "kind": "factor",
+        "about": "loan amount to price of goods ratio",
+        "value": "1.21",
+        "presented_as": "concern",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders look closely at payment history because on-time payments show a reliable repayment record.",
+        "kind": "general",
+        "about": "lender review of payment history",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your highest external credit score was 0.76",
+        "kind": "factor",
+        "about": "highest external credit score",
+        "value": "0.76",
+        "presented_as": "strength",
+        "code": "EXT_SOURCE_MAX",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans were generally short, averaging about 6 payments",
+        "kind": "factor",
+        "about": "average length of past loans",
+        "value": "6",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "A loan on different terms may be possible.",
+        "kind": "offer",
+        "about": "possible alternative loan terms",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "a loan of 545,040 with regular payments of about 23,216 over about 23 payments may be possible",
+        "kind": "offer",
+        "about": "alternative loan amount, payment and number of payments",
+        "value": "545,040; 23,216; 23",
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "supported"
+      },
+      {
+        "quote": "a loan officer would need to confirm this",
+        "kind": "general",
+        "about": "confirmation needed for alternative offer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Please contact us if you would like to discuss this option.",
+        "kind": "general",
+        "about": "next step to discuss offer",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "a consistent record of on-time payments is one of the most helpful things for future applications",
+        "kind": "general",
+        "about": "advice for future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You are also welcome to ask us to review this decision.",
+        "kind": "general",
+        "about": "option to request review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and lists strengths alongside concerns, but it uses dense ratios and jargon like external credit score and estimated risk, and offers little acknowledgement of the applicant's situation.",
+      "vader_compound": 0.9478,
+      "textblob_polarity": 0.030555555555555565,
+      "textblob_subjectivity": 0.4473290598290598
+    },
+    "cost_usd": 0.001086,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "402085|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 0.7142857142857143,
+    "n_claims": 7,
+    "n_supported": 5,
+    "coverage_top3": 1.0,
+    "passed": false,
+    "issues": [
+      "\"Our decision was based mainly on credit scores from outside sources.\": not one of the reasons the model gave",
+      "\"The average of these scores, the lowest of them, and two individual scores were all low.\": misdescribes External credit score 2: The claim says two individual credit scores were low; the fact sheet lists one individual score, EXT_SOURCE_2 at 0.01, and the claim's value of 2 does not match a listed entry."
+    ],
+    "claims": [
+      {
+        "quote": "a loan of 180,000",
+        "kind": "loan_terms",
+        "about": "requested loan amount",
+        "value": "180,000",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Our decision was based mainly on credit scores from outside sources.",
+        "kind": "factor",
+        "about": "decision based on outside credit scores",
+        "value": null,
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not one of the reasons the model gave"
+      },
+      {
+        "quote": "The average of these scores, the lowest of them, and two individual scores were all low.",
+        "kind": "factor",
+        "about": "average credit score low",
+        "value": null,
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "The average of these scores, the lowest of them, and two individual scores were all low.",
+        "kind": "factor",
+        "about": "lowest credit score low",
+        "value": null,
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MIN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "The average of these scores, the lowest of them, and two individual scores were all low.",
+        "kind": "factor",
+        "about": "two individual credit scores low",
+        "value": "2",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_2",
+        "verdict": "misdescribes External credit score 2: The claim says two individual credit scores were low; the fact sheet lists one individual score, EXT_SOURCE_2 at 0.01, and the claim's value of 2 does not match a listed entry."
+      },
+      {
+        "quote": "The loan amount you asked for matches the price of the goods",
+        "kind": "factor",
+        "about": "loan amount matches price of goods",
+        "value": null,
+        "presented_as": "strength",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans had an average term of about 10 payments",
+        "kind": "factor",
+        "about": "average term of past loans",
+        "value": "about 10 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "A steady record of on-time payments on bills and accounts can help future applications",
+        "kind": "general",
+        "about": "on-time payments help future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you believe this decision should be reviewed, you are welcome to ask us to review it, and we will be glad to help.",
+        "kind": "general",
+        "about": "applicant can request a review of the decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is polite and apologetic and explains the reasons plainly, though it is somewhat formal and gives only brief guidance on next steps.",
+      "vader_compound": 0.9485,
+      "textblob_polarity": 0.06770833333333333,
+      "textblob_subjectivity": 0.5348958333333333
+    },
+    "cost_usd": 0.000959,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "115581|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 1.0,
+    "n_claims": 4,
+    "n_supported": 4,
+    "coverage_top3": 0.6666666666666666,
+    "passed": true,
+    "issues": [],
+    "claims": [
+      {
+        "quote": "Your average external credit score is 0.01",
+        "kind": "factor",
+        "about": "average external credit score",
+        "value": "0.01",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "the loan amount is 1.42x the price of the goods it is for",
+        "kind": "factor",
+        "about": "loan amount compared with price of goods",
+        "value": "1.42x",
+        "presented_as": "concern",
+        "code": "CREDIT_TO_GOODS",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Lenders use external credit scores to judge how reliably past debts have been managed",
+        "kind": "general",
+        "about": "why lenders use external credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "the loan amount compared with the price of goods helps us understand how much is being borrowed for a purchase",
+        "kind": "general",
+        "about": "why lenders compare loan amount with price of goods",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You have no late payments in the last year",
+        "kind": "factor",
+        "about": "late payments in the last year",
+        "value": "none",
+        "presented_as": "strength",
+        "code": "INST_LATE_SHARE_LAST_YEAR",
+        "verdict": "supported"
+      },
+      {
+        "quote": "you have never been late on any past payment",
+        "kind": "factor",
+        "about": "late payments ever",
+        "value": "never",
+        "presented_as": "strength",
+        "code": "INST_MAX_DAYS_LATE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "A record of on-time payments shows a reliable repayment history, which lenders value.",
+        "kind": "general",
+        "about": "why lenders value on-time payment records",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "building a record of on-time payments on any existing obligations is one of the most helpful steps you can take",
+        "kind": "general",
+        "about": "advice to build on-time payment record",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you believe this decision should be reviewed, you can ask us to review it, and we will be glad to look at it again.",
+        "kind": "general",
+        "about": "option to request a review of the decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 3,
+      "empathetic": 3,
+      "note": "The letter is courteous and acknowledges the applicant's strengths, but it uses unexplained figures like 0.01 and 1.42x and does little to acknowledge the disappointment of a refusal.",
+      "vader_compound": 0.9589,
+      "textblob_polarity": 0.012499999999999997,
+      "textblob_subjectivity": 0.3869791666666667
+    },
+    "cost_usd": 0.000841,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "102778|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 0.6666666666666666,
+    "n_claims": 3,
+    "n_supported": 2,
+    "coverage_top3": 0.6666666666666666,
+    "passed": false,
+    "issues": [
+      "\"Your past loans have had an average term of about 5 payments, which shows you have experience with shorter repayment periods\": misdescribes Average term of past loans: The claim gives the average term of past loans as about 5 payments, matching the strengths entry, but adds an interpretation about experience with shorter repayment periods that the fact sheet does not state."
+    ],
+    "claims": [
+      {
+        "quote": "Your external credit scores were an average of 0.15 and a lowest of 0.06",
+        "kind": "factor",
+        "about": "external credit scores average and lowest",
+        "value": "average 0.15, lowest 0.06",
+        "presented_as": "concern",
+        "code": "EXT_SOURCE_MEAN",
+        "verdict": "supported"
+      },
+      {
+        "quote": "lenders use these scores as a general indicator of how reliably past credit has been handled",
+        "kind": "general",
+        "about": "why lenders use credit scores",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "The requested loan term of about 15 payments also added to the estimated risk",
+        "kind": "loan_terms",
+        "about": "requested loan term",
+        "value": "about 15 payments",
+        "presented_as": "concern",
+        "code": "CREDIT_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "longer repayment periods leave more time for circumstances to change",
+        "kind": "general",
+        "about": "why longer repayment periods add risk",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your past loans have had an average term of about 5 payments, which shows you have experience with shorter repayment periods",
+        "kind": "factor",
+        "about": "average term of past loans",
+        "value": "about 5 payments",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "misdescribes Average term of past loans: The claim gives the average term of past loans as about 5 payments, matching the strengths entry, but adds an interpretation about experience with shorter repayment periods that the fact sheet does not state."
+      },
+      {
+        "quote": "Building a record of on-time payments on any existing bills or accounts generally helps future applications",
+        "kind": "general",
+        "about": "advice on payment history for future applications",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you believe this decision should be reviewed, you are welcome to ask us, and we will look at it again",
+        "kind": "general",
+        "about": "review process",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 4,
+      "empathetic": 2,
+      "note": "The letter is polite and offers a review route, but it is somewhat formal and does little to acknowledge the applicant's situation beyond the decision itself.",
+      "vader_compound": 0.9413,
+      "textblob_polarity": 0.042857142857142864,
+      "textblob_subjectivity": 0.45178571428571435
+    },
+    "cost_usd": 0.000792,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  },
+  "339086|decline|v7|claude-haiku-5-5": {
+    "faithfulness": 0.8,
+    "n_claims": 5,
+    "n_supported": 4,
+    "coverage_top3": 0.3333333333333333,
+    "passed": false,
+    "issues": [
+      "\"Your external credit scores are low: the average is 0.23, the lowest is 0.07 and the highest is 0.38.\": not one of the reasons the model gave"
+    ],
+    "claims": [
+      {
+        "quote": "we are unable to approve your loan application for 808,650 as requested",
+        "kind": "loan_terms",
+        "about": "requested loan amount",
+        "value": "808,650",
+        "presented_as": "neutral",
+        "code": "LOAN_REQUESTED",
+        "verdict": "supported"
+      },
+      {
+        "quote": "Your application has been declined as submitted.",
+        "kind": "general",
+        "about": "decision outcome",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Several factors in your application led to this decision.",
+        "kind": "general",
+        "about": "reasons for decision",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "Your external credit scores are low: the average is 0.23, the lowest is 0.07 and the highest is 0.38.",
+        "kind": "factor",
+        "about": "external credit scores",
+        "value": "average 0.23, lowest 0.07, highest 0.38",
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not one of the reasons the model gave"
+      },
+      {
+        "quote": "You also currently have 10 active loans with other lenders",
+        "kind": "factor",
+        "about": "number of active loans with other lenders",
+        "value": "10",
+        "presented_as": "concern",
+        "code": "BUR_N_ACTIVE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "lenders often look closely at how many loans a person is repaying at the same time",
+        "kind": "general",
+        "about": "lender practice on concurrent loans",
+        "value": null,
+        "presented_as": "concern",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "You have never been late on a past payment, which shows a reliable repayment record",
+        "kind": "factor",
+        "about": "payment history, no late payments",
+        "value": "never late",
+        "presented_as": "strength",
+        "code": "INST_MAX_DAYS_LATE",
+        "verdict": "supported"
+      },
+      {
+        "quote": "your past loans have averaged about 12 payments",
+        "kind": "factor",
+        "about": "average number of payments on past loans",
+        "value": "about 12",
+        "presented_as": "strength",
+        "code": "PREV_AVG_TERM",
+        "verdict": "supported"
+      },
+      {
+        "quote": "it generally helps to keep up with on-time payments on all your current obligations",
+        "kind": "general",
+        "about": "advice on on-time payments",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "to reduce the number of open loans over time",
+        "kind": "general",
+        "about": "advice on reducing open loans",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      },
+      {
+        "quote": "If you believe this decision should be reviewed, you are welcome to ask us to review it.",
+        "kind": "general",
+        "about": "option to request review",
+        "value": null,
+        "presented_as": "neutral",
+        "code": null,
+        "verdict": "not checked"
+      }
+    ],
+    "tone": {
+      "respectful": 4,
+      "clear": 4,
+      "empathetic": 3,
+      "note": "The letter is courteous and balances weaknesses with strengths, though it gives no specific next steps beyond general advice and offers no new loan options.",
+      "vader_compound": 0.9509,
+      "textblob_polarity": -0.01291666666666666,
+      "textblob_subjectivity": 0.4362500000000001
+    },
+    "cost_usd": 0.000928,
+    "model": "claude-haiku-5-5",
+    "audit_version": "a4"
+  }
+}

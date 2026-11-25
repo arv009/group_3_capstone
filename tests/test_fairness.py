@@ -1,4 +1,4 @@
-"""Fairness helpers on a tiny hand-made portfolio (no data files needed)."""
+"""Tests for the fairness audit metrics on a small hand-made portfolio where every rate is known."""
 import sys
 from pathlib import Path
 
@@ -6,36 +6,55 @@ import numpy as np
 import pandas as pd
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from secondlook.fairness import add_groups, bootstrap_gap, group_metrics  # noqa: E402
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from secondlook import fairness as F  # noqa: E402
 
 
-def portfolio():
-    # 4 women all approved; 4 men: 2 approved. One defaulter in each group.
-    return add_groups(pd.DataFrame({
-        "CODE_GENDER": ["F"] * 4 + ["M"] * 4,
-        "AGE_YEARS": [25, 35, 45, 65, 25, 35, 45, 19],
-        "HAS_BUREAU_HISTORY": [1, 1, 0, 1, 1, 0, 1, 1],
-        "TARGET": [0, 0, 0, 1, 0, 0, 0, 1],
-        "PD_LGBM": [0.05, 0.10, 0.12, 0.16, 0.05, 0.30, 0.25, 0.10],
-    }))
+def portfolio(reps=100):
+    # Group A: 10 applicants, 1 defaulter; 9 approved (PD 0.05), the defaulter and nobody else declined.
+    # Group B: 10 applicants, 2 defaulters; 6 approved, including 1 defaulter; 2 repayers declined.
+    a = pd.DataFrame({"G": "A", "TARGET": [1] + [0] * 9, "PD": [0.30] + [0.05] * 9})
+    b = pd.DataFrame({"G": "B", "TARGET": [1, 1] + [0] * 8, "PD": [0.30, 0.05] + [0.05] * 5 + [0.30] * 3})
+    return pd.concat([a, b] * reps, ignore_index=True)
 
 
-def test_group_metrics():
-    m = group_metrics(portfolio(), "gender")
-    assert m.loc["women", "approval_rate"] == 1.0 and m.loc["men", "approval_rate"] == 0.5
-    assert m.loc["men", "repayer_approval"] == pytest.approx(1 / 3)        # 3 repayers, 1 approved
-    assert m.loc["men", "ratio_to_best"] == 0.5 and m.loc["men", "below_four_fifths"]
-    assert m.loc["women", "default_rate_approved"] == 0.25
-    assert m.loc["women", "calibration_gap"] == pytest.approx(np.mean([0.05, 0.10, 0.12, 0.16]) - 0.25)
+def test_group_table_rates():
+    t = F.group_table(portfolio(), "G", pd_col="PD", cutoff=0.17)
+    assert t.loc["A", "Approval rate"] == pytest.approx(0.9)
+    assert t.loc["B", "Approval rate"] == pytest.approx(0.6)
+    assert t.loc["A", "Approval rate of repayers"] == pytest.approx(1.0)
+    assert t.loc["B", "Decline rate of repayers"] == pytest.approx(3 / 8)
+    assert t.loc["B", "Default rate of approved"] == pytest.approx(1 / 6)
+    assert t.loc["B", "Four-fifths ratio"] == pytest.approx(0.6 / 0.9)
+    assert bool(t.loc["B", "Below 0.8"]) and not bool(t.loc["A", "Below 0.8"])
+    assert t.loc["A", "Calibration gap"] == pytest.approx((0.30 + 9 * 0.05) / 10 - 0.1)
 
 
-def test_age_bands_leave_out_under_20():
-    assert portfolio()["age_band"].isna().sum() == 1
+def test_small_groups_are_dropped():
+    df = pd.concat([portfolio(), pd.DataFrame({"G": ["C"] * 5, "TARGET": 0, "PD": 0.05})])
+    assert "C" not in F.group_table(df, "G", pd_col="PD").index
 
 
-def test_bootstrap_gap_contains_point_estimate():
-    df = pd.concat([portfolio()] * 50, ignore_index=True)
-    r = bootstrap_gap(df, "gender", "women", "men", n_boot=200)
-    assert r["gap"] == pytest.approx(1 - 1 / 3)
-    assert r["low"] <= r["gap"] <= r["high"] and r["real"]
+def test_bootstrap_point_estimates_and_intervals():
+    gaps = F.bootstrap_gaps(portfolio(), "G", pd_col="PD", n_boot=200).set_index("Metric")
+    assert gaps.loc["Approval rate", "Gap"] == pytest.approx(0.3)
+    assert gaps.loc["Approval rate of repayers", "Gap"] == pytest.approx(1 - 5 / 8)
+    assert gaps.loc["Four-fifths ratio", "Gap"] == pytest.approx(0.6 / 0.9)
+    assert (gaps["95% CI low"] <= gaps["Gap"]).all() and (gaps["Gap"] <= gaps["95% CI high"]).all()
+    assert gaps.loc["Approval rate", "Real (CI excludes no gap)"]
+
+
+def test_bootstrap_finds_no_gap_between_identical_groups():
+    df = portfolio()
+    df["G"] = np.where((np.arange(len(df)) // 20) % 2 == 0, "X", "Y")    # whole A+B blocks: same mix in both
+    gaps = F.bootstrap_gaps(df, "G", pd_col="PD", n_boot=300).set_index("Metric")
+    assert not gaps.loc["Approval rate", "Real (CI excludes no gap)"]
+
+
+def test_age_bands_and_labels():
+    df = pd.DataFrame({"CODE_GENDER": ["F", "M", None], "AGE_YEARS": [29.99, 30.0, 68.9], "HAS_BUREAU_HISTORY": [1, 0, 1]})
+    g = F.add_groups(df)
+    assert g["Age band"].astype(str).tolist() == ["20-29", "30-39", "60-69"]
+    assert g["Gender"].tolist()[:2] == ["Female", "Male"] and pd.isna(g["Gender"].iloc[2])
+    assert g["Credit file"].tolist() == ["Bureau history", "Thin file", "Bureau history"]

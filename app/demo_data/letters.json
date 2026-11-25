@@ -1,7 +1,7 @@
 {
   "455989|approve|v7|claude-haiku-5-5": {
-    "subject": "Your loan application is approved",
-    "body": "Dear Applicant,\n\nGood news: we are happy to approve your loan. The amount is 254,700, with regular payments of 20,250 over about 13 payments.\n\nYour credit scores from other agencies were strong, and that helped us say yes. Please read the loan terms carefully before you sign.\n\nIf you have any questions about your payments or the next steps, just reply to this letter.\n\nThe Lending Team",
+    "subject": "Your loan application has been approved",
+    "body": "Dear Applicant,\n\nWe are pleased to let you know that your loan application has been approved. You are approved for a loan of 254,700, repaid with regular payments of 20,250 over about 13 payments.\n\nYour application shows strengths that supported this decision. Your average external credit score is 0.64, and your external credit score 2 is 0.77. Lenders look at external credit scores because they give a broader picture of how someone has managed credit with other organizations.\n\nPlease review the loan terms and the payment schedule carefully before you accept. The payment amount and number of payments are set out in your loan agreement, so take a moment to check that they work for your budget. If you have any questions about your loan or the next steps, our team is happy to help you understand them.\n\nThank you for choosing us. We look forward to working with you and to supporting you through the life of your loan.\n\nWarm regards,\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
       "EXT_SOURCE_MEAN",
@@ -12,10 +12,10 @@
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2037,
-    "output_tokens": 211,
-    "cost_usd": 0.000309,
-    "seconds": 1.9,
+    "input_tokens": 1938,
+    "output_tokens": 998,
+    "cost_usd": 0.000693,
+    "seconds": 5.9,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -68,21 +68,21 @@
   },
   "348947|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. You can borrow 270,000, paid back as regular payments of 13,500 over about 20 payments.\n\nYour credit scores from other agencies were a real strength in your application, and they helped us say yes.\n\nPlease keep an eye on the payment dates so each one goes out on time. If you have any questions about the next steps, just reply to this letter.\n\nThe Lending Team",
+    "body": "Good news: your loan application has been approved. We are pleased to offer you a loan of 270,000, repaid through regular payments of 13,500 over about 20 payments.\n\nWe looked at several parts of your application. Your external credit score is a real strength, and it is one of the factors that helped us reach this decision. Your regular repayment amount of 13,500 also shows that the payment plan fits the loan we are offering, which lenders consider when reviewing a loan.\n\nPlease review the loan terms carefully before you accept. If you have any questions about your payments or the next steps, please contact us and a member of our team will be happy to help.\n\nThank you for choosing us. We look forward to supporting you.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
       "EXT_SOURCE_MEAN",
-      "EXT_SOURCE_1"
+      "AMT_ANNUITY"
     ],
     "applicant_id": 348947,
     "decision": "approve",
     "checks_passed": true,
     "issues": [],
-    "attempts": 1,
-    "input_tokens": 2025,
-    "output_tokens": 217,
-    "cost_usd": 0.000311,
-    "seconds": 2.2,
+    "attempts": 2,
+    "input_tokens": 4200,
+    "output_tokens": 606,
+    "cost_usd": 0.000723,
+    "seconds": 4.1,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -135,20 +135,22 @@
   },
   "220042|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. We can lend you 74,182 with regular payments of 5,404 over about 14 payments.\n\nWe were glad to see that none of your payments were late in the last year. That shows you are keeping up with what you owe, and it helped your application.\n\nPlease review the loan details carefully before you accept. If anything looks wrong, reply to this letter and we will help sort it out.\n\nThe Lending Team",
+    "body": "Good news: we are pleased to tell you that your loan application has been approved. We are glad to offer you a loan of 74,182, repaid through regular payments of 5,404 over about 14 payments.\n\nWe looked at several parts of your application, and one of the strengths we weighed most heavily is your payment record. None of your payments in the last year were late, which shows a reliable repayment record that lenders value. We also considered the regular repayment amount of 5,404 and the loan amount of 74,182, which were part of the overall picture that led to this approval.\n\nThe next step is to review the loan details with you so you know exactly what to expect. Please keep up your on-time payments, as they will continue to help you in the future.\n\nThank you for choosing us for your borrowing needs. We look forward to working with you.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
-      "INST_LATE_SHARE_LAST_YEAR"
+      "INST_LATE_SHARE_LAST_YEAR",
+      "AMT_ANNUITY",
+      "AMT_CREDIT"
     ],
     "applicant_id": 220042,
     "decision": "approve",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2035,
-    "output_tokens": 218,
-    "cost_usd": 0.000313,
-    "seconds": 2.3,
+    "input_tokens": 1936,
+    "output_tokens": 351,
+    "cost_usd": 0.000369,
+    "seconds": 2.4,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -201,20 +203,22 @@
   },
   "287213|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. The loan amount is 889,515, with regular payments of 26,136 over about 34 payments.\n\nWe were glad to see your credit scores from other agencies. They played a real part in this decision.\n\nPlease read the loan terms carefully before you sign. If you have any questions, just reply to this letter and we will be happy to help.\n\nThe Lending Team",
+    "body": "Dear Applicant,\n\nWe are pleased to tell you that your loan application has been approved. Thank you for choosing us for your borrowing needs.\n\nThe approved loan amount is 889,515, with regular payments of 26,136 over about 34 payments.\n\nWe were encouraged by several strengths in your application. Your average external credit score is 0.73, and your highest external credit score is 0.77. Lenders look at scores like these as a sign of a reliable repayment record. We also noted that your identification details were updated 13.1 years ago, which shows a stable history.\n\nPlease review the loan terms carefully before you accept. If you have any questions about your payments or the agreement, please reach out to us and we will be happy to help.\n\nThank you again for applying with us. We look forward to working with you.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
-      "EXT_SOURCE_MEAN"
+      "EXT_SOURCE_MEAN",
+      "EXT_SOURCE_MAX",
+      "YEARS_SINCE_ID_PUBLISH"
     ],
     "applicant_id": 287213,
     "decision": "approve",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2060,
-    "output_tokens": 882,
-    "cost_usd": 0.000647,
-    "seconds": 4.4,
+    "input_tokens": 1961,
+    "output_tokens": 364,
+    "cost_usd": 0.000378,
+    "seconds": 2.3,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -267,10 +271,11 @@
   },
   "131441|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. You can borrow 364,428, with regular payments of 13,869 over about 26 payments.\n\nWe also noticed your average external credit score is steady, and that helped your application. Your payments are set at a level that fits the loan.\n\nA loan officer will be in touch with the next steps. If you have any questions before then, just reply to this letter.\n\nThe Lending Team",
+    "body": "Good news: your loan application has been approved. We are pleased to offer you a loan of 364,428 with regular payments of 13,869 over about 26 payments.\n\nWe approved your application based in part on several strengths in your financial history. Your average external credit score is 0.57, and lenders generally view a solid external credit record as a sign of reliable repayment. Your past loans also had an average term of about 6 payments, which shows you have experience completing repayment plans.\n\nYour regular repayment amount of 13,869 is a clear, fixed figure you can plan around each period. Please review the loan terms carefully before you accept, and keep up with each payment on schedule to maintain a strong record with us.\n\nIf you have any questions about your loan or the next steps, please contact us and a member of our team will be glad to help.\n\nThank you for choosing us.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
       "EXT_SOURCE_MEAN",
+      "PREV_AVG_TERM",
       "AMT_ANNUITY"
     ],
     "applicant_id": 131441,
@@ -278,10 +283,10 @@
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2052,
-    "output_tokens": 213,
-    "cost_usd": 0.000312,
-    "seconds": 2.0,
+    "input_tokens": 1953,
+    "output_tokens": 364,
+    "cost_usd": 0.000377,
+    "seconds": 2.7,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -332,11 +337,80 @@
       "adjusted_terms": null
     }
   },
-  "416405|approve|v7|claude-haiku-5-5": {
+  "230043|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. We can lend you 202,500, with regular payments of 10,125 over about 20 payments.\n\nThe lowest of your credit scores from other agencies was a strength in your application. It helped us say yes.\n\nPlease reach out to us if you have any questions about your loan or the next steps.\n\nThe Lending Team",
+    "body": "Congratulations, your loan application has been approved. We are pleased to offer you a loan of 138,474 with regular payments of 9,765 over about 14 payments.\n\nWe reviewed your application carefully and found several positive points in your favor. Your past applications show that 75% were cancelled, which lenders may look at when they consider how a request has been managed over time. The regular repayment amount of 9,765 is also one of the details we considered as part of your overall profile.\n\nPlease review the loan terms carefully before you accept. If you have any questions about your repayments or the next steps, reply to this letter and our team will be glad to help.\n\nThank you for choosing us, and we look forward to working with you.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
+      "PREV_CANCELED_SHARE",
+      "AMT_ANNUITY"
+    ],
+    "applicant_id": 230043,
+    "decision": "approve",
+    "checks_passed": true,
+    "issues": [],
+    "attempts": 1,
+    "input_tokens": 1923,
+    "output_tokens": 303,
+    "cost_usd": 0.000344,
+    "seconds": 2.2,
+    "model": "claude-haiku-5-5",
+    "prompt_version": "v7",
+    "fact_sheet": {
+      "applicant_id": 230043,
+      "decision": "approve",
+      "loan_amount": "138,474",
+      "regular_payment": "9,765",
+      "number_of_payments": "about 14 payments",
+      "risk_factors": [
+        {
+          "code": "EXT_SOURCE_MEAN",
+          "label": "Average external credit score",
+          "value": "0.46"
+        },
+        {
+          "code": "EXT_SOURCE_MIN",
+          "label": "Lowest external credit score",
+          "value": "0.19"
+        },
+        {
+          "code": "EXT_SOURCE_2",
+          "label": "External credit score 2",
+          "value": "0.19"
+        },
+        {
+          "code": "EXT_SOURCE_STD",
+          "label": "Spread of external credit scores",
+          "value": "0.38"
+        }
+      ],
+      "strengths": [
+        {
+          "code": "PREV_CANCELED_SHARE",
+          "label": "Share of past applications cancelled",
+          "value": "75%"
+        },
+        {
+          "code": "AMT_CREDIT",
+          "label": "Loan amount",
+          "value": "138,474"
+        },
+        {
+          "code": "AMT_ANNUITY",
+          "label": "Regular repayment amount",
+          "value": "9,765"
+        }
+      ],
+      "adjusted_terms": null
+    }
+  },
+  "416405|approve|v7|claude-haiku-5-5": {
+    "subject": "Your loan application has been approved",
+    "body": "Good news: we are pleased to tell you that your loan application has been approved. Thank you for choosing us and for the time you spent with us during the application process.\n\nThe approved loan amount is 202,500, with regular payments of 10,125 over about 20 payments. A loan officer will be in touch to confirm the final details and walk you through the next steps.\n\nSeveral things worked in your favor. Your regular repayment amount is set at a level that fits within our lending guidelines, and the loan amount is in line with the price of the goods it is meant to cover. We also saw a favorable external credit score, which helps show a reliable history of managing credit.\n\nIf you have any questions before your loan officer contacts you, please reach out and we will be glad to help.\n\nThe Lending Team",
+    "reasons_cited": [],
+    "strengths_cited": [
+      "AMT_ANNUITY",
+      "CREDIT_TO_GOODS",
       "EXT_SOURCE_MIN"
     ],
     "applicant_id": 416405,
@@ -344,10 +418,10 @@
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2046,
-    "output_tokens": 185,
-    "cost_usd": 0.000297,
-    "seconds": 2.1,
+    "input_tokens": 1947,
+    "output_tokens": 331,
+    "cost_usd": 0.00036,
+    "seconds": 2.6,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -400,20 +474,21 @@
   },
   "282459|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. We can lend you 778,802, with regular payments of 37,598 over about 21 payments.\n\nWe also noticed that your average credit score from other agencies is steady, which helped your application. Please keep an eye on your payment dates so you stay on track.\n\nIf you have any questions about your loan, just reply to this letter.\n\nThe Lending Team",
+    "body": "Good news: your loan application has been approved. We are pleased to confirm a loan of 778,802 with regular payments of 37,598 over about 21 payments.\n\nWe looked at several parts of your application, and two of them worked in your favor. Your average external credit score is 0.57, and the car you already own is 5 years old. Lenders often view steady credit information and a dependable vehicle as signs of stability.\n\nYour loan officer will contact you with the next steps for signing and receiving your funds. If you have any questions about your loan or your payment schedule, please reach out to us and we will be glad to help.\n\nThank you for choosing us.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
-      "EXT_SOURCE_MEAN"
+      "EXT_SOURCE_MEAN",
+      "OWN_CAR_AGE"
     ],
     "applicant_id": 282459,
     "decision": "approve",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2025,
-    "output_tokens": 197,
-    "cost_usd": 0.000301,
-    "seconds": 2.3,
+    "input_tokens": 1926,
+    "output_tokens": 286,
+    "cost_usd": 0.000336,
+    "seconds": 2.6,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -466,21 +541,22 @@
   },
   "246526|approve|v7|claude-haiku-5-5": {
     "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. You are approved for a loan of 900,000, with regular payments of 45,000 over about 20 payments.\n\nWe were glad to see your credit scores from other agencies are strong. That helped us say yes.\n\nPlease read the loan terms carefully before you sign, and reach out if anything is unclear.\n\nThe Lending Team",
+    "body": "Good news: your loan application has been approved. We are pleased to offer you a loan of 900,000, to be repaid with regular payments of 45,000 over about 20 payments.\n\nIn reviewing your application, we looked at several strengths. Your external credit scores were strong, with an average of 0.77 and a highest score of 0.83. These scores are one of the ways lenders can see a reliable record of managing credit. We also noted that the car you already own is 4 years old, which we considered as part of your overall profile.\n\nPlease review the loan terms carefully before you accept. If you have any questions about your repayment schedule or the next steps, please reply to this letter and our team will be glad to help.\n\nThank you for choosing us, and we look forward to working with you.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
       "EXT_SOURCE_MEAN",
-      "EXT_SOURCE_MAX"
+      "EXT_SOURCE_MAX",
+      "OWN_CAR_AGE"
     ],
     "applicant_id": 246526,
     "decision": "approve",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2046,
-    "output_tokens": 206,
-    "cost_usd": 0.000308,
-    "seconds": 2.4,
+    "input_tokens": 1947,
+    "output_tokens": 338,
+    "cost_usd": 0.000364,
+    "seconds": 2.1,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -532,21 +608,23 @@
     }
   },
   "370614|approve|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: approved",
-    "body": "Dear Applicant,\n\nGood news: we are happy to approve your loan application. The loan amount is 697,500, with regular payments of 27,662 over about 25 payments.\n\nYour credit scores from other agencies were strong, and that helped your application a lot.\n\nPlease reach out to us if you have any questions about the next steps.\n\nThe Lending Team",
+    "subject": "Your loan application has been approved",
+    "body": "Good news: we are pleased to tell you that your loan application has been approved. Thank you for choosing us and for the time you put into your application.\n\nThe approved loan amount is 697,500, with a regular payment of 27,662 over about 25 payments. Your application stood out in part because of your external credit scores, which were strong across the reports we reviewed. Lenders look at these scores because they give a helpful picture of how someone has managed credit elsewhere.\n\nPlease review the loan terms carefully before you accept. If you have any questions about your repayment schedule or next steps, simply reply to this letter and our team will be glad to help.\n\nThank you again for applying with us. We look forward to working with you.\n\nThe Lending Team",
     "reasons_cited": [],
     "strengths_cited": [
-      "EXT_SOURCE_MEAN"
+      "EXT_SOURCE_MEAN",
+      "EXT_SOURCE_MAX",
+      "EXT_SOURCE_MIN"
     ],
     "applicant_id": 370614,
     "decision": "approve",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2043,
-    "output_tokens": 178,
-    "cost_usd": 0.000293,
-    "seconds": 2.0,
+    "input_tokens": 1945,
+    "output_tokens": 321,
+    "cost_usd": 0.000355,
+    "seconds": 2.8,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -558,7 +636,7 @@
       "risk_factors": [
         {
           "code": "INST_MAX_DAYS_LATE",
-          "label": "Most days late on one payment",
+          "label": "Most days late on any past payment",
           "value": "16 days"
         },
         {
@@ -598,25 +676,27 @@
     }
   },
   "135305|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We are sorry this is not the quick answer you hoped for. Your application is close, so a loan officer will look at it personally and may contact you about adjusting the loan.\n\nThe main reasons it needs a closer look are your credit scores from other agencies, which are on the low side, and the loan amount compared with the price of the goods. The loan term of about 18 payments also plays a part.\n\nYou have a real strength too: none of your payments were late in the last year. A loan of 508,842 with regular payments of about 27,718 over about 18 payments may be possible, and a loan officer will confirm this with you.\n\nThe Lending Team",
+    "subject": "Update on your loan application",
+    "body": "Thank you for applying with us. Your application is not approved yet, and it is now under review. Because your application is close to our approval range, a loan officer will look at it personally.\n\nWhen reviewing applications, we look at several factors. Your external credit scores are around 0.24 on average and 0.27 at the highest. External credit scores help show a borrower's repayment history with other lenders. The requested loan amount is 1.34 times the price of the goods it is meant to cover. The loan term is about 18 payments, and longer terms add to the overall risk of a loan.\n\nThere are also strengths in your application. Your car is 4 years old, and 0% of your payments were late in the last year. On-time payments show a reliable repayment record, which we value.\n\nA loan officer may contact you about adjusting the loan terms. Based on our review, a loan officer may be able to offer a loan of 508,842 with regular payments of about 27,718 over about 18 payments. This is a possibility the loan officer will confirm, not a promise. If you have questions in the meantime, please get in touch with us.\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
+      "EXT_SOURCE_MAX",
       "CREDIT_TO_GOODS",
       "CREDIT_TERM"
     ],
     "strengths_cited": [
+      "OWN_CAR_AGE",
       "INST_LATE_SHARE_LAST_YEAR"
     ],
     "applicant_id": 135305,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
-    "attempts": 1,
-    "input_tokens": 2111,
-    "output_tokens": 333,
-    "cost_usd": 0.000378,
-    "seconds": 2.3,
+    "attempts": 2,
+    "input_tokens": 4499,
+    "output_tokens": 918,
+    "cost_usd": 0.000909,
+    "seconds": 6.1,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -672,26 +752,28 @@
     }
   },
   "209138|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We know this is not the news you hoped for. Your application is close, so a loan officer will review it personally and may contact you about adjusting the loan.\n\nThe main things we are looking at are some late payments over the last year, a fairly new job, and the fact that you live outside your registered city. On the positive side, your credit scores from other agencies are steady, and you have a higher education.\n\nA loan officer may be able to offer a loan of 490,496 with regular payments of about 27,278 over about 18 payments. They will confirm this with you.\n\nThe Lending Team",
+    "subject": "Your loan application: a loan officer will review it",
+    "body": "Thank you for applying. We are writing to let you know that your application is under review. Your application is close to our approval level, so a loan officer will look at it personally before a final decision is made.\n\nSeveral factors raised your estimated risk. About 11% of your payments in the last year were late, and late payments are a key sign of repayment reliability. Your highest external credit score is 0.65, and your time in your current job is 1.2 years, which gives us less history to rely on. Your address is also outside your registered city.\n\nYou have some genuine strengths as well. Your average external credit score is 0.65, you have higher education, and your past loans have averaged about 10 payments, which shows you have repaid loans over a sustained period.\n\nA loan officer may be able to offer a loan of 490,496 with regular payments of about 27,278 over about 18 payments. The loan officer will confirm whether this is available, and may contact you to discuss adjusting the loan terms.\n\nThank you for your patience. If you have questions, please reach out to us.\n\nThe Lending Team",
     "reasons_cited": [
       "INST_LATE_SHARE_LAST_YEAR",
+      "EXT_SOURCE_MAX",
       "YEARS_EMPLOYED",
       "REG_CITY_NOT_LIVE_CITY"
     ],
     "strengths_cited": [
       "EXT_SOURCE_MEAN",
-      "NAME_EDUCATION_TYPE"
+      "NAME_EDUCATION_TYPE",
+      "PREV_AVG_TERM"
     ],
     "applicant_id": 209138,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2103,
-    "output_tokens": 329,
-    "cost_usd": 0.000375,
-    "seconds": 2.1,
+    "input_tokens": 2004,
+    "output_tokens": 498,
+    "cost_usd": 0.000449,
+    "seconds": 2.8,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -747,25 +829,25 @@
     }
   },
   "312774|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We cannot approve your loan as requested, and we know this is not the news you hoped for. Your application is close, so a loan officer will look at it personally and may contact you about adjusting the loan.\n\nThe main things holding it back are your credit scores from other agencies, some of them quite low, and the length of your past loans. On the plus side, you have had no late payments in the last year.\n\nA loan officer may be able to offer 360,000 with regular payments of about 16,384 over about 22 payments. This is a possibility, not a promise.\n\nIf you have questions, just reply to this letter.\n\nThe Lending Team",
+    "subject": "Your loan application is under review",
+    "body": "Dear Applicant,\n\nThank you for applying. Your application is under review, which means it is close to our approval standard, and a loan officer will look at it personally before any final decision is made.\n\nTwo external credit scores are part of our review. Your average external credit score is 0.34, and your lowest external credit score is 0.15. Lenders look at these scores because they give a picture of how someone has handled credit in the past.\n\nYour application also has real strengths. None of your payments were late in the last year, and one of your external credit scores is 0.60. On-time payments show a reliable repayment record.\n\nA loan officer may be able to offer a loan of 360,000 with regular payments of about 16,384 over about 22 payments. You may be contacted to discuss adjusting your loan terms. This is a possibility the loan officer will confirm, not a guarantee.\n\nIf you have questions in the meantime, please contact us.\n\nThe Lending Team",
     "reasons_cited": [
-      "EXT_SOURCE_MIN",
       "EXT_SOURCE_MEAN",
-      "PREV_AVG_TERM"
+      "EXT_SOURCE_MIN"
     ],
     "strengths_cited": [
-      "INST_LATE_SHARE_LAST_YEAR"
+      "INST_LATE_SHARE_LAST_YEAR",
+      "EXT_SOURCE_3"
     ],
     "applicant_id": 312774,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
     "attempts": 2,
-    "input_tokens": 4637,
-    "output_tokens": 1306,
-    "cost_usd": 0.001117,
-    "seconds": 6.6,
+    "input_tokens": 4480,
+    "output_tokens": 1995,
+    "cost_usd": 0.001445,
+    "seconds": 9.3,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -821,12 +903,11 @@
     }
   },
   "210293|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We cannot approve your loan as requested right now, and we know this is not the news you hoped for. Your application is close, so a loan officer will look at it personally and may contact you.\n\nYour credit scores from other agencies are on the lower side. The loan term requested, about 20 payments, and the average term of your past loans, about 21 payments, also count against it. On the plus side, your past loans were approved for most of the amount you asked for.\n\nA loan officer may be able to offer a loan of 640,080 with regular payments of about 28,420 over about 23 payments. They will confirm the details with you.\n\nThe Lending Team",
+    "subject": "Your loan application is under review",
+    "body": "Thank you for applying. Your application is under review and has not been declined. A loan officer will look at it personally and may contact you about adjusting the loan terms. Your application is close to the level needed for approval as requested. Two factors weighed on the estimate. The requested loan amount is 1.42 times the price of the goods, and the loan term is about 20 payments. Lenders look at these because they affect how manageable repayments are over time. One strength in your file is that past loans were granted for 0.86 times the amount requested, which shows a record of approvals. A loan officer may be able to offer a loan of 640,080 with regular payments of about 28,420 over about 23 payments. This is a possibility the loan officer will confirm, not a guarantee. If you have questions, please contact us. The Lending Team",
     "reasons_cited": [
-      "EXT_SOURCE_MEAN",
-      "CREDIT_TERM",
-      "PREV_AVG_TERM"
+      "CREDIT_TO_GOODS",
+      "CREDIT_TERM"
     ],
     "strengths_cited": [
       "PREV_AVG_GRANTED_TO_APPLIED"
@@ -836,10 +917,10 @@
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2115,
-    "output_tokens": 1283,
-    "cost_usd": 0.000853,
-    "seconds": 6.1,
+    "input_tokens": 2016,
+    "output_tokens": 1654,
+    "cost_usd": 0.001029,
+    "seconds": 7.2,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -895,25 +976,28 @@
     }
   },
   "248335|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We cannot approve your loan as requested yet, and we know this is not the news you hoped for. Your application is close, so a loan officer will look at it personally and may contact you about adjusting the loan.\n\nThe main reasons are your credit scores from other agencies, which are on the low side, and some late payments over the past year. The length of the loan also plays a part. On the positive side, the loan amount is in line with the price of the goods you plan to buy.\n\nA loan officer may be able to offer 393,534 with regular payments of about 16,522 over about 24 payments. This is not yet confirmed, and the officer will check it with you.\n\nThe Lending Team",
+    "subject": "Your loan application: decision under review",
+    "body": "Thank you for applying with us. Your application has been placed under review, which means it is close to our approval threshold and a loan officer will look at it personally before a final decision is made.\n\nSeveral factors in your application lowered our confidence in the loan as requested. Your external credit scores are low on average and at their highest, and about 12% of your payments over the last year were late. Late payments matter to us because they show how reliably a loan is repaid. The requested loan term of about 18 payments also adds to the overall risk.\n\nYour application also has genuine strengths. The loan amount matches the price of the goods at 1.00x, and your past loans were granted at 0.90x of the amount you requested. Your existing car is one year old.\n\nA loan officer may be able to offer a loan of 393,534 with regular payments of about 16,522 over about 24 payments. This is a possibility the loan officer will confirm, not a promise, and they may contact you about adjusting your loan terms.\n\nIf you have questions, please reply to this letter or contact us. You may also ask for your application to be reviewed.\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
       "INST_LATE_SHARE_LAST_YEAR",
+      "EXT_SOURCE_MAX",
       "CREDIT_TERM"
     ],
     "strengths_cited": [
-      "CREDIT_TO_GOODS"
+      "CREDIT_TO_GOODS",
+      "PREV_AVG_GRANTED_TO_APPLIED",
+      "OWN_CAR_AGE"
     ],
     "applicant_id": 248335,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4641,
-    "output_tokens": 683,
-    "cost_usd": 0.000806,
-    "seconds": 4.0,
+    "attempts": 1,
+    "input_tokens": 2026,
+    "output_tokens": 510,
+    "cost_usd": 0.000458,
+    "seconds": 2.9,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -969,24 +1053,26 @@
     }
   },
   "284410|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We are sorry this is not the quick yes you hoped for. Your application is close, so a loan officer will review it personally and may contact you about adjusting the loan.\n\nThe main reasons it needs a closer look are your credit scores from other agencies, which are on the low side, and the debt you carry compared with your credit limits at other lenders. Your loan was requested at 187,704 with regular payments of 10,904 over about 17 payments. You have never been late on a payment, which is a real strength.\n\nA loan officer may be able to offer a loan of 168,934 with regular payments of about 9,813 over about 17 payments. This is only a possibility until they confirm it.\n\nThe Lending Team",
+    "subject": "Your loan application: next steps",
+    "body": "Thank you for applying with us. We are writing to let you know that your application is under review and has not yet been approved or declined.\n\nYour application is close to our approval level, so a loan officer will look at it personally before a final decision is made. Your application shows several factors that we consider when assessing a loan. Your external credit scores are on the lower side, your most recent loan from another lender was taken out about 5 weeks ago, and you are using about 73% of the credit available to you at other lenders. Lenders generally look at how much of available credit is in use because it can signal how much room there is to take on new payments.\n\nThere are also genuine strengths in your application. You have never been late on a past payment, and on-time payments show a reliable repayment record. Your past loans have also typically run for about 12 payments.\n\nA loan officer may be able to offer a loan of 168,934 with regular payments of about 9,813 over about 17 payments. This is a possibility the loan officer will confirm, not a promise. They may contact you to discuss adjusting the loan terms. If you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
+      "BUR_YEARS_SINCE_LAST_LOAN",
       "BUR_DEBT_TO_CREDIT"
     ],
     "strengths_cited": [
-      "INST_MAX_DAYS_LATE"
+      "INST_MAX_DAYS_LATE",
+      "PREV_AVG_TERM"
     ],
     "applicant_id": 284410,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2117,
-    "output_tokens": 343,
-    "cost_usd": 0.000383,
-    "seconds": 2.2,
+    "input_tokens": 2019,
+    "output_tokens": 494,
+    "cost_usd": 0.000449,
+    "seconds": 3.9,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1025,7 +1111,7 @@
         },
         {
           "code": "INST_MAX_DAYS_LATE",
-          "label": "Most days late on one payment",
+          "label": "Most days late on any past payment",
           "value": "never late"
         },
         {
@@ -1042,24 +1128,26 @@
     }
   },
   "140627|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We are sorry this is not the quick answer you hoped for. Your application is close, so a loan officer will review it personally and may contact you about adjusting the loan.\n\nThe main reasons for the review are your credit scores from other agencies, which are on the low side, and some late payments on past loans. On the positive side, your education level is a real strength in your favor.\n\nThe loan officer may be able to offer a loan of 679,671 with regular payments of about 28,737 over about 24 payments. This is a possibility they will confirm with you, not a promise.\n\nThe Lending Team",
+    "subject": "Your loan application: under review",
+    "body": "Thank you for applying with us. We are writing to let you know that your application is under review and has not yet been approved or declined.\n\nYour application is close to the level we can approve, so a loan officer will look at it personally before we reach a final decision. We may contact you about adjusting the loan terms.\n\nSeveral factors played a part in this review. Our external credit scores on your file are on the lower side, and your past payments have on average been paid a little late. Your past loans were also granted for slightly more than you requested, which we looked at closely.\n\nWe also noted some genuine strengths in your application. You have a higher education level, and your past loans were generally for terms of about 12 payments, which shows you have managed longer repayment plans before. Lenders value this kind of history because it points to a reliable track record.\n\nA loan officer may be able to offer a loan of 679,671 with regular payments of about 28,737 over about 24 payments. This is a possibility the loan officer will confirm with you, not a promise. Please watch for a call or message from our team.\n\nIf you have any questions in the meantime, please reply to this letter.\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
-      "INST_AVG_DAYS_LATE"
+      "INST_AVG_DAYS_LATE",
+      "PREV_AVG_GRANTED_TO_APPLIED"
     ],
     "strengths_cited": [
-      "NAME_EDUCATION_TYPE"
+      "NAME_EDUCATION_TYPE",
+      "PREV_AVG_TERM"
     ],
     "applicant_id": 140627,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2109,
-    "output_tokens": 297,
-    "cost_usd": 0.000359,
-    "seconds": 2.4,
+    "input_tokens": 2010,
+    "output_tokens": 489,
+    "cost_usd": 0.000445,
+    "seconds": 3.1,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1116,24 +1204,26 @@
   },
   "137038|under_review|v7|claude-haiku-5-5": {
     "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. We know this is not the answer you hoped for, but your application is close to approval, so one of our loan officers will look at it personally. They may contact you about adjusting the loan.\n\nThe main reasons it needs a closer look are that you have 7 active loans at other lenders, your total debt at other lenders is high, and your past loans have usually been for about 24 payments. On the plus side, you have had no late payments in the last year.\n\nBased on what we see, a loan officer may be able to offer a loan of 727,785 with regular payments of about 25,636 over about 28 payments. They will confirm this with you.\n\nThe Lending Team",
+    "body": "Thank you for applying. Your application is not approved yet, and a loan officer will now review it personally because it is close to our approval requirements.\n\nA few factors in your file affect how we assess the application. You currently have 7 active loans at other lenders, and your total debt at other lenders is 1,951,776. Your past loans have also been granted in amounts that differ from what was requested, which is one more thing we consider.\n\nYou have some genuine strengths too. None of your payments were late in the last year, which shows a reliable repayment record, and your lowest external credit score is 0.41. Lenders also look at how long a customer has been with us, and the ID on file was last updated 13.0 years ago.\n\nBased on your file, a loan officer may be able to offer a loan of 727,785 with regular payments of about 25,636 over about 28 payments. This is a possibility the loan officer will confirm, not a promise. A loan officer may contact you to discuss adjusting the loan terms.\n\nIf you have questions in the meantime, please reply to this letter.\n\nThe Lending Team",
     "reasons_cited": [
       "BUR_N_ACTIVE",
       "BUR_TOTAL_DEBT",
-      "PREV_AVG_TERM"
+      "PREV_AVG_GRANTED_TO_APPLIED"
     ],
     "strengths_cited": [
-      "INST_LATE_SHARE_LAST_YEAR"
+      "INST_LATE_SHARE_LAST_YEAR",
+      "EXT_SOURCE_MIN",
+      "YEARS_SINCE_ID_PUBLISH"
     ],
     "applicant_id": 137038,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4641,
-    "output_tokens": 667,
-    "cost_usd": 0.000798,
-    "seconds": 4.2,
+    "attempts": 1,
+    "input_tokens": 2030,
+    "output_tokens": 500,
+    "cost_usd": 0.000453,
+    "seconds": 3.0,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1189,8 +1279,8 @@
     }
   },
   "383075|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: we need a closer look",
-    "body": "Dear Applicant,\n\nThank you for applying. This is not the answer you hoped for, but your application is close to approval, so a loan officer will look at it personally. They may contact you about adjusting the loan. A loan of 717,430 with regular payments of about 36,752 over about 20 payments may be possible, though the loan officer will need to confirm this.\n\nThe main concerns are your credit scores from other agencies, which are on the lower side, and the size of the regular payments on the amount you asked for. Your credit card balances are well within their limits, and you have made all of your payments on time in the last year.\n\nYou don't need to do anything right now. A loan officer will be in touch.\n\nThe Lending Team",
+    "subject": "Update on your loan application",
+    "body": "Thank you for applying for a loan with us. Your application is still under review, and a loan officer will look at it personally before we reach a final decision.\n\nYour application is close to the level we can approve as requested, so a member of our team will review it in more detail. Some of the information from outside credit scores is part of what we are reviewing, and the regular repayment amount and the length of the loan also affect the decision.\n\nWe also see some encouraging points in your application. Your credit card balance is at 0% of your limit, and none of your payments were late in the last year. Lenders value these because they show a reliable approach to managing credit.\n\nA loan officer may contact you to discuss adjusting the loan terms. Based on the information we have, a loan officer may be able to offer a loan of 717,430 with regular payments of about 36,752 over about 20 payments. This is a possibility the loan officer will confirm, not a guarantee.\n\nThank you for your patience while we complete this review.\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
       "EXT_SOURCE_3",
@@ -1205,10 +1295,10 @@
     "checks_passed": true,
     "issues": [],
     "attempts": 2,
-    "input_tokens": 4609,
-    "output_tokens": 723,
-    "cost_usd": 0.000822,
-    "seconds": 4.5,
+    "input_tokens": 4480,
+    "output_tokens": 871,
+    "cost_usd": 0.000883,
+    "seconds": 4.7,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1264,24 +1354,26 @@
     }
   },
   "173037|under_review|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: a decision is coming from a loan officer",
-    "body": "Dear Applicant,\n\nWe cannot make a final decision on your loan yet, and we know that is not the news you hoped for. Your application is close, so a loan officer will review it personally and may contact you.\n\nYou asked for 509,400 with regular payments of 40,244 over about 13 payments. The loan length and payment size are the main concerns, but you have had no late payments in the last year, which helps.\n\nA loan officer may be able to offer 509,400 with regular payments of about 36,585 over about 14 payments. They will confirm this with you.\n\nThe Lending Team",
+    "subject": "Your loan application is under review",
+    "body": "Thank you for applying. Your application is under review, and a loan officer will look at it personally. It is close to the level needed for approval as requested.\n\nSeveral factors were considered. The average length of your past loans was about 42 payments. Lenders look at loan length as part of understanding repayment history. The requested regular payment of 40,244 and the loan term of about 13 payments also played a part in the review.\n\nThere are also genuine strengths in your application. None of your payments were late in the last year, which is 0%, and on-time payments show a reliable repayment record. Your ID document was last changed 13.2 years ago, which points to a stable identity record.\n\nA loan officer may be able to offer a loan of 509,400 with regular payments of about 36,585 over about 14 payments. The loan officer will confirm the terms and may contact you to discuss adjusting your loan. If you have questions, please reply to this letter.\n\nThe Lending Team",
     "reasons_cited": [
-      "CREDIT_TERM",
-      "AMT_ANNUITY"
+      "PREV_AVG_TERM",
+      "AMT_ANNUITY",
+      "CREDIT_TERM"
     ],
     "strengths_cited": [
-      "INST_LATE_SHARE_LAST_YEAR"
+      "INST_LATE_SHARE_LAST_YEAR",
+      "YEARS_SINCE_ID_PUBLISH"
     ],
     "applicant_id": 173037,
     "decision": "under_review",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4665,
-    "output_tokens": 1842,
-    "cost_usd": 0.001388,
-    "seconds": 9.4,
+    "attempts": 1,
+    "input_tokens": 2026,
+    "output_tokens": 1621,
+    "cost_usd": 0.001013,
+    "seconds": 8.2,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1336,27 +1428,310 @@
       }
     }
   },
-  "303234|decline|v7|claude-haiku-5-5": {
-    "subject": "Your loan application",
-    "body": "Dear Applicant,\n\nThank you for applying. I am sorry to say we cannot approve the loan as requested, and I know this is not the news you hoped for. The main reasons are your average credit score from other agencies, some late payments over the past year, and the length of the repayment period.\n\nYou do have real strengths. You have been in your current job for 8.3 years, and you have taken 3 past store or cash loans.\n\nA loan on different terms may be possible: a loan of 354,276 with regular payments of about 15,742 over about 23 payments. A loan officer would need to confirm this. Please contact us to talk it through, or reply to ask for your decision to be reviewed.\n\nThe Lending Team",
+  "257448|decline|v7|claude-haiku-5-5": {
+    "subject": "Your loan application decision",
+    "body": "Thank you for applying with us. We are sorry to tell you that we are unable to approve your loan application at this time.\n\nSeveral factors in your application led to this decision. Your external credit scores, which lenders use to gauge how reliably someone has repaid credit in the past, are currently low, with an average of 0.17. Your record also shows that 12% of payments were late in the last year. Late payments are a concern because they suggest regular repayments may be harder to keep up.\n\nWe did notice a positive. Your ID document was last changed 14.3 years ago, and lenders generally view a long-held ID as a sign of stability.\n\nTo strengthen future applications, lenders generally look for a steady record of on-time payments over time. Keeping up with every payment on any account you hold can make a real difference.\n\nIf you believe this decision should be reviewed, you can ask for a review of this decision.\n\nKind regards,\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
-      "INST_LATE_SHARE_LAST_YEAR",
-      "CREDIT_TERM"
+      "INST_LATE_SHARE_LAST_YEAR"
     ],
     "strengths_cited": [
-      "YEARS_EMPLOYED",
-      "POS_N_LOANS"
+      "YEARS_SINCE_ID_PUBLISH"
+    ],
+    "applicant_id": 257448,
+    "decision": "decline",
+    "checks_passed": true,
+    "issues": [],
+    "attempts": 1,
+    "input_tokens": 1949,
+    "output_tokens": 1586,
+    "cost_usd": 0.000988,
+    "seconds": 7.5,
+    "model": "claude-haiku-5-5",
+    "prompt_version": "v7",
+    "fact_sheet": {
+      "applicant_id": 257448,
+      "decision": "decline",
+      "loan_amount": "297,130",
+      "regular_payment": "14,292",
+      "number_of_payments": "about 21 payments",
+      "risk_factors": [
+        {
+          "code": "EXT_SOURCE_MEAN",
+          "label": "Average external credit score",
+          "value": "0.17"
+        },
+        {
+          "code": "PREV_AVG_TERM",
+          "label": "Average term of past loans",
+          "value": "about 36 payments"
+        },
+        {
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "label": "Share of payments late in the last year",
+          "value": "12%"
+        },
+        {
+          "code": "EXT_SOURCE_MAX",
+          "label": "Highest external credit score",
+          "value": "0.17"
+        }
+      ],
+      "strengths": [
+        {
+          "code": "AMT_ANNUITY",
+          "label": "Regular repayment amount",
+          "value": "14,292"
+        },
+        {
+          "code": "YEARS_SINCE_ID_PUBLISH",
+          "label": "Time since ID document changed",
+          "value": "14.3 years"
+        },
+        {
+          "code": "PREV_CANCELED_SHARE",
+          "label": "Share of past applications cancelled",
+          "value": "50%"
+        }
+      ],
+      "adjusted_terms": null
+    }
+  },
+  "184845|decline|v7|claude-haiku-5-5": {
+    "subject": "Your loan application decision",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application for $273,636 as requested. We know this is not the answer you were hoping for.\n\nSeveral factors in your application were weighed against approval. Your external credit scores are on the lower side, with an average of 0.26, and about 33% of your payments in the last year were late. Lenders look at these measures because they show how reliably a loan is likely to be repaid.\n\nThere are also strengths in your application. You have a higher education level, and your past loans had an average term of about 12 payments, which shows you have experience with structured repayment.\n\nTo strengthen future applications, a record of on-time payments over time is one of the most helpful steps you can take. If you would like us to review this decision, you are welcome to ask.\n\nThe Lending Team",
+    "reasons_cited": [
+      "EXT_SOURCE_MEAN",
+      "INST_LATE_SHARE_LAST_YEAR"
+    ],
+    "strengths_cited": [
+      "NAME_EDUCATION_TYPE",
+      "PREV_AVG_TERM"
+    ],
+    "applicant_id": 184845,
+    "decision": "decline",
+    "checks_passed": true,
+    "issues": [],
+    "attempts": 2,
+    "input_tokens": 4362,
+    "output_tokens": 1379,
+    "cost_usd": 0.001126,
+    "seconds": 7.9,
+    "model": "claude-haiku-5-5",
+    "prompt_version": "v7",
+    "fact_sheet": {
+      "applicant_id": 184845,
+      "decision": "decline",
+      "loan_amount": "273,636",
+      "regular_payment": "18,414",
+      "number_of_payments": "about 15 payments",
+      "risk_factors": [
+        {
+          "code": "EXT_SOURCE_MEAN",
+          "label": "Average external credit score",
+          "value": "0.26"
+        },
+        {
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "label": "Share of payments late in the last year",
+          "value": "33%"
+        },
+        {
+          "code": "EXT_SOURCE_MAX",
+          "label": "Highest external credit score",
+          "value": "0.30"
+        },
+        {
+          "code": "EXT_SOURCE_MIN",
+          "label": "Lowest external credit score",
+          "value": "0.22"
+        }
+      ],
+      "strengths": [
+        {
+          "code": "NAME_EDUCATION_TYPE",
+          "label": "Education level",
+          "value": "Higher education"
+        },
+        {
+          "code": "PREV_AVG_TERM",
+          "label": "Average term of past loans",
+          "value": "about 12 payments"
+        },
+        {
+          "code": "EXT_SOURCE_3",
+          "label": "External credit score 3",
+          "value": "not available"
+        }
+      ],
+      "adjusted_terms": null
+    }
+  },
+  "412892|decline|v7|claude-haiku-5-5": {
+    "subject": "Your loan application decision",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application for 832,500 as requested.\n\nSeveral factors in your application weighed against approval. Our external credit scores were low across the sources we reviewed, with an average of 0.21, a lowest score of 0.07, and a highest score of 0.34. Lenders look at these scores because they give a general picture of how a borrower has handled credit in the past.\n\nYou also have some genuine strengths. The loan term of about 35 payments is a manageable length, and the loan amount of 832,500 is equal to the price of the goods being financed.\n\nWhat generally helps future applications is building a record of on-time payments, whether on existing bills, accounts or small loans, and keeping balances manageable over time.\n\nYou are welcome to ask us to review this decision, and we would be glad to go over it with you.\n\nThe Lending Team",
+    "reasons_cited": [
+      "EXT_SOURCE_MEAN",
+      "EXT_SOURCE_MIN",
+      "EXT_SOURCE_MAX"
+    ],
+    "strengths_cited": [
+      "CREDIT_TERM",
+      "CREDIT_TO_GOODS"
+    ],
+    "applicant_id": 412892,
+    "decision": "decline",
+    "checks_passed": true,
+    "issues": [],
+    "attempts": 2,
+    "input_tokens": 4427,
+    "output_tokens": 1574,
+    "cost_usd": 0.00123,
+    "seconds": 7.3,
+    "model": "claude-haiku-5-5",
+    "prompt_version": "v7",
+    "fact_sheet": {
+      "applicant_id": 412892,
+      "decision": "decline",
+      "loan_amount": "832,500",
+      "regular_payment": "23,859",
+      "number_of_payments": "about 35 payments",
+      "risk_factors": [
+        {
+          "code": "EXT_SOURCE_MEAN",
+          "label": "Average external credit score",
+          "value": "0.21"
+        },
+        {
+          "code": "EXT_SOURCE_MIN",
+          "label": "Lowest external credit score",
+          "value": "0.07"
+        },
+        {
+          "code": "EXT_SOURCE_1",
+          "label": "External credit score 1",
+          "value": "0.07"
+        },
+        {
+          "code": "EXT_SOURCE_MAX",
+          "label": "Highest external credit score",
+          "value": "0.34"
+        }
+      ],
+      "strengths": [
+        {
+          "code": "CREDIT_TERM",
+          "label": "Loan term (number of payments)",
+          "value": "about 35 payments"
+        },
+        {
+          "code": "CREDIT_TO_GOODS",
+          "label": "Loan amount vs price of goods",
+          "value": "1.00x"
+        },
+        {
+          "code": "PREV_AVG_GRANTED_TO_APPLIED",
+          "label": "Past loans granted vs amount requested",
+          "value": "not available"
+        }
+      ],
+      "adjusted_terms": null
+    }
+  },
+  "402566|decline|v7|claude-haiku-5-5": {
+    "subject": "Your loan application decision",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application as requested for 325,908.\n\nSeveral factors shaped this decision. Your average external credit score is low at 0.29, which means our lenders see limited repayment history in outside sources. The requested loan would also be repaid over about 15 payments, and the loan amount is 1.32 times the price of the goods it would cover. Your ID document was last updated about 8 months ago, which is another factor lenders consider.\n\nWe also noticed genuine strengths in your application. None of your payments in the last year were late, which shows a reliable repayment record. Your past loans have also averaged about 6 payments in length.\n\nTo strengthen future applications, a steady record of on-time payments over time is one of the most helpful things you can build. You are welcome to ask us to review this decision. Please contact us if you would like to discuss your options.\n\nThe Lending Team",
+    "reasons_cited": [
+      "EXT_SOURCE_MEAN",
+      "CREDIT_TERM",
+      "CREDIT_TO_GOODS",
+      "YEARS_SINCE_ID_PUBLISH"
+    ],
+    "strengths_cited": [
+      "INST_LATE_SHARE_LAST_YEAR",
+      "PREV_AVG_TERM"
+    ],
+    "applicant_id": 402566,
+    "decision": "decline",
+    "checks_passed": true,
+    "issues": [],
+    "attempts": 1,
+    "input_tokens": 1951,
+    "output_tokens": 433,
+    "cost_usd": 0.000412,
+    "seconds": 7.0,
+    "model": "claude-haiku-5-5",
+    "prompt_version": "v7",
+    "fact_sheet": {
+      "applicant_id": 402566,
+      "decision": "decline",
+      "loan_amount": "325,908",
+      "regular_payment": "22,176",
+      "number_of_payments": "about 15 payments",
+      "risk_factors": [
+        {
+          "code": "EXT_SOURCE_MEAN",
+          "label": "Average external credit score",
+          "value": "0.29"
+        },
+        {
+          "code": "CREDIT_TERM",
+          "label": "Loan term (number of payments)",
+          "value": "about 15 payments"
+        },
+        {
+          "code": "YEARS_SINCE_ID_PUBLISH",
+          "label": "Time since ID document changed",
+          "value": "about 8 months"
+        },
+        {
+          "code": "CREDIT_TO_GOODS",
+          "label": "Loan amount vs price of goods",
+          "value": "1.32x"
+        }
+      ],
+      "strengths": [
+        {
+          "code": "PREV_AVG_TERM",
+          "label": "Average term of past loans",
+          "value": "about 6 payments"
+        },
+        {
+          "code": "INST_LATE_SHARE_LAST_YEAR",
+          "label": "Share of payments late in the last year",
+          "value": "0%"
+        },
+        {
+          "code": "EXT_SOURCE_3",
+          "label": "External credit score 3",
+          "value": "not available"
+        }
+      ],
+      "adjusted_terms": null
+    }
+  },
+  "303234|decline|v7|claude-haiku-5-5": {
+    "subject": "Your loan application decision",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application as requested for 545,040.\n\nIn making this decision, we looked at several factors. Your recent payment history showed that 43% of payments in the last year were late, and past payments were late by an average of 9.20 days. Lenders look at this closely because on-time payments show a reliable repayment record. The requested loan term of about 20 payments and an average external credit score of 0.26 also played a part in our decision.\n\nWe did see some strengths in your application. You have taken out 3 past store or cash loans, and you have 8.3 years of time in your current job, which shows a steady work history.\n\nA loan on different terms may be possible. Based on your application, a loan officer may be able to offer a loan of 354,276 with regular payments of about 15,742 over about 23 payments. This is not guaranteed and would need to be confirmed by a loan officer. Please contact us to discuss this option.\n\nTo improve future applications, keeping up a record of on-time payments is one of the most helpful steps you can take. You are also welcome to ask us to review this decision.\n\nSincerely,\nThe Lending Team",
+    "reasons_cited": [
+      "INST_LATE_SHARE_LAST_YEAR",
+      "INST_AVG_DAYS_LATE",
+      "CREDIT_TERM",
+      "EXT_SOURCE_MEAN"
+    ],
+    "strengths_cited": [
+      "POS_N_LOANS",
+      "YEARS_EMPLOYED"
     ],
     "applicant_id": 303234,
     "decision": "decline",
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2095,
-    "output_tokens": 344,
-    "cost_usd": 0.000382,
-    "seconds": 2.7,
+    "input_tokens": 1996,
+    "output_tokens": 506,
+    "cost_usd": 0.000453,
+    "seconds": 3.8,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1413,11 +1788,12 @@
   },
   "229518|decline|v7|claude-haiku-5-5": {
     "subject": "Your loan application decision",
-    "body": "Dear Applicant,\n\nThank you for applying. I am sorry to say we cannot approve your loan as requested. We know this is not the news you hoped for.\n\nThe main reasons are that about 40% of your past payments were late, and one of your credit scores from another agency is quite low. The requested term of about 21 payments also adds to the risk. On the plus side, your highest outside credit score is strong, and your past loans were short.\n\nA loan of 545,040 with regular payments of about 23,216 over about 23 payments may be possible. A loan officer would need to confirm this. You can contact us to talk it through, and you are also welcome to reply and ask us to review this decision.\n\nThe Lending Team",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application as requested.\n\nSeveral factors in your application raised our estimated risk. About 40% of your past payments were late, and your lowest external credit score was 0.22. We also noted that the requested loan would be repaid over about 21 payments, and the loan amount is 1.21 times the price of the goods it would cover. Lenders look closely at payment history because on-time payments show a reliable repayment record.\n\nWe did see genuine strengths in your application. Your highest external credit score was 0.76, and your past loans were generally short, averaging about 6 payments.\n\nA loan on different terms may be possible. Based on your application, a loan of 545,040 with regular payments of about 23,216 over about 23 payments may be possible, though a loan officer would need to confirm this. Please contact us if you would like to discuss this option.\n\nGoing forward, a consistent record of on-time payments is one of the most helpful things for future applications. You are also welcome to ask us to review this decision.\n\nThe Lending Team",
     "reasons_cited": [
       "INST_LATE_SHARE",
       "EXT_SOURCE_MIN",
-      "CREDIT_TERM"
+      "CREDIT_TERM",
+      "CREDIT_TO_GOODS"
     ],
     "strengths_cited": [
       "EXT_SOURCE_MAX",
@@ -1428,10 +1804,10 @@
     "checks_passed": true,
     "issues": [],
     "attempts": 1,
-    "input_tokens": 2092,
-    "output_tokens": 332,
-    "cost_usd": 0.000375,
-    "seconds": 3.1,
+    "input_tokens": 1993,
+    "output_tokens": 468,
+    "cost_usd": 0.000433,
+    "seconds": 4.2,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1488,23 +1864,25 @@
   },
   "402085|decline|v7|claude-haiku-5-5": {
     "subject": "Your loan application decision",
-    "body": "Dear Applicant,\n\nThank you for applying with us. I'm sorry to say we cannot approve your loan of 180,000 as requested. I know this is not the news you hoped for.\n\nThe main reason is your credit scores from other agencies, which are very low, including your lowest one. On the positive side, your regular payment of 9,000 is a real strength in your application.\n\nIf you would like this decision reviewed, just reply to this letter and ask.\n\nThe Lending Team",
+    "body": "Thank you for applying for a loan of 180,000. We are sorry to tell you that we are unable to approve your application as requested.\n\nOur decision was based mainly on credit scores from outside sources. The average of these scores, the lowest of them, and two individual scores were all low. Lenders look at these figures because they give an indication of how reliably a loan is likely to be repaid.\n\nWe did see some genuine strengths in your application. The loan amount you asked for matches the price of the goods, and your past loans had an average term of about 10 payments.\n\nA steady record of on-time payments on bills and accounts can help future applications, because it shows a reliable repayment record over time. If you believe this decision should be reviewed, you are welcome to ask us to review it, and we will be glad to help.\n\nKind regards,\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
-      "EXT_SOURCE_MIN"
+      "EXT_SOURCE_MIN",
+      "EXT_SOURCE_2"
     ],
     "strengths_cited": [
-      "AMT_ANNUITY"
+      "CREDIT_TO_GOODS",
+      "PREV_AVG_TERM"
     ],
     "applicant_id": 402085,
     "decision": "decline",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4433,
-    "output_tokens": 1358,
-    "cost_usd": 0.001122,
-    "seconds": 8.1,
+    "attempts": 1,
+    "input_tokens": 1928,
+    "output_tokens": 1224,
+    "cost_usd": 0.000805,
+    "seconds": 6.1,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1555,165 +1933,26 @@
       "adjusted_terms": null
     }
   },
-  "230043|approve|v7|claude-haiku-5-5": {
-    "subject": "Your loan application has been approved",
-    "body": "Dear Applicant,\n\nGood news: your loan application has been approved. You can borrow 138,474 with regular payments of 9,765, spread over about 14 payments.\n\nWe know credit scores from other agencies can be hard to get right, and we took the whole picture into account when making this decision. Your application also shows a sensible approach to borrowing, with a good share of your past applications cancelled.\n\nA loan officer will be in touch with the next steps. Thank you for choosing us.\n\nThe Lending Team",
-    "reasons_cited": [],
-    "strengths_cited": [
-      "PREV_CANCELED_SHARE",
-      "AMT_CREDIT",
-      "AMT_ANNUITY"
-    ],
-    "applicant_id": 230043,
-    "decision": "approve",
-    "checks_passed": true,
-    "issues": [],
-    "attempts": 1,
-    "input_tokens": 2022,
-    "output_tokens": 247,
-    "cost_usd": 0.000326,
-    "seconds": 2.4,
-    "model": "claude-haiku-5-5",
-    "prompt_version": "v7",
-    "fact_sheet": {
-      "applicant_id": 230043,
-      "decision": "approve",
-      "loan_amount": "138,474",
-      "regular_payment": "9,765",
-      "number_of_payments": "about 14 payments",
-      "risk_factors": [
-        {
-          "code": "EXT_SOURCE_MEAN",
-          "label": "Average external credit score",
-          "value": "0.46"
-        },
-        {
-          "code": "EXT_SOURCE_MIN",
-          "label": "Lowest external credit score",
-          "value": "0.19"
-        },
-        {
-          "code": "EXT_SOURCE_2",
-          "label": "External credit score 2",
-          "value": "0.19"
-        },
-        {
-          "code": "EXT_SOURCE_STD",
-          "label": "Spread of external credit scores",
-          "value": "0.38"
-        }
-      ],
-      "strengths": [
-        {
-          "code": "PREV_CANCELED_SHARE",
-          "label": "Share of past applications cancelled",
-          "value": "75%"
-        },
-        {
-          "code": "AMT_CREDIT",
-          "label": "Loan amount",
-          "value": "138,474"
-        },
-        {
-          "code": "AMT_ANNUITY",
-          "label": "Regular repayment amount",
-          "value": "9,765"
-        }
-      ],
-      "adjusted_terms": null
-    }
-  },
-  "402566|decline|v7|claude-haiku-5-5": {
-    "subject": "Your loan application: our decision",
-    "body": "Dear Applicant,\n\nThank you for applying. I am sorry to tell you that we cannot approve your loan as requested. I know this is not the news you hoped for.\n\nThe main reasons are your credit scores from other agencies, which are on the low side, and the loan term of about 15 payments. The loan amount is also high compared with the price of the goods. On the plus side, you have paid every payment on time over the last year.\n\nIf you would like us to review this decision, just reply to this letter and we will look at it again.\n\nThe Lending Team",
-    "reasons_cited": [
-      "EXT_SOURCE_MEAN",
-      "CREDIT_TERM",
-      "CREDIT_TO_GOODS"
-    ],
-    "strengths_cited": [
-      "INST_LATE_SHARE_LAST_YEAR"
-    ],
-    "applicant_id": 402566,
-    "decision": "decline",
-    "checks_passed": true,
-    "issues": [],
-    "attempts": 2,
-    "input_tokens": 4484,
-    "output_tokens": 1093,
-    "cost_usd": 0.000995,
-    "seconds": 9.3,
-    "model": "claude-haiku-5-5",
-    "prompt_version": "v7",
-    "fact_sheet": {
-      "applicant_id": 402566,
-      "decision": "decline",
-      "loan_amount": "325,908",
-      "regular_payment": "22,176",
-      "number_of_payments": "about 15 payments",
-      "risk_factors": [
-        {
-          "code": "EXT_SOURCE_MEAN",
-          "label": "Average external credit score",
-          "value": "0.29"
-        },
-        {
-          "code": "CREDIT_TERM",
-          "label": "Loan term (number of payments)",
-          "value": "about 15 payments"
-        },
-        {
-          "code": "YEARS_SINCE_ID_PUBLISH",
-          "label": "Time since ID document changed",
-          "value": "about 8 months"
-        },
-        {
-          "code": "CREDIT_TO_GOODS",
-          "label": "Loan amount vs price of goods",
-          "value": "1.32x"
-        }
-      ],
-      "strengths": [
-        {
-          "code": "PREV_AVG_TERM",
-          "label": "Average term of past loans",
-          "value": "about 6 payments"
-        },
-        {
-          "code": "INST_LATE_SHARE_LAST_YEAR",
-          "label": "Share of payments late in the last year",
-          "value": "0%"
-        },
-        {
-          "code": "EXT_SOURCE_3",
-          "label": "External credit score 3",
-          "value": "not available"
-        }
-      ],
-      "adjusted_terms": null
-    }
-  },
   "115581|decline|v7|claude-haiku-5-5": {
     "subject": "Your loan application decision",
-    "body": "Dear Applicant,\n\nThank you for applying. We are sorry to tell you that we cannot approve your loan of 640,080 as requested. We know this is not the news you hoped for.\n\nThe main reasons are very low credit scores from other agencies, and the loan amount is more than the price of the goods you plan to buy. On the positive side, you have never been late on a payment, and none of your payments in the last year were late.\n\nIf you would like this decision reviewed, you can reply to this letter and ask us to do so.\n\nThe Lending Team",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application as requested.\n\nSeveral factors in your application raised our estimated risk. Your average external credit score is 0.01, and the loan amount is 1.42x the price of the goods it is for. Lenders use external credit scores to judge how reliably past debts have been managed, and the loan amount compared with the price of goods helps us understand how much is being borrowed for a purchase.\n\nYour application also showed genuine strengths. You have no late payments in the last year, and you have never been late on any past payment. A record of on-time payments shows a reliable repayment history, which lenders value.\n\nTo strengthen future applications, building a record of on-time payments on any existing obligations is one of the most helpful steps you can take. If you believe this decision should be reviewed, you can ask us to review it, and we will be glad to look at it again.\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
-      "EXT_SOURCE_MIN",
       "CREDIT_TO_GOODS"
     ],
     "strengths_cited": [
-      "INST_MAX_DAYS_LATE",
-      "INST_LATE_SHARE_LAST_YEAR"
+      "INST_LATE_SHARE_LAST_YEAR",
+      "INST_MAX_DAYS_LATE"
     ],
     "applicant_id": 115581,
     "decision": "decline",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4452,
-    "output_tokens": 1191,
-    "cost_usd": 0.001041,
-    "seconds": 5.9,
+    "attempts": 1,
+    "input_tokens": 1940,
+    "output_tokens": 1744,
+    "cost_usd": 0.001066,
+    "seconds": 8.0,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1757,7 +1996,7 @@
         },
         {
           "code": "INST_MAX_DAYS_LATE",
-          "label": "Most days late on one payment",
+          "label": "Most days late on any past payment",
           "value": "never late"
         }
       ],
@@ -1766,7 +2005,7 @@
   },
   "102778|decline|v7|claude-haiku-5-5": {
     "subject": "Your loan application decision",
-    "body": "Dear Applicant,\n\nThank you for applying. I am sorry to tell you that we cannot approve a loan of 152,820 as requested. I know this is not the news you hoped for.\n\nThe main reasons are the credit scores from other agencies, which are low, and the length of the loan, about 15 payments. You do have a clear strength: your past loans had shorter terms, about 5 payments on average.\n\nIf you would like this decision reviewed, please reply to this letter and tell us more about your situation.\n\nThe Lending Team",
+    "body": "Thank you for applying with us. After careful review, we are unable to approve your loan application as requested.\n\nSeveral factors in your application contributed to this decision. Your external credit scores were an average of 0.15 and a lowest of 0.06, and lenders use these scores as a general indicator of how reliably past credit has been handled. The requested loan term of about 15 payments also added to the estimated risk, since longer repayment periods leave more time for circumstances to change.\n\nWe did see some positives. Your past loans have had an average term of about 5 payments, which shows you have experience with shorter repayment periods.\n\nBuilding a record of on-time payments on any existing bills or accounts generally helps future applications. If you believe this decision should be reviewed, you are welcome to ask us, and we will look at it again.\n\nKind regards,\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
       "EXT_SOURCE_MIN",
@@ -1779,11 +2018,11 @@
     "decision": "decline",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4396,
-    "output_tokens": 1160,
-    "cost_usd": 0.00102,
-    "seconds": 6.4,
+    "attempts": 1,
+    "input_tokens": 1925,
+    "output_tokens": 1232,
+    "cost_usd": 0.000808,
+    "seconds": 9.9,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1835,25 +2074,27 @@
     }
   },
   "339086|decline|v7|claude-haiku-5-5": {
-    "subject": "Your loan application",
-    "body": "Dear Applicant,\n\nThank you for applying with us. We are sorry to tell you that we cannot approve your loan as requested. We know this is not the news you hoped for.\n\nThe main reasons are your credit scores from other agencies, which are on the low side, and the number of loans you currently have open with other lenders. On the plus side, you have never been late on a payment.\n\nIf you would like us to review this decision, just reply to this letter and we will take another look.\n\nThe Lending Team",
+    "subject": "Your loan application decision",
+    "body": "Dear Applicant,\n\nWe are sorry to tell you that we are unable to approve your loan application for 808,650 as requested. Your application has been declined as submitted.\n\nSeveral factors in your application led to this decision. Your external credit scores are low: the average is 0.23, the lowest is 0.07 and the highest is 0.38. You also currently have 10 active loans with other lenders, and lenders often look closely at how many loans a person is repaying at the same time.\n\nWe did see some positives. You have never been late on a past payment, which shows a reliable repayment record, and your past loans have averaged about 12 payments.\n\nTo strengthen future applications, it generally helps to keep up with on-time payments on all your current obligations and to reduce the number of open loans over time. If you believe this decision should be reviewed, you are welcome to ask us to review it.\n\nKind regards,\n\nThe Lending Team",
     "reasons_cited": [
       "EXT_SOURCE_MEAN",
-      "BUR_N_ACTIVE",
-      "EXT_SOURCE_MIN"
+      "EXT_SOURCE_MIN",
+      "EXT_SOURCE_MAX",
+      "BUR_N_ACTIVE"
     ],
     "strengths_cited": [
-      "INST_MAX_DAYS_LATE"
+      "INST_MAX_DAYS_LATE",
+      "PREV_AVG_TERM"
     ],
     "applicant_id": 339086,
     "decision": "decline",
     "checks_passed": true,
     "issues": [],
-    "attempts": 2,
-    "input_tokens": 4442,
-    "output_tokens": 1091,
-    "cost_usd": 0.00099,
-    "seconds": 9.0,
+    "attempts": 1,
+    "input_tokens": 1937,
+    "output_tokens": 1200,
+    "cost_usd": 0.000794,
+    "seconds": 5.8,
     "model": "claude-haiku-5-5",
     "prompt_version": "v7",
     "fact_sheet": {
@@ -1892,222 +2133,13 @@
         },
         {
           "code": "INST_MAX_DAYS_LATE",
-          "label": "Most days late on one payment",
+          "label": "Most days late on any past payment",
           "value": "never late"
         },
         {
           "code": "PREV_AVG_TERM",
           "label": "Average term of past loans",
           "value": "about 12 payments"
-        }
-      ],
-      "adjusted_terms": null
-    }
-  },
-  "257448|decline|v7|claude-haiku-5-5": {
-    "subject": "Your loan application",
-    "body": "Dear Applicant,\n\nThank you for applying. I'm sorry to say we cannot approve your loan as requested. I know this is not the news you hoped for.\n\nThe main reasons are your credit scores from other agencies, which are quite low, and some late payments over the last year. Your past loans also tended to run for a long time.\n\nYou do have a real strength: your ID document was updated a long time ago.\n\nIf you'd like us to review this decision, just reply to this letter and ask us to look at it again.\n\nThe Lending Team",
-    "reasons_cited": [
-      "EXT_SOURCE_MEAN",
-      "INST_LATE_SHARE_LAST_YEAR",
-      "PREV_AVG_TERM"
-    ],
-    "strengths_cited": [
-      "YEARS_SINCE_ID_PUBLISH"
-    ],
-    "applicant_id": 257448,
-    "decision": "decline",
-    "checks_passed": true,
-    "issues": [],
-    "attempts": 2,
-    "input_tokens": 4462,
-    "output_tokens": 1139,
-    "cost_usd": 0.001016,
-    "seconds": 6.0,
-    "model": "claude-haiku-5-5",
-    "prompt_version": "v7",
-    "fact_sheet": {
-      "applicant_id": 257448,
-      "decision": "decline",
-      "loan_amount": "297,130",
-      "regular_payment": "14,292",
-      "number_of_payments": "about 21 payments",
-      "risk_factors": [
-        {
-          "code": "EXT_SOURCE_MEAN",
-          "label": "Average external credit score",
-          "value": "0.17"
-        },
-        {
-          "code": "PREV_AVG_TERM",
-          "label": "Average term of past loans",
-          "value": "about 36 payments"
-        },
-        {
-          "code": "INST_LATE_SHARE_LAST_YEAR",
-          "label": "Share of payments late in the last year",
-          "value": "12%"
-        },
-        {
-          "code": "EXT_SOURCE_MAX",
-          "label": "Highest external credit score",
-          "value": "0.17"
-        }
-      ],
-      "strengths": [
-        {
-          "code": "AMT_ANNUITY",
-          "label": "Regular repayment amount",
-          "value": "14,292"
-        },
-        {
-          "code": "YEARS_SINCE_ID_PUBLISH",
-          "label": "Time since ID document changed",
-          "value": "14.3 years"
-        },
-        {
-          "code": "PREV_CANCELED_SHARE",
-          "label": "Share of past applications cancelled",
-          "value": "50%"
-        }
-      ],
-      "adjusted_terms": null
-    }
-  },
-  "184845|decline|v7|claude-haiku-5-5": {
-    "subject": "Your loan application",
-    "body": "Dear Applicant,\n\nThank you for applying with us. We are sorry to say that we cannot approve your loan as requested for $273,636. We know this is not the news you hoped for.\n\nThe main reasons are your credit scores from other agencies, which are on the low side, and the fact that a third of your payments in the last year were late. Your education level and the length of your past loans work in your favor.\n\nIf you would like, you can reply to ask for your decision to be reviewed.\n\nThe Lending Team",
-    "reasons_cited": [
-      "EXT_SOURCE_MEAN",
-      "INST_LATE_SHARE_LAST_YEAR"
-    ],
-    "strengths_cited": [
-      "NAME_EDUCATION_TYPE",
-      "PREV_AVG_TERM"
-    ],
-    "applicant_id": 184845,
-    "decision": "decline",
-    "checks_passed": true,
-    "issues": [],
-    "attempts": 2,
-    "input_tokens": 4424,
-    "output_tokens": 1199,
-    "cost_usd": 0.001042,
-    "seconds": 6.6,
-    "model": "claude-haiku-5-5",
-    "prompt_version": "v7",
-    "fact_sheet": {
-      "applicant_id": 184845,
-      "decision": "decline",
-      "loan_amount": "273,636",
-      "regular_payment": "18,414",
-      "number_of_payments": "about 15 payments",
-      "risk_factors": [
-        {
-          "code": "EXT_SOURCE_MEAN",
-          "label": "Average external credit score",
-          "value": "0.26"
-        },
-        {
-          "code": "INST_LATE_SHARE_LAST_YEAR",
-          "label": "Share of payments late in the last year",
-          "value": "33%"
-        },
-        {
-          "code": "EXT_SOURCE_MAX",
-          "label": "Highest external credit score",
-          "value": "0.30"
-        },
-        {
-          "code": "EXT_SOURCE_MIN",
-          "label": "Lowest external credit score",
-          "value": "0.22"
-        }
-      ],
-      "strengths": [
-        {
-          "code": "NAME_EDUCATION_TYPE",
-          "label": "Education level",
-          "value": "Higher education"
-        },
-        {
-          "code": "PREV_AVG_TERM",
-          "label": "Average term of past loans",
-          "value": "about 12 payments"
-        },
-        {
-          "code": "EXT_SOURCE_3",
-          "label": "External credit score 3",
-          "value": "not available"
-        }
-      ],
-      "adjusted_terms": null
-    }
-  },
-  "412892|decline|v7|claude-haiku-5-5": {
-    "subject": "Your loan application",
-    "body": "Dear Applicant,\n\nThank you for applying. We are sorry to tell you that we cannot approve your loan of 832,500 as requested. We know this is not the news you hoped for.\n\nThe main reasons are the credit scores we received from other agencies. Your average score from those agencies is low, and your lowest score is lower still. The loan term of about 35 payments works in your favor.\n\nIf you would like, you can reply to ask for this decision to be reviewed.\n\nThe Lending Team",
-    "reasons_cited": [
-      "EXT_SOURCE_MEAN",
-      "EXT_SOURCE_MIN"
-    ],
-    "strengths_cited": [
-      "CREDIT_TERM"
-    ],
-    "applicant_id": 412892,
-    "decision": "decline",
-    "checks_passed": true,
-    "issues": [],
-    "attempts": 2,
-    "input_tokens": 4471,
-    "output_tokens": 1408,
-    "cost_usd": 0.001151,
-    "seconds": 7.5,
-    "model": "claude-haiku-5-5",
-    "prompt_version": "v7",
-    "fact_sheet": {
-      "applicant_id": 412892,
-      "decision": "decline",
-      "loan_amount": "832,500",
-      "regular_payment": "23,859",
-      "number_of_payments": "about 35 payments",
-      "risk_factors": [
-        {
-          "code": "EXT_SOURCE_MEAN",
-          "label": "Average external credit score",
-          "value": "0.21"
-        },
-        {
-          "code": "EXT_SOURCE_MIN",
-          "label": "Lowest external credit score",
-          "value": "0.07"
-        },
-        {
-          "code": "EXT_SOURCE_1",
-          "label": "External credit score 1",
-          "value": "0.07"
-        },
-        {
-          "code": "EXT_SOURCE_MAX",
-          "label": "Highest external credit score",
-          "value": "0.34"
-        }
-      ],
-      "strengths": [
-        {
-          "code": "CREDIT_TERM",
-          "label": "Loan term (number of payments)",
-          "value": "about 35 payments"
-        },
-        {
-          "code": "CREDIT_TO_GOODS",
-          "label": "Loan amount vs price of goods",
-          "value": "1.00x"
-        },
-        {
-          "code": "PREV_AVG_GRANTED_TO_APPLIED",
-          "label": "Past loans granted vs amount requested",
-          "value": "not available"
         }
       ],
       "adjusted_terms": null

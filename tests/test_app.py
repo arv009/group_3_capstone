@@ -8,8 +8,7 @@ from streamlit.testing.v1 import AppTest
 APP = Path(__file__).resolve().parents[1] / "app"
 sys.path.insert(0, str(APP))          # pages import the shared `lib` module from app/
 
-PAGES = ["Home.py", "pages/1_Portfolio_Dashboard.py", "pages/2_Applicant_Review.py", "pages/3_Model_Card.py",
-         "pages/4_AI_Analyst.py"]
+PAGES = ["Home.py", "pages/1_Portfolio_Dashboard.py", "pages/2_Applicant_Review.py", "pages/3_Model_Card.py", "pages/4_AI_Analyst.py"]
 
 
 @pytest.mark.parametrize("page", PAGES)
@@ -33,11 +32,56 @@ def test_applicant_review_shows_cached_letter(group):
     assert not at.exception
     assert any("Subject:" in m.value for m in at.markdown), "cached letter not shown"
     assert at.text_area[0].value.strip().endswith("The Lending Team")
-    badges = [a.value for a in list(at.success) + list(at.warning)]
-    assert any("claims supported" in b for b in badges), "letter audit badge not shown"
+    labels = [m.label for m in at.metric]
+    assert "Claims supported" in labels, "independent audit not shown next to the letter"
 
 
-def test_dashboard_has_personas_tab():
+def test_model_card_shows_fairness_audit_and_decision():
+    at = AppTest.from_file(str(APP / "pages/3_Model_Card.py"), default_timeout=180).run()
+    assert not at.exception
+    assert len(at.tabs) == 3                                         # gender, age band, credit file
+    assert any("Decision: we ship the model with all features" in s.value for s in at.success)
+    assert any("bootstrap resamples" in c.value for c in at.caption)
+    phase2 = next(m.value for m in at.markdown if "**Path to approval**" in m.value)
+    assert "**90.1%** of under-review and **31.3%** of declined" in phase2       # notebook 06
+    assert "**91.6%** of the 178 claims in the 30 demo letters" in phase2        # notebook 07
+
+
+def test_dashboard_personas_tab():
     at = AppTest.from_file(str(APP / "pages/1_Portfolio_Dashboard.py"), default_timeout=180).run()
-    assert [t.label for t in at.tabs] == ["Portfolio", "Personas"]
-    assert any("Newer worker, ordinary loan" in m.value for m in at.markdown)
+    assert not at.exception
+    assert [t.label for t in at.tabs] == ["Overview", "Personas"]
+    assert any(m.label == "Have a path to approval" for m in at.metric)
+    assert any("**Thin file**" in m.value for m in at.markdown)
+
+
+def test_ai_analyst_page_without_questions():
+    at = AppTest.from_file(str(APP / "pages/4_AI_Analyst.py"), default_timeout=180).run()
+    assert not at.exception
+    assert any(m.label == "Questions left" and m.value == "10 of 10" for m in at.sidebar.metric)
+
+
+def test_ai_analyst_session_limit():
+    at = AppTest.from_file(str(APP / "pages/4_AI_Analyst.py"), default_timeout=180)
+    at.session_state["analyst_asked"] = 10
+    at.run()
+    assert not at.exception
+    assert len(at.chat_input) == 0, "chat box still open after 10 questions"
+    if at.info:                                   # no API key in this environment
+        return
+    assert any("used all 10 questions" in w.value for w in at.warning)
+
+
+@pytest.mark.parametrize("off_topic,locked", [(1, False), (2, False), (3, True)])
+def test_ai_analyst_off_topic_limit(off_topic, locked):
+    at = AppTest.from_file(str(APP / "pages/4_AI_Analyst.py"), default_timeout=180)
+    at.session_state["analyst_off_topic"] = off_topic
+    at.run()
+    assert not at.exception
+    if at.info:                                   # no API key in this environment
+        return
+    assert (len(at.chat_input) == 0) == locked
+    if locked:
+        assert any("chat is closed" in e.value for e in at.error)
+    else:
+        assert any(f"Off-topic message {off_topic} of 2" in w.value for w in at.warning)
